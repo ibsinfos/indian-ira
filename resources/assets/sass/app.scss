@@ -11,3 +11,63 @@
 html {
     font-size: 16px; // Broweser's Default value
 }
+
+body {
+    background: $grey-lightest;
+    font-family: 'Cabin', sans-serif;
+    letter-spacing: 1px;
+}
+
+.igrowl-message, .igrowl-title {
+    font-size: 1rem !important;
+    line-height: inherit !important;
+}
+
+.card-header {
+    background: $brand-dark !important;
+
+    & .header {
+        font-size: 1.8rem;
+        font-weight: bold;
+        font-family: 'Raleway', sans-serif;
+        color: $cta-light !important;
+    }
+}
+
+.card-body {
+    background: $white;
+
+    form .form-control {
+        outline: none !important;
+        box-shadow: none !important;
+        border-color: none !important;
+    }
+
+    form .submitButton {
+        width: 40%;
+        color: $white;
+        background: $cta-dark;
+        letter-spacing: 2px;
+        font-weight: bold;
+
+        &:hover, &:focus {
+            color: $brand;
+            background: $cta-dark;
+
+            outline: none !important;
+            box-shadow: none !important;
+            border-color: none !important;
+        }
+    }
+}
+
+.bootstrap-maxlength {
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    padding: 0 2px;
+
+    &.mxlSuccess {
+        background: $success !important;
+    }
+}
