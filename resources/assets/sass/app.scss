@@ -37,7 +37,8 @@ body {
 .card-body {
     background: $white;
 
-    form .form-control {
+    form .form-control,
+    form .form-control-sm, {
         outline: none !important;
         box-shadow: none !important;
         border-color: none !important;
@@ -58,6 +59,17 @@ body {
             box-shadow: none !important;
             border-color: none !important;
         }
+    }
+}
+
+.mainSiteLink {
+    color: $cta-dark;
+    outline: none;
+    box-shadow: none;
+
+    &:hover {
+        color: $cta;
+        text-decoration: none;
     }
 }
 
