@@ -57,3 +57,18 @@ Following files were made / changed:
 
 11. **`tests/Feature/Admin/GenerateAdministratorTest.php`**<br />
     The tests that conforms Generating of Super Administrator functions as per expectations.
+
+12. **`app/Http/Kernel.php`**<br />
+    Added the file `SuperAdminAlreadyExists` which is a middleware in the application that checks if there already exists the Super Administrator in the application.
+
+13. **`app/Http/Middleware/SuperAdministratorExists.php`**<br />
+    The file that checks if there already exists the Super Administrator in the application.
+
+14. **`routes/web.php`**<br />
+    The routes that are defined to access the Generating of Super Administrator.
+
+15. **`tests/Feature/Admin/SuperAdminAlreadyExistsTest.php`**<br />
+    The tests that conforms that Super Administrator Already Exists in the application.
+
+15. **`tests/TestCase.php`**<br />
+    Generating the Super Administrator for testing purposes
