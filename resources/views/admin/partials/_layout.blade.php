@@ -9,6 +9,7 @@
 
     <meta name="robots" content="NOINDEX, NOFOLLOW">
 
+    <link rel="icon" href="{{ url('/images/favicon.ico') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url('/images/favicon.ico') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{ url('/css/app.css') }}" />
