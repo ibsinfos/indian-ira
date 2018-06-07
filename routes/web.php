@@ -13,4 +13,11 @@
 
 Route::get('/', function () {
     return view('welcome');
+Route::group([
+    'prefix' => 'generate-super-administrator',
+    'namespace' => 'Admin'
+], function () {
+    Route::get('/', 'GenerateController@index')->name('admin.generate');
+    Route::post('/', 'GenerateController@store')->name('admin.generate.store');
+});
 });
