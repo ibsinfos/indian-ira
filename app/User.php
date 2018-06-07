@@ -3,11 +3,21 @@
 namespace IndianIra;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
+
+    /**
+     * The dates that will be mutated to Carbon instance.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'deleted_at',
+    ];
 
     /**
      * The attributes that are mass assignable.
