@@ -59,5 +59,7 @@ class Kernel extends HttpKernel
         'guest' => \IndianIra\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        'super_admin_exists' => \IndianIra\Http\Middleware\SuperAdministratorExists::class,
     ];
 }

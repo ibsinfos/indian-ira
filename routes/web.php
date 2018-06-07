@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
 Route::group([
     'prefix' => 'generate-super-administrator',
     'namespace' => 'Admin'
@@ -20,4 +18,9 @@ Route::group([
     Route::get('/', 'GenerateController@index')->name('admin.generate');
     Route::post('/', 'GenerateController@store')->name('admin.generate.store');
 });
+
+Route::group(['middleware' => 'super_admin_exists'], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('homePage');
 });
