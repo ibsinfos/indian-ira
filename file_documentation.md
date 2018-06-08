@@ -72,3 +72,44 @@ Following files were made / changed:
 
 15. **`tests/TestCase.php`**<br />
     Generating the Super Administrator for testing purposes
+
+------
+
+#### Log In and Log Out Super Administrator (S. A.):
+
+Following files were made / changed:
+
+1. **`app/Http/Controllers/Admin/DashboardController.php`**<br />
+    Controller that handles the logic of displaying the Admin Dashboard and logging out the administrator.
+
+2. **`app/Http/Controllers/Admin/LoginController.php`**<br />
+    Controller that handles the logic of displaying the Admin login form and logging in the administrator on submitting the login credentials.
+
+    Uses trait: app\Utilities\ProcessLoginCredentials
+
+3. **`app/Http/Kernel.php`**<br />
+    Registering the middleware.
+
+4. **`app/Http/Middleware/SuperAdminAlreadyLoggedIn.php`**<br />
+    Logic to validate whether the super administrator is already logged in.
+
+5. **`app/Utilities/ProcessLoginCredentials.php`**<br />
+    A trait used to check the logic of validation of logging in the user.
+
+6. **`resources/views/admin/dashboard.blade.php`**<br />
+    View file that displays the dashboard of the Super Administrator.
+
+7. **`resources/views/admin/login.blade.php`**<br />
+    View file that displays the login form of Super Administrator.
+
+8. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    View file that displays the navigation on multiple files
+
+9. **`routes/web.php`**<br />
+    The routes that are defined to access the logging in and logging out the Super Administrator.
+
+10. **`tests/Feature/Admin/AlreadyLoggedInTest.php`**<br />
+    Test that proves and conforms that Super Administrator is already logged in.
+
+11. **`tests/Feature/Admin/LoginTest.php`**<br />
+    Test that proves and conforms that Super Administrator may log in.

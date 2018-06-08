@@ -20,6 +20,25 @@ Route::group([
 });
 
 Route::group(['middleware' => 'super_admin_exists'], function () {
+
+    Route::group([
+        'prefix'     => 'admin',
+        'namespace'  => 'Admin'
+    ], function () {
+        Route::get('/', function () {
+            return redirect(route('admin.login'));
+        });
+
+        Route::get('/login', 'LoginController@index')->name('admin.login');
+        Route::post('/login', 'LoginController@postLogin')->name('admin.postLogin');
+
+        Route::group(['middleware' => 'super_admin_logged_in'], function () {
+            Route::get('/logout', 'DashboardController@logout')->name('admin.logout');
+
+            Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
+        });
+    });
+
     Route::get('/', function () {
         return view('welcome');
     })->name('homePage');
