@@ -13,6 +13,15 @@
     <link rel="shortcut icon" href="{{ url('/images/favicon.ico') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{ url('/css/app.css') }}" />
+    <link rel="stylesheet" href="{{ url('/css/navbar-fixed-left.min.css') }}" />
+
+    <style>
+        @media screen and (max-width: 767px) {
+            body {
+                padding-top: 60px;
+            }
+        }
+    </style>
 
     @yield('pageStyles')
 </head>
