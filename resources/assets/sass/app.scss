@@ -15,7 +15,7 @@ html {
 }
 
 body {
-    background: $grey-lightest;
+    background: $grey-light;
     font-family: 'Cabin', sans-serif;
     letter-spacing: 1px;
 }
@@ -25,41 +25,59 @@ body {
     line-height: inherit !important;
 }
 
-.card-header {
-    background: $brand-dark !important;
+.breadcrumb {
+    padding: 0.4rem 1rem !important;
+    background: $white !important;
 
-    & .header {
-        font-size: 1.8rem;
-        font-weight: bold;
-        font-family: 'Raleway', sans-serif;
-        color: $cta-light !important;
+    & li a {
+        color: $cta;
+
+        &:hover, &:focus {
+            color: $cta-dark;
+            outline: none;
+        }
     }
 }
 
-.card-body {
-    background: $white;
+.card {
+    border: none;
 
-    form .form-control,
-    form .form-control-sm, {
-        outline: none !important;
-        box-shadow: none !important;
-        border-color: none !important;
+    & .card-header {
+        background: $brand !important;
+
+        & .header {
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: 'Raleway', sans-serif;
+            color: $cta-light !important;
+        }
     }
 
-    form .submitButton {
-        width: 40%;
-        color: $white;
-        background: $cta-dark;
-        letter-spacing: 2px;
-        font-weight: bold;
+    & .card-body {
+        background: $white;
 
-        &:hover, &:focus {
-            color: $brand;
-            background: $cta-dark;
-
+        form .form-control,
+        form .form-control-sm, {
             outline: none !important;
             box-shadow: none !important;
             border-color: none !important;
+        }
+
+        form .submitButton {
+            width: 40%;
+            color: $white;
+            background: $cta-dark;
+            letter-spacing: 2px;
+            font-weight: bold;
+
+            &:hover, &:focus {
+                color: $brand;
+                background: $cta-dark;
+
+                outline: none !important;
+                box-shadow: none !important;
+                border-color: none !important;
+            }
         }
     }
 }
@@ -83,5 +101,11 @@ body {
 
     &.mxlSuccess {
         background: $success !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .card .card-header .float-right {
+        float: none !important;
     }
 }

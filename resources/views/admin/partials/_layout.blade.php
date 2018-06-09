@@ -16,6 +16,14 @@
     <link rel="stylesheet" href="{{ url('/css/navbar-fixed-left.min.css') }}" />
 
     <style>
+        body {
+            margin-top: 20px;
+        }
+
+        body .container-fluid {
+            width: 100%;
+        }
+
         @media screen and (max-width: 767px) {
             body {
                 padding-top: 60px;
