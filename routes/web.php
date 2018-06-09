@@ -36,6 +36,14 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
             Route::get('/logout', 'DashboardController@logout')->name('admin.logout');
 
             Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard');
+
+            Route::group([
+                'prefix'    => 'global-settings',
+                'namespace' => 'GlobalSettings',
+            ], function () {
+                Route::get('/bank-details', 'BankDetailsController@index')->name('admin.globalSettings.bank');
+                Route::post('/bank-details', 'BankDetailsController@update')->name('admin.globalSettings.bank.update');
+            });
         });
     });
 

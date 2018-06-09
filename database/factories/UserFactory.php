@@ -23,3 +23,15 @@ $factory->define(IndianIra\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(IndianIra\GlobalSettingBankDetail::class, function (Faker $faker) {
+    return [
+        'account_holder_name'  => config('app.name'),
+        'account_type'         => array_random(['Savings', 'Current']),
+        'account_number'       => $faker->bankAccountNumber,
+        'bank_name'            => $faker->company,
+        'bank_branch_and_city' => $faker->address,
+        'bank_ifsc_code'       => implode('', $faker->randomElements(array_merge(range('A', 'Z'), range(0, 9)), 11)),
+    ];
+});
+

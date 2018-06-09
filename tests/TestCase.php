@@ -24,4 +24,18 @@ abstract class TestCase extends BaseTestCase
             'password'         => bcrypt('Password'),
         ]);
     }
+
+    /**
+     * Sign in as the super administrator.
+     *
+     * @return  void
+     */
+    public function signInSuperAdministrator($admin = null)
+    {
+        if ($admin == null) {
+            $admin = $this->generateSuperAdministrator();
+        }
+
+        auth()->login($admin);
+    }
 }

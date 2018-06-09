@@ -113,3 +113,38 @@ Following files were made / changed:
 
 11. **`tests/Feature/Admin/LoginTest.php`**<br />
     Test that proves and conforms that Super Administrator may log in.
+
+------
+
+#### Global Settings - Bank Details
+
+The bank details is required for the buyers to make payment while checking out if they choose the 'Offline' payment option as their preferred payment type. The buyer will make payment to the mentioned bank details.
+
+Following files were made / changed:
+
+1. **`app/GlobalSettingBankDetail.php`**<br />
+    The model for accessing the bank data.
+
+2. **`app/Http/Controllers/Admin/GlobalSettings/BankDetailsController.php`**<br />
+    Controller that handles the logic of displaying the the bank details to the Super Administrator and displaying the same in the form, if they want to update it.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `GlobalSettingBankDetail` fake data.
+
+5. **`database/migrations/2018_06_09_051026_create_global_setting_bank_details_table.php`**<br />
+    The table structure where the bank's data will be stored.
+
+6. **`resources/views/admin/global-settings/bank-details.blade.php`**<br />
+    The view file that displays the bank details in the form, if the Super Administrator wants to update.
+
+7. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Global Settings > Bank Details`.
+
+7. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Global Settings > Bank Details` section.
+
+8. **`tests/Feature/Admin/GlobalSettings/BankDetailsTest.php`**<br />
+    Tests that conforms and validates that the `Global Settings > Bank Details` feature is working as per expectations.
+
+9. **`tests/TestCase.php`**<br />
+    Modified to add method `signInSuperAdministrator`.
