@@ -26,6 +26,9 @@
                     <a class="dropdown-item" href="{{ route('admin.globalSettings.bank') }}">
                         <i class="fas fa-university"></i> Bank Details
                     </a>
+                    <a class="dropdown-item" href="{{ route('admin.globalSettings.paymentOptions') }}">
+                        <i class="fas fa-rupee-sign"></i> Payment Options
+                    </a>
                 </div>
             </li>
             <li class="nav-item">

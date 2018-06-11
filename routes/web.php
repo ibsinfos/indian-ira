@@ -43,6 +43,11 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
             ], function () {
                 Route::get('/bank-details', 'BankDetailsController@index')->name('admin.globalSettings.bank');
                 Route::post('/bank-details', 'BankDetailsController@update')->name('admin.globalSettings.bank.update');
+
+                Route::get('/payment-options', 'PaymentOptionsController@index')
+                    ->name('admin.globalSettings.paymentOptions');
+                Route::post('/payment-options', 'PaymentOptionsController@update')
+                    ->name('admin.globalSettings.paymentOptions.update');
             });
         });
     });

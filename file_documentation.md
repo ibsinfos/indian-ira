@@ -148,3 +148,35 @@ Following files were made / changed:
 
 9. **`tests/TestCase.php`**<br />
     Modified to add method `signInSuperAdministrator`.
+
+-----
+
+#### Global Settings - Payment Options:
+
+Payment Options will help the buyer to choose their preferred payment type while checking out.
+
+Following files were created / changed:
+
+1. **`app/GlobalSettingPaymentOption.php`**<br />
+    The model for accessing the payment options data.
+
+2. **`app/Http/Controllers/Admin/GlobalSettings/PaymentOptionsController.php`**<br />
+    Controller that handles the logic of provisioning the payment options and displaying the same, if the Super Administrator wants to update it.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `GlobalSettingPaymentOption` fake data.
+
+4. **`database/migrations/2018_06_11_044957_create_global_setting_payment_options_table.php`**<br />
+    The table structure where the payment options data will be stored.
+
+5. **`resources/views/admin/global-settings/payment-options.blade.php`**<br />
+    The view file that displays the bank details in the form, if the Super Administrator wants to update.
+
+6. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Global Settings > Payment Options`.
+
+7. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Global Settings > Bank Details` section.
+
+8. **`tests/Feature/Admin/GlobalSettings/PaymentOptionsTest.php`**<br />
+    Tests that conforms and validates that the `Global Settings > Payment Options` feature is working as per expectations.

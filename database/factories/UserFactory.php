@@ -35,3 +35,9 @@ $factory->define(IndianIra\GlobalSettingBankDetail::class, function (Faker $fake
     ];
 });
 
+$factory->define(IndianIra\GlobalSettingPaymentOption::class, function (Faker $faker) {
+    return [
+        'chosen' => 'online; offline; cod',
+    ];
+});
+
