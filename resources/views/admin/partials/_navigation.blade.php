@@ -29,6 +29,9 @@
                     <a class="dropdown-item" href="{{ route('admin.globalSettings.paymentOptions') }}">
                         <i class="fas fa-rupee-sign"></i> Payment Options
                     </a>
+                    <a class="dropdown-item" href="{{ route('admin.globalSettings.codCharges') }}">
+                        <i class="fas fa-rupee-sign"></i> COD Charges
+                    </a>
                 </div>
             </li>
             <li class="nav-item">

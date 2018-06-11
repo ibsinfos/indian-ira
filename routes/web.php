@@ -48,6 +48,10 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                     ->name('admin.globalSettings.paymentOptions');
                 Route::post('/payment-options', 'PaymentOptionsController@update')
                     ->name('admin.globalSettings.paymentOptions.update');
+
+                Route::get('/cod-charges', 'CodChargesController@index')->name('admin.globalSettings.codCharges');
+                Route::post('/cod-charges', 'CodChargesController@update')
+                    ->name('admin.globalSettings.codCharges.update');
             });
         });
     });

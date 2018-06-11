@@ -41,3 +41,9 @@ $factory->define(IndianIra\GlobalSettingPaymentOption::class, function (Faker $f
     ];
 });
 
+$factory->define(IndianIra\GlobalSettingCodCharge::class, function (Faker $faker) {
+    return [
+        'amount' => '50.00',
+    ];
+});
+

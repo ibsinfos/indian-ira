@@ -180,3 +180,35 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/GlobalSettings/PaymentOptionsTest.php`**<br />
     Tests that conforms and validates that the `Global Settings > Payment Options` feature is working as per expectations.
+
+-----
+
+#### Global Settings - COD Charges:
+
+COD Charges amount will get added in the cart if the buyer chooses COD as their preferred payment option while checking out.
+
+Following files were created / changed:
+
+1. **`app/GlobalSettingCodCharge.php`**<br />
+    The model for accessing the cod charges data.
+
+2. **`app/Http/Controllers/Admin/GlobalSettings/CodChargesController.php`**<br />
+    Controller that handles the logic of provisioning the cod charges and displaying the same, if the Super Administrator wants to update it.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `GlobalSettingCodCharge` fake data.
+
+4. **`database/migrations/2018_06_11_044957_create_global_setting_cod_charges_table.php`**<br />
+    The table structure where the cod charges data will be stored.
+
+5. **`resources/views/admin/global-settings/payment-options.blade.php`**<br />
+    The view file that displays the cod charges in the form, if the Super Administrator wants to update.
+
+6. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Global Settings > COD Charges`.
+
+7. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Global Settings > COD Charges` section.
+
+8. **`tests/Feature/Admin/GlobalSettings/PaymentOptionsTest.php`**<br />
+    Tests that conforms and validates that the `Global Settings > COD Charges` feature is working as per expectations.
