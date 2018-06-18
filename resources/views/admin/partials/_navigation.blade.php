@@ -40,6 +40,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.tags') }}">
+                    <i class="fas fa-tags"></i> Tags
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.logout') }}">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>

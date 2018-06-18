@@ -62,6 +62,15 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/restore', 'ShippingRatesController@restore')->name('admin.shippingRates.restore');
                 Route::get('/{id}/destroy', 'ShippingRatesController@destroy')->name('admin.shippingRates.destroy');
             });
+
+            Route::group(['prefix' => 'tags'], function () {
+                Route::get('/', 'TagsController@index')->name('admin.tags');
+                Route::post('/', 'TagsController@store')->name('admin.tags.store');
+                Route::post('/{id}/update', 'TagsController@update')->name('admin.tags.update');
+                Route::get('/{id}/delete', 'TagsController@delete')->name('admin.tags.delete');
+                Route::get('/{id}/restore', 'TagsController@restore')->name('admin.tags.restore');
+                Route::get('/{id}/destroy', 'TagsController@destroy')->name('admin.tags.destroy');
+            });
         });
     });
 

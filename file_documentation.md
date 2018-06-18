@@ -253,3 +253,44 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/ShippingCompanyAndRatesTest.php`**<br />
     Tests that conforms and validates that the `Shipping Rates` feature is working as per expectations.
+
+----
+
+#### Tags:
+
+The tags help to search and/or sort the products via a tag. For instance, if the product is in Apparels category and it has red color in it, then tag can be created as `apparels-red` or `red`.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/TagsController.php`**<br />
+    Controller that handles the logic of displaying the tags along with adding / updating / deleting / destroying tags.
+
+2. **`app/Tag.php`**<br />
+    The model for accessing the Tags data.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `Tag` fake data.
+
+4. **`database/migrations/2018_06_18_084241_create_tags_table.php`**<br />
+    The table structure where the tags data will be stored.
+
+5. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Tags`.
+
+6. **`resources/views/admin/shipping-rates/addTag.blade.php`**<br />
+    Displaying the form to add New Tag.
+
+7. **`resources/views/admin/shipping-rates/editTag.blade.php`**<br />
+    Displaying the pre-populated form to update an existing Tag.
+
+8. **`resources/views/admin/shipping-rates/index.blade.php`**<br />
+    Displaying the index of tags. Super admin can add, update, temporarily delete, permanently destroy the tag.
+
+9. **`resources/views/admin/shipping-rates/table.blade.php`**<br />
+    Displaying all the tags (including temporarily deleted) in tabular format.
+
+10. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Tags` section.
+
+11. **`tests/Feature/Admin/TagsTest.php`**<br />
+    Tests that conforms and validates that the `Tags` feature is working as per expectations.
