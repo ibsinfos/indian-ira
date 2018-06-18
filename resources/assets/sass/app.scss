@@ -56,6 +56,27 @@ body {
     & .card-body {
         background: $white;
 
+.modal-open {
+    overflow-y: auto
+}
+
+.modal {
+    border: none;
+
+    & .modal-header {
+        background: $brand !important;
+
+        & .modal-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Raleway', sans-serif;
+            color: $cta-light !important;
+        }
+    }
+
+    & .modal-body {
+        background: $white;
+
         form .form-control,
         form .form-control-sm, {
             outline: none !important;
