@@ -56,6 +56,54 @@ body {
     & .card-body {
         background: $white;
 
+        table.dataTable {
+            border-collapse: collapse !important;
+        }
+
+        table.table {
+            & thead {
+                background: $cta;
+                color: $white;
+                font-size: .8rem;
+            }
+
+            & tbody tr {
+                color: $black;
+                font-size: .8rem;
+            }
+
+            & tbody tr.deletedRow {
+                background: $danger !important;
+                color: $white !important;
+            }
+        }
+
+        form .form-control,
+        form .form-control-sm, {
+            outline: none !important;
+            box-shadow: none !important;
+            border-color: none !important;
+        }
+
+        form .submitButton {
+            width: 40%;
+            color: $white;
+            background: $cta-dark;
+            letter-spacing: 2px;
+            font-weight: bold;
+
+            &:hover, &:focus {
+                color: $brand;
+                background: $cta-dark;
+
+                outline: none !important;
+                box-shadow: none !important;
+                border-color: none !important;
+            }
+        }
+    }
+}
+
 .modal-open {
     overflow-y: auto
 }
