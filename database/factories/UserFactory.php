@@ -47,3 +47,13 @@ $factory->define(IndianIra\GlobalSettingCodCharge::class, function (Faker $faker
     ];
 });
 
+$factory->define(IndianIra\ShippingRate::class, function (Faker $faker) {
+    return [
+        'shipping_company_name'         => $faker->company . ' ' . $faker->companySuffix,
+        'shipping_company_tracking_url' => $faker->url,
+        'weight_from'                   => $faker->randomFloat(2),
+        'weight_to'                     => $faker->randomFloat(2),
+        'amount'                        => $faker->randomFloat(2),
+    ];
+});
+

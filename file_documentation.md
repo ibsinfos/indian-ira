@@ -212,3 +212,44 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/GlobalSettings/PaymentOptionsTest.php`**<br />
     Tests that conforms and validates that the `Global Settings > COD Charges` feature is working as per expectations.
+
+----
+
+#### Shipping Rates:
+
+The shipping amount that will get applied based on the cart weight as and when the buyer adds the product(s) into the cart.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/ShippingRatesController.php`**<br />
+    Controller that handles the logic of displaying the shipping rates along with adding / updating / deleting / destroying shipping rates.
+
+2. **`app/ShippingRate.php`**<br />
+    The model for accessing the Shipping Rates data.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `ShippingRate` fake data.
+
+4. **`database/migrations/2018_06_18_033825_create_shipping_rates_table.php`**<br />
+    The table structure where the shipping rates data will be stored.
+
+5. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Shipping Rates`.
+
+6. **`resources/views/admin/shipping-rates/addShippingRate.blade.php`**<br />
+    Displaying the form to add New Shipping Rate.
+
+7. **`resources/views/admin/shipping-rates/editShippingRate.blade.php`**<br />
+    Displaying the pre-populated form to update an existing Shipping Rate.
+
+8. **`resources/views/admin/shipping-rates/index.blade.php`**<br />
+    Displaying the index of shipping rates. Super admin can add, update, temporarily delete, permanently destroy the shipping rate.
+
+9. **`resources/views/admin/shipping-rates/table.blade.php`**<br />
+    Displaying all the shipping rates (including temporarily deleted) in tabular format.
+
+10. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Shipping Rates` section.
+
+8. **`tests/Feature/Admin/ShippingCompanyAndRatesTest.php`**<br />
+    Tests that conforms and validates that the `Shipping Rates` feature is working as per expectations.

@@ -35,6 +35,11 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.shippingRates') }}">
+                    <i class="fas fa-ship"></i> Shipping Rates
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.logout') }}">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>

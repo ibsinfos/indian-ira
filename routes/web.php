@@ -53,6 +53,15 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::post('/cod-charges', 'CodChargesController@update')
                     ->name('admin.globalSettings.codCharges.update');
             });
+
+            Route::group(['prefix' => 'shipping-rates'], function () {
+                Route::get('/', 'ShippingRatesController@index')->name('admin.shippingRates');
+                Route::post('/', 'ShippingRatesController@store')->name('admin.shippingRates.store');
+                Route::post('/{id}/update', 'ShippingRatesController@update')->name('admin.shippingRates.update');
+                Route::get('/{id}/delete', 'ShippingRatesController@delete')->name('admin.shippingRates.delete');
+                Route::get('/{id}/restore', 'ShippingRatesController@restore')->name('admin.shippingRates.restore');
+                Route::get('/{id}/destroy', 'ShippingRatesController@destroy')->name('admin.shippingRates.destroy');
+            });
         });
     });
 
