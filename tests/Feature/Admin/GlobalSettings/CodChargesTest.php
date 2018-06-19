@@ -78,7 +78,7 @@ class CodChargesTest extends TestCase
         $this->assertEquals($result->message, 'COD Charges updated successfully! Redirecting...');
         $this->assertEquals($result->location, route('admin.dashboard'));
 
-        $this->assertEquals(GlobalSettingCodCharge::first()->amount, '75.00');
+        $this->assertEquals(number_format(GlobalSettingCodCharge::first()->amount, 2), '75.00');
         $this->assertNotEquals(GlobalSettingCodCharge::first()->amount, $codCharges->amount);
     }
 
