@@ -71,6 +71,19 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/restore', 'TagsController@restore')->name('admin.tags.restore');
                 Route::get('/{id}/destroy', 'TagsController@destroy')->name('admin.tags.destroy');
             });
+
+            Route::group(['prefix' => 'categories', 'namespace' => 'Categories'], function () {
+                Route::get('/', 'CategoriesController@index')->name('admin.categories');
+                Route::post('/', 'CategoriesController@store')->name('admin.categories.store');
+
+                Route::get('/export', 'ExportController@export')->name('admin.categories.export');
+                Route::post('/import', 'ImportController@import')->name('admin.categories.import');
+
+                Route::post('/{id}/update', 'CategoriesController@update')->name('admin.categories.update');
+                Route::get('/{id}/delete', 'CategoriesController@delete')->name('admin.categories.delete');
+                Route::get('/{id}/restore', 'CategoriesController@restore')->name('admin.categories.restore');
+                Route::get('/{id}/destroy', 'CategoriesController@destroy')->name('admin.categories.destroy');
+            });
         });
     });
 

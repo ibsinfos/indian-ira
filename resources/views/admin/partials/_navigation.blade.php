@@ -45,6 +45,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.categories') }}">
+                    <i class="fas fa-arrows-alt"></i> Categories
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.logout') }}">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>

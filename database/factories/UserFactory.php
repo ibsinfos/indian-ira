@@ -68,3 +68,17 @@ $factory->define(IndianIra\Tag::class, function (Faker $faker) {
     ];
 });
 
+$factory->define(IndianIra\Category::class, function (Faker $faker) {
+    return [
+        'parent_id'         => 0,
+        'name'              => $faker->word,
+        'slug'              => $faker->slug,
+        'page_url'          => $faker->url,
+        'display'           => 'Enabled',
+        'display_text'      => title_case($faker->word),
+        'short_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates perferendis neque suscipit soluta quasi odio ratione voluptate, quo provident maiores sapiente laborum dolorem, cupiditate eos cumque illo sunt commodi temporibus.',
+        'meta_title'        => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        'meta_description'  => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur corporis saepe accusantium sit. Dicta explicabo sapiente error neque iste nihil ipsa!',
+        'meta_keywords'     => implode(', ', $faker->words(5)),
+    ];
+});

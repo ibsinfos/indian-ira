@@ -294,3 +294,57 @@ Following files were created / changed:
 
 11. **`tests/Feature/Admin/TagsTest.php`**<br />
     Tests that conforms and validates that the `Tags` feature is working as per expectations.
+
+
+----
+
+#### Categories:
+
+Only 3 levels of category can be added. It should be like `Category > Sub Category > Sub Sub Category`.
+
+Following files were created / changed:
+
+1. **`app/Category.php`**<br />
+    The model for accessing the Categories data.
+
+2. **`app/Http/Controllers/Admin/Categories/CategoriesController.php`**<br />
+    Controller that handles the logic of displaying the categories along with adding / updating / deleting / destroying categories.
+
+3. **`app/Http/Controllers/Admin/Categories/ExportController.php`**<br />
+    Controller that handles the logic of exporting / downloading all the categories (including temporarily deleted).
+
+4. **`app/Http/Controllers/Admin/Categories/ImportController.php`**<br />
+    Controller that handles the logic of importing / uploading all the categories (including temporarily deleted).
+
+5. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `Category` fake data.
+
+6. **`database/migrations/2018_06_20_071934_create_categories_table.php`**<br />
+    The table structure where the categories data will be stored.
+
+7. **`resources/views/admin/categories/addCategory.blade.php`**<br />
+    Displaying the form to add New Category.
+
+8. **`resources/views/admin/categories/editCategory.blade.php`**<br />
+    Displaying the pre-populated form to update an existing Category.
+
+9. **`resources/views/admin/categories/importCategory.blade.php`**<br />
+    Displaying the form to import / upload New Categories in excel format.
+
+10. **`resources/views/admin/categories/index.blade.php`**<br />
+    Displaying the index of tags. Super admin can add, update, temporarily delete, permanently destroy, download / export, upload / import the category.
+
+11. **`resources/views/admin/categories/table.blade.php`**<br />
+    Displaying all the categories (including temporarily deleted) in tabular format.
+
+12. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Categories`.
+
+13. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Categories` section.
+
+14. **`tests/Feature/Admin/CategoriesTest.php`**<br />
+    Tests that conforms and validates that the `Categories` feature is working as per expectations.
+
+15. **`tests/Unit/CategoryTest.php`**<br />
+    Unit tests that conforms and validates that the `Categories` feature is working as per expectations.
