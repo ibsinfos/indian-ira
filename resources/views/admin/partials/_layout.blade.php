@@ -56,6 +56,13 @@
             warningClass: "mxlSuccess"
         });
 
+        $('.singleSelectize').selectize();
+
+        $('.multipleSelect').selectize({
+            hideSelected: true,
+            closeAfterSelect: true
+        });
+
         function displayGrowlNotification(status, title, message, delay)
         {
             $.iGrowl({

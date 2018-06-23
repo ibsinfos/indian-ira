@@ -173,6 +173,11 @@ body {
     }
 }
 
+.selectize-control.multipleSelect .selectize-input .item {
+    background: $cta-dark !important;
+    color: $white !important;
+}
+
 @media screen and (max-width: 767px) {
     .card .card-header .float-right {
         float: none !important;
