@@ -84,6 +84,26 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/restore', 'CategoriesController@restore')->name('admin.categories.restore');
                 Route::get('/{id}/destroy', 'CategoriesController@destroy')->name('admin.categories.destroy');
             });
+
+            Route::group(['prefix' => 'products', 'namespace' => 'Products'], function () {
+                Route::get('/', 'ProductsController@index')->name('admin.products');
+                Route::post('/', 'ProductsController@store')->name('admin.products.store');
+
+                Route::get('/{id}/edit', 'ProductsController@edit')->name('admin.products.edit');
+
+                Route::post('/{id}/updateGeneral', 'ProductsController@updateGeneral')
+                    ->name('admin.products.updateGeneral');
+                Route::post('/{id}/updateDetailedInformation', 'ProductsController@updateDetailedInformation')
+                    ->name('admin.products.updateDetailedInformation');
+                Route::post('/{id}/updateMetaInformation', 'ProductsController@updateMetaInformation')
+                    ->name('admin.products.updateMetaInformation');
+                Route::post('/{id}/updateImage', 'ProductsController@updateImage')
+                    ->name('admin.products.updateImage');
+
+                Route::get('/{id}/delete', 'ProductsController@delete')->name('admin.products.delete');
+                Route::get('/{id}/restore', 'ProductsController@restore')->name('admin.products.restore');
+                Route::get('/{id}/destroy', 'ProductsController@destroy')->name('admin.products.destroy');
+            });
         });
     });
 

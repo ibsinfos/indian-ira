@@ -42,6 +42,16 @@ class Category extends Model
     }
 
     /**
+     * A category belongs to many products.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)->withTimestamps();
+    }
+
+    /**
      * Check whether the category is the super parent category.
      *
      * @return  boolean

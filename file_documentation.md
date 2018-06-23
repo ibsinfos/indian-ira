@@ -348,3 +348,77 @@ Following files were created / changed:
 
 15. **`tests/Unit/CategoryTest.php`**<br />
     Unit tests that conforms and validates that the `Categories` feature is working as per expectations.
+
+----
+
+#### Products:
+
+Following files were created / changed:
+
+1. **`app/Category.php`**<br />
+    Modified to add the relationship with the Product.
+
+2. **`app/Http/Controllers/Admin/Products/ProductsController.php`**<br />
+    Controller that handles the logic of displaying the products along with adding / updating / deleting / destroying.
+
+3. **`app/Product.php`**<br />
+    The model for accessing the Products data.
+
+4. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `Product` fake data.
+
+5. **`database/migrations/2018_06_21_101435_create_products_table.php`**<br />
+    The table structure where the prodcts data will be stored.
+
+6. **`database/migrations/2018_06_23_112113_create_category_product_table.php`**<br />
+    The table structure where the prodcts and categories relationship data will be stored.
+
+7. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Products`.
+
+8. **`resources/views/admin/products/_detailed_information.blade.php`**<br />
+    Displaying the form to edit the detailed information of the product.<br />
+    Includes description, additional notes and terms.
+
+9. **`resources/views/admin/products/_editing_links.blade.php`**<br />
+    Displaying the links that are related to the product for editing purpose.
+
+10. **`resources/views/admin/products/_general.blade.php`**<br />
+    Displaying the form to edit the general details of the product.<br />
+    Includes categories updation as well.
+
+11. **`resources/views/admin/products/_image.blade.php`**<br />
+    Displaying the form to edit the image of the product.<br />
+
+12. **`resources/views/admin/products/_meta_information.blade.php`**<br />
+    Displaying the form to edit the meta information of the product.
+
+13. **`resources/views/admin/products/addProduct.blade.php`**<br />
+    Displaying the form in a modal window to add a new Product.
+
+14. **`resources/views/admin/products/edit.blade.php`**<br />
+    Acting as a master file to display all the edit forms of the product.
+
+15. **`resources/views/admin/products/index.blade.php`**<br />
+    Displays all the products on the page including the temporarily deleted products.
+
+16. **`resources/views/admin/products/table.blade.php`**<br />
+    Displays all the products in the tabular format.
+
+17. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Products` section.
+
+18. **`tests/Feature/Admin/Products/ProductsTest.php`**<br />
+    Tests that conforms and validates that the `Products` feature is working as per expectations.
+
+19. **`tests/Feature/Admin/Products/ProductUpdateDetailedInformationTest.php`**<br />
+    Tests that conforms and validates that the `Products` feature - updating the detailed information is working as per expectations.
+
+20. **`tests/Feature/Admin/Products/ProductUpdateGeneralDetailsTest.php`**<br />
+    Tests that conforms and validates that the `Products` feature - updating the general details is working as per expectations.
+
+21. **`tests/Feature/Admin/Products/ProductUpdateImageTest.php`**<br />
+    Tests that conforms and validates that the `Products` feature - updating the image is working as per expectations.
+
+22. **`tests/Feature/Admin/Products/ProductUpdateMetaInformationTest.php`**<br />
+    Tests that conforms and validates that the `Products` feature - updating the meta details is working as per expectations.

@@ -50,7 +50,7 @@ $factory->define(IndianIra\GlobalSettingCodCharge::class, function (Faker $faker
 $factory->define(IndianIra\ShippingRate::class, function (Faker $faker) {
     return [
         'shipping_company_name'         => $faker->company . ' ' . $faker->companySuffix,
-        'shipping_company_tracking_url' => $faker->url,
+        'shipping_company_tracking_url' => substr($faker->url, 0, 250),
         'weight_from'                   => $faker->randomFloat(2),
         'weight_to'                     => $faker->randomFloat(2),
         'amount'                        => $faker->randomFloat(2),
@@ -80,5 +80,27 @@ $factory->define(IndianIra\Category::class, function (Faker $faker) {
         'meta_title'        => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         'meta_description'  => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur corporis saepe accusantium sit. Dicta explicabo sapiente error neque iste nihil ipsa!',
         'meta_keywords'     => implode(', ', $faker->words(5)),
+    ];
+});
+
+$factory->define(IndianIra\Product::class, function (Faker $faker) {
+    return [
+        'code'              => 'PRD-'. time() . '-' . rand(1000, 9999),
+        'name'              => implode(' ', $faker->words(5)),
+        'gst_percent'       => 18,
+        'display'           => array_random(['Enabled', 'Disabled']),
+        'number_of_options' => array_random([1, 2, 3]),
+
+        'description'       => $faker->paragraph(3, true),
+        'additional_notes'  => $faker->paragraph(3, true),
+        'terms'             => $faker->paragraph(3, true),
+
+        'meta_title'        => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        'meta_description'  => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur corporis saepe accusantium sit. Dicta explicabo sapiente error neque iste nihil ipsa!',
+        'meta_keywords'     => implode(', ', $faker->words(5)),
+
+        'images'            => '/images-products/image-cart.jpg; /images-products/image-catalog.jpg; /images-products/image-zoomed.jpg',
+
+        'deleted_at'        => null,
     ];
 });
