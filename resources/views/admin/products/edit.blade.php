@@ -68,9 +68,11 @@
             };
         @endif
 
-        var $selectize = $('#category_id').selectize();
+        @if (request()->exists('general'))
+            var $selectize = $('#category_id').selectize();
 
-        $selectize[0].selectize.setValue([{{ $selectedCategories }}]);
+            $selectize[0].selectize.setValue([{{ $selectedCategories }}]);
+        @endif
 
         $('.btnUpdateGeneralDetails').click(function (e) {
             e.preventDefault();
