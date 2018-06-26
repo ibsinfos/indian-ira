@@ -61,6 +61,8 @@ body {
         }
 
         table.table {
+            font-size: 13px;
+
             & thead {
                 background: $cta;
                 color: $white;
