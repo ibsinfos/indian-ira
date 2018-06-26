@@ -51,7 +51,11 @@ class ShippingCompanyAndRatesTest extends TestCase
     {
         $this->signInSuperAdministrator($this->admin);
 
-        $formValues = factory(ShippingRate::class)->make()->toArray();
+        $formValues = factory(ShippingRate::class)->make([
+            'weight_from' => 1,
+            'weight_to' => 500,
+            'amount' => 75.0
+        ])->toArray();
 
         $response = $this->withoutExceptionHandling()
                          ->post(route('admin.shippingRates.store'), $formValues);
@@ -72,7 +76,11 @@ class ShippingCompanyAndRatesTest extends TestCase
     {
         $this->signInSuperAdministrator($this->admin);
 
-        $shippingRate = factory(ShippingRate::class)->create();
+        $shippingRate = factory(ShippingRate::class)->create([
+            'weight_from' => 1,
+            'weight_to' => 500,
+            'amount' => 75.0
+        ]);
         $formValues = array_merge(
                         $shippingRate->toArray(),
                         ['shipping_company_name' => 'This Awesome Logistics Company']
@@ -99,7 +107,11 @@ class ShippingCompanyAndRatesTest extends TestCase
         $this->signInSuperAdministrator($this->admin);
 
         $shippingRates = factory(ShippingRate::class, 3)->create();
-        $formValues = factory(ShippingRate::class)->make()->toArray();
+        $formValues = factory(ShippingRate::class)->make([
+            'weight_from' => 1,
+            'weight_to' => 500,
+            'amount' => 75.0
+        ])->toArray();
 
         $response = $this->withoutExceptionHandling()
                          ->post(route('admin.shippingRates.update', 50), $formValues);

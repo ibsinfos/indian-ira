@@ -29,7 +29,7 @@ class ShippingRatesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'shipping_company_name'         => 'required|string|max:250',
+            'shipping_company_name'         => 'required|max:250',
             'shipping_company_tracking_url' => 'required|url|max:250',
             'weight_from'                   => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
             'weight_to'                     => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
@@ -64,7 +64,7 @@ class ShippingRatesController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-            'shipping_company_name'         => 'required|string|max:250',
+            'shipping_company_name'         => 'required|max:250',
             'shipping_company_tracking_url' => 'required|url|max:250',
             'weight_from'                   => 'required|min:0|regex:/^\d+(\.(\d{0,2}))?$/',
             'weight_to'                     => 'required|min:0|regex:/^\d+(\.(\d{0,2}))?$/',
