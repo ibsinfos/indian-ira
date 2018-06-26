@@ -85,7 +85,8 @@ $factory->define(IndianIra\Category::class, function (Faker $faker) {
 
 $factory->define(IndianIra\Product::class, function (Faker $faker) {
     return [
-        'code'              => 'PRD-'. time() . '-' . rand(1000, 9999),
+        // 'code'              => 'PRD-'. time() . '-' . rand(1000, 9999),
+        'code'              => uniqid().mt_rand(1, 99999).time(),
         'name'              => implode(' ', $faker->words(5)),
         'gst_percent'       => 18,
         'display'           => array_random(['Enabled', 'Disabled']),
@@ -102,5 +103,25 @@ $factory->define(IndianIra\Product::class, function (Faker $faker) {
         'images'            => '/images-products/image-cart.jpg; /images-products/image-catalog.jpg; /images-products/image-zoomed.jpg',
 
         'deleted_at'        => null,
+    ];
+});
+
+$factory->define(IndianIra\ProductPriceAndOption::class, function (Faker $faker) {
+    return [
+        'product_id'       => $product = function () {
+            return factory(\IndianIra\Product::class)->create();
+        },
+        // 'option_code'      => 'OPT-' . time() . '-' . mt_rand(1000, 9999),
+        'option_code'      => uniqid().mt_rand(1, 99999),
+        'option_1_heading' => 'Header 1',
+        'option_1_value'   => 'Value 1',
+        'option_2_heading' => 'Header 2',
+        'option_2_value'   => 'Value 2',
+        'selling_price'    => round($faker->randomFloat(2, 100, 9999), 2),
+        'discount_price'   => round($faker->randomFloat(2, 100, 9999), 2),
+        'stock'            => $faker->randomNumber(2, true),
+        'weight'           => round($faker->randomFloat(2, 1000, 9999), 2),
+        'display'          => 'Enabled',
+        'image'            => '/images-products/image-option-cart.jpg; /images-products/image-option-catalog.jpg; /images-products/image-option-zoomed.jpg',
     ];
 });

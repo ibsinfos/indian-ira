@@ -27,7 +27,9 @@
             The image should be in .jpg or .png file format only.<br />
             The image should be between 500px to 1280px in width and 500px to 1280px in height.<br />
             Ideal size: 1280px x 1280px.<br />
-            The image file size should be less than 600kB.
+            The image file size should be less than 600kB.<br /><br />
+
+            This image will get replaced by the image that you may upload while adding / editing the <a href="{{ route('admin.products.priceAndOptions', $product->id) }}" class="mainSiteLink font-weight-bold">prices and options</a> related to this product.
         </div>
 
             <div class="mb-5 text-center">

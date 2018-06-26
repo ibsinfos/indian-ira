@@ -2,13 +2,14 @@
 
 namespace IndianIra;
 
+use IndianIra\Utilities\Directories;
 use Illuminate\Database\Eloquent\Model;
 use IndianIra\Utilities\FormatsDateAndTime;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes, FormatsDateAndTime;
+    use SoftDeletes, FormatsDateAndTime, Directories;
 
     /**
      * The attributes that will be mutated to Carbon instance.
@@ -42,6 +43,16 @@ class Product extends Model
     }
 
     /**
+     * A product has many prices and options.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function options()
+    {
+        return $this->hasMany(ProductPriceAndOption::class);
+    }
+
+    /**
      * Get the cart image of the product.
      *
      * @return  string
@@ -51,7 +62,10 @@ class Product extends Model
         $images = explode('; ', $this->images);
         $images = collect($images)->filter();
 
-        if ($images->isNotEmpty()) {
+        if (
+            $images->isNotEmpty() &&
+            \Illuminate\Support\Facades\File::exists($this->getPublicPath() . $images[0])
+        ) {
             return $images[0];
         }
 

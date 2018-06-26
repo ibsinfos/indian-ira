@@ -2,6 +2,7 @@
     <thead>
         <th>Sr. No</th>
         <th>Product Details</th>
+        <th>Options Count</th>
         <th>Display</th>
         <th>Added On</th>
         <th>Action</th>
@@ -25,6 +26,7 @@
                     </a><br />
                     {{ $product->code }}
                 </td>
+                <td>{{ $product->number_of_options . ' ' . str_plural('Option', $product->number_of_options) }}</td>
                 <td>{{ $product->display }}</td>
                 <td>{{ $product->formatsCreatedAt() }}</td>
                 <td>
@@ -51,6 +53,16 @@
                             Destroy
                         </a>
                     @else
+                        <a
+                            href="{{ route('admin.products.priceAndOptions', $product->id) }}"
+                            class="btn btn-sm btn-info mb-sm-2 mb-md-2 mb-lg-0"
+                        >
+                            <i class="fas fa-rupee-sign"></i>
+                            Prices and Options
+                        </a>
+
+                        <hr>
+
                         <a
                             href="{{ route('admin.products.edit', $product->id) }}?general"
                             class="btn btn-sm btn-info mb-sm-2 mb-md-2 mb-lg-0"

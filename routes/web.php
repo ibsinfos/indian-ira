@@ -100,6 +100,15 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::post('/{id}/updateImage', 'ProductsController@updateImage')
                     ->name('admin.products.updateImage');
 
+                Route::group(['prefix' => '{id}/price-and-options'], function () {
+                    Route::get('/', 'PriceAndOptionsController@index')->name('admin.products.priceAndOptions');
+                    Route::post('/', 'PriceAndOptionsController@store')->name('admin.products.priceAndOptions.store');
+                    Route::post('/{optionId}/update', 'PriceAndOptionsController@update')
+                        ->name('admin.products.priceAndOptions.update');
+                    Route::get('/{optionId}/destroy', 'PriceAndOptionsController@destroy')
+                        ->name('admin.products.priceAndOptions.destroy');
+                });
+
                 Route::get('/{id}/delete', 'ProductsController@delete')->name('admin.products.delete');
                 Route::get('/{id}/restore', 'ProductsController@restore')->name('admin.products.restore');
                 Route::get('/{id}/destroy', 'ProductsController@destroy')->name('admin.products.destroy');

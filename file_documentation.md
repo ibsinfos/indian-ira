@@ -422,3 +422,52 @@ Following files were created / changed:
 
 22. **`tests/Feature/Admin/Products/ProductUpdateMetaInformationTest.php`**<br />
     Tests that conforms and validates that the `Products` feature - updating the meta details is working as per expectations.
+
+
+----
+
+#### Products - Prices and Options:
+
+The prices and options related to a particular product are shown in this section.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/PriceAndOptionsController.php`**<br />
+    Controller that handles the logic of displaying the prices and options along with adding / updating / deleting / destroying.
+
+2. **`app/Product.php`**<br />
+    Modified to add the relationship between Product and ProductPriceAndOption,<br />
+    also the logic of displaying the cart image.
+
+3. **`app/ProductPriceAndOption.php`**<br />
+    The model for accessing the `Products Prices and Options` data.
+
+4. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `Products Prices and Options` fake data.
+
+5. **`database/migrations/2018_06_25_065622_create_product_price_and_options_table.php`**<br />
+    The table structure where the prodcts prices and options data will be stored.
+
+6. **`resources/views/admin/products-price-and-options/addPriceAndOption.blade.php`**<br />
+    Displaying the form to add the prices and/or options in a modal window.
+
+7. **`resources/views/admin/products-price-and-options/editPriceAndOption.blade.php`**<br />
+    Displaying the form to edit the prices and/or options in a modal window.
+
+8. **`resources/views/admin/products-price-and-options/index.blade.php`**<br />
+    Displays all the prices and/or options related to the product.
+
+9. **`resources/views/admin/products-price-and-options/table.blade.php`**<br />
+    Displays all the prices and options in the tabular format, related to the product.
+
+10. **`resources/views/admin/products/_image.blade.php`**<br />
+    Modified to add the note of image replacement.<br />
+
+11. **`resources/views/admin/products/table.blade.php`**<br />
+    Modified to add a link to add / update the prices and options related to the product.
+
+12. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Products Prices and Options` section.
+
+13. **`tests/Feature/Admin/Products/ProductPriceAndOptionsTest.php`**<br />
+    Tests that conforms and validates that the `Products Prices and Options` feature is working as per expectations.
