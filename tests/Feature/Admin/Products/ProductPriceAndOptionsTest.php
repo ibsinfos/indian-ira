@@ -43,7 +43,7 @@ class ProductPriceAndOptionsTest extends TestCase
         $this->withoutExceptionHandling()
              ->get(route('admin.products.priceAndOptions', $product->id))
              ->assertViewIs('admin.products-price-and-options.index')
-             ->assertSee($product->name . ' - Options and Prices');
+             ->assertSee($product->name . ' - Prices and Options');
     }
 
     /** @test */
