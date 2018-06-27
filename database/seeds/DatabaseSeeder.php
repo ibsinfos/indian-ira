@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        factory(\IndianIra\User::class)->create([
+            'first_name' => 'Super',
+            'last_name'  => 'Administrator',
+            'username'   => 'admin',
+            'email'      => 'admin@example.com',
+            'password'   => bcrypt('Password'),
+        ]);
     }
 }
