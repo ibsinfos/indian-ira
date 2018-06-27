@@ -15,12 +15,16 @@ use Faker\Generator as Faker;
 
 $factory->define(IndianIra\User::class, function (Faker $faker) {
     return [
-        'first_name'     => $faker->firstName,
-        'last_name'      => $faker->lastName,
-        'username'       => $faker->userName,
-        'email'          => $faker->unique()->safeEmail,
-        'password'       => 'Password',
-        'remember_token' => str_random(10),
+        'first_name'         => $faker->firstName,
+        'last_name'          => $faker->lastName,
+        'username'           => str_replace('.', '_', $faker->userName),
+        'email'              => $faker->unique()->safeEmail,
+        'password'           => bcrypt('Password'),
+        'remember_token'     => str_random(10),
+        'verification_token' => null,
+        'is_verified'        => true,
+        'verified_on'        => \Carbon\Carbon::now(),
+        'contact_number'     => '9876543210'
     ];
 });
 
@@ -123,5 +127,13 @@ $factory->define(IndianIra\ProductPriceAndOption::class, function (Faker $faker)
         'weight'           => round($faker->randomFloat(2, 1000, 9999), 2),
         'display'          => 'Enabled',
         'image'            => '/images-products/image-option-cart.jpg; /images-products/image-option-catalog.jpg; /images-products/image-option-zoomed.jpg',
+    ];
+});
+
+$factory->define(IndianIra\ForgotPassword::class, function (Faker $faker) {
+    return [
+        'email'      => $faker->unique()->safeEmail,
+        'token'      => str_random(60),
+        'expires_on' => \Carbon\Carbon::now()->addHour(),
     ];
 });

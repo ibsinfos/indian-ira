@@ -3,12 +3,13 @@
 namespace IndianIra;
 
 use Illuminate\Notifications\Notifiable;
+use IndianIra\Utilities\FormatsDateAndTime;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, FormatsDateAndTime;
 
     /**
      * The dates that will be mutated to Carbon instance.
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = [
-        'deleted_at',
+        'deleted_at', 'verified_on',
     ];
 
     /**
@@ -27,6 +28,10 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name', 'last_name',
         'username', 'email', 'password',
+
+        'verification_token', 'is_verified', 'verified_on',
+
+        'contact_number',
     ];
 
     /**
@@ -46,5 +51,17 @@ class User extends Authenticatable
     public function getFullName()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Check whether the user is verified on.
+     *
+     * @return  boolean
+     */
+    public function isVerified()
+    {
+        return $this->is_verified == true &&
+                $this->verification_token == null &&
+                $this->verified_on != null;
     }
 }

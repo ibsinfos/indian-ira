@@ -119,4 +119,37 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('homePage');
+
+    Route::group([
+        'prefix' => 'users',
+        'namespace' => 'Users'
+    ], function () {
+        Route::group(['prefix' => 'register'], function () {
+            Route::get('/', 'RegisterController@index')->name('users.register');
+            Route::post('/', 'RegisterController@store')->name('users.register.store');
+        });
+
+        Route::group(['prefix' => 'confirm-registration'], function () {
+            Route::get('/', 'ConfirmRegistrationController@show')->name('users.showConfirmRegistrationPage');
+            Route::get('/resend', 'ConfirmRegistrationController@resend')->name('users.resendConfimationMail');
+            Route::get('/{token}', 'ConfirmRegistrationController@update')->name('users.confirmRegistration');
+        });
+
+        Route::group(['prefix' => 'login'], function () {
+            Route::get('/', 'LoginController@index')->name('users.login');
+            Route::post('/', 'LoginController@postLogin')->name('users.postLogin');
+        });
+
+        Route::group(['prefix' => 'password'], function () {
+            Route::get('/forgot', 'ForgotPasswordController@index')->name('users.forgotPassword');
+            Route::post('/forgot', 'ForgotPasswordController@store')->name('users.forgotPassword.store');
+            Route::get('/reset/{token}', 'ResetPasswordController@edit')->name('users.resetPassword');
+            Route::post('/reset/{token}', 'ResetPasswordController@update')->name('users.resetPassword.update');
+        });
+
+        Route::group(['middleware' => 'user_logged_in'], function () {
+            Route::get('/dashboard', 'DashboardController@index')->name('users.dashboard');
+            Route::get('/logout', 'DashboardController@logout')->name('users.logout');
+        });
+    });
 });

@@ -471,3 +471,119 @@ Following files were created / changed:
 
 13. **`tests/Feature/Admin/Products/ProductPriceAndOptionsTest.php`**<br />
     Tests that conforms and validates that the `Products Prices and Options` feature is working as per expectations.
+
+----
+
+#### Users - Authentication
+
+The authentication of the user. Registration, Log In and Forgot Password.
+
+Following files were created / changed:
+
+1. **`app/ForgotPassword.php`**<br />
+   The model for accessing the `Forgot Password` data.
+
+2. **`app/Http/Controllers/Users/ConfirmRegistrationController.php`**<br />
+   Controller that handles the logic of confirming a user's registration.<br />
+   Sends a mail on successfully confirmed.
+
+3. **`app/Http/Controllers/Users/DashboardController.php`**<br />
+   Controller that handles the logic of displaying the dashboard to the authenticated user.
+
+4. **`app/Http/Controllers/Users/ForgotPasswordController.php`**<br />
+   Controller that handles the logic of displaying the form to send the email to the user.<br />
+   Sends an E-Mail containing reset token to the given user email address if at all it already exists.
+
+5. **`app/Http/Controllers/Users/LoginController.php`**<br />
+   Controller that handles the logic displaying the login form and logging in.
+
+6. **`app/Http/Controllers/Users/RegisterController.php`**<br />
+   Controller that handles the logic displaying the register form and registering the user.
+
+7. **`app/Http/Controllers/Users/ResetPasswordController.php`**<br />
+   Controller that handles the logic displaying the reset password form and changing the password on submit.
+
+8. **`app/Http/Kernel.php`**<br />
+   Modified to include the middleware `UserIsAlreadyLoggedIn`.
+
+9. **`app/Http/Middleware/UserIsAlreadyLoggedIn.php`**<br />
+   Middleware to handle the logic of validating that a user is a guest or already logged in.
+
+10. **`app/Mail/Users/ConfirmRegistration.php`**<br />
+   Mail that handles the logic of building the confirm registration view.<br />
+   Shot when a user clicks on the submit button after getting registered.
+
+11. **`app/Mail/Users/RegistrationSuccessful.php`**<br />
+   Mail that handles the logic of building the registration is successful view.<br />
+   Shot when a user clicks the link provided in the `ConfirmRegistration` mail.
+
+12. **`app/Mail/Users/ResetPassword.php`**<br />
+   Mail that handles the logic of building the forgot password view that inludes the token.<br />
+   Shot when a user submits their registered mail id.
+
+13. **`app/User.php`**<br />
+   Modified to check that the user is verfied or not.
+
+14. **`database/factories/UserFactory.php`**<br />
+   Modified to create te fake / dummy data for `User` and `Forgot Password`.
+
+15. **`database/migrations/2014_10_12_000000_create_users_table.php`**<br />
+   Modified to inlude the verification data and contact number.
+
+15. **`database/migrations/2018_06_27_050526_create_forgot_passwords_table.php`**<br />
+   The table structure of `Forgot Password` data.
+
+16. **`resources/views/emails/users/confirm_registration.blade.php`**<br />
+   The email view that is sent using the logic from `ConfirmRegistration` Mail.
+
+17. **`resources/views/emails/users/forgot_password.blade.php`**<br />
+   The email view that is sent using the logic from `ResetPassword` Mail.
+
+18. **`resources/views/emails/users/registration_successful.blade.php`**<br />
+   The email view that is sent using the logic from `RegistrationSuccessful` Mail.
+
+19. **`resources/views/users/confirm_registration.blade.php`**<br />
+   The view that displays the Confirm Registration on the screen and not the E-Mail.
+
+19. **`resources/views/users/dashboard.blade.php`**<br />
+   The view that displays the dashboard to the currently authenticated user.
+
+20. **`resources/views/users/forgot_password.blade.php`**<br />
+   The view that displays the form to submit the E-Mail address for resetting the password.
+
+21. **`resources/views/users/login.blade.php`**<br />
+   The view that displays the login form to the user.
+
+22. **`resources/views/users/_layout.blade.php`**<br />
+   The master file that will be used by the application except the admin section.
+
+23. **`resources/views/users/register.blade.php`**<br />
+   The view that displays the registration form to the user.
+
+24. **`resources/views/users/reset_password.blade.php`**<br />
+   The view that displays the form to submit New Password for the user.
+   On successfully resetting the password, deletes the `ForgotPassword` record.
+
+25. **`routes/web.php`**<br />
+   The routes that are defined to access the entire authentication of the user.
+
+26. **`tests/Feature/Users/Authentication/ConfirmRegistrationTest.php`**<br />
+   Tests that conforms and validates that the `Confirm Registration` feature is working as per expectations.
+
+27. **`tests/Feature/Users/Authentication/DashboardTest.php`**<br />
+   Tests that conforms and validates that the `Dashboard` feature is working as per expectations.
+
+28. **`tests/Feature/Users/Authentication/ForgotPasswordTest.php`**<br />
+   Tests that conforms and validates that the `Forgot Password` feature is working as per expectations.
+
+29. **`tests/Feature/Users/Authentication/LoginTest.php`**<br />
+   Tests that conforms and validates that the `User Login` feature is working as per expectations.
+
+30. **`tests/Feature/Users/Authentication/RegistrationTest.php`**<br />
+   Tests that conforms and validates that the `User Registration` feature is working as per expectations.
+
+31. **`tests/Feature/Users/Authentication/ResetPasswordTest.php`**<br />
+   Tests that conforms and validates that the `User Reset Password` feature is working as per expectations.
+
+32. **`tests/Unit/UserTest.php`**<br />
+   Single User Tests that conforms and validates that the `User` feature is working as per expectations.
