@@ -587,3 +587,26 @@ Following files were created / changed:
 
 32. **`tests/Unit/UserTest.php`**<br />
    Single User Tests that conforms and validates that the `User` feature is working as per expectations.
+
+----
+
+#### Products - Import and Export
+
+The (import and export) or (upload and download) via Excel.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/ExportController.php`**<br />
+    The controller that handles the logic of Exporting / Downloading the `Products` details.
+
+2. **`app/Http/Controllers/Admin/Products/ImportController.php`**<br />
+    The controller that handles the logic of Importing / Uploading the `Products` details.
+
+3. **`resources/views/admin/products/importProduct.blade.php`**<br />
+    The view modal file that displays the form to upload the excel file of products data.
+
+4. **`resources/views/admin/products/index.blade.php`**<br />
+    Modified to include the `importProduct` modal.
+
+5. **`routes/web.php`**<br />
+    The routes that are defined to access the importing and exporting of products data.

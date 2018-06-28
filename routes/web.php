@@ -89,6 +89,9 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/', 'ProductsController@index')->name('admin.products');
                 Route::post('/', 'ProductsController@store')->name('admin.products.store');
 
+                Route::get('/export', 'ExportController@export')->name('admin.products.download');
+                Route::post('/import', 'ImportController@import')->name('admin.products.upload');
+
                 Route::get('/{id}/edit', 'ProductsController@edit')->name('admin.products.edit');
 
                 Route::post('/{id}/updateGeneral', 'ProductsController@updateGeneral')

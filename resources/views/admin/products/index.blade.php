@@ -32,6 +32,16 @@
                                 data-target="#addProductModal"
                             >Add</a>
                             <a
+                                href="{{ route('admin.products.download') }}"
+                                class="btn btn-light text-black btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                            >Download / Export</a>
+                            <a
+                                href="#"
+                                class="btn btn-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                                data-toggle="modal"
+                                data-target="#importProductsModal"
+                            >Upload / Import</a>
+                            <a
                                 href="{{ route('admin.dashboard') }}"
                                 class="btn btn-outline-light text-black btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                             >Go to Dashboard</a>
@@ -56,8 +66,7 @@
 </div>
 
 @include('admin.products.addProduct')
-{{-- @include('admin.products.editProduct')
-@include('admin.products.importProduct') --}}
+@include('admin.products.importProduct')
 
 <div class="mb-5"></div>
 @endsection
@@ -166,14 +175,20 @@
 
                     displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
-                    $('#importProductsModal').modal('hide');
+                    console.log(res);
 
-                    setTimeout(function () {
-                        window.location = res.location;
-                    }, res.delay + 1000);
+                    if (res.status == 'success') {
+                        $('#importProductsModal').modal('hide');
+
+                        setTimeout(function () {
+                            window.location = res.location;
+                        }, res.delay + 1000);
+                    }
                 },
                 error: function( data ) {
                     button.prop('disabled', false).html('Submit');
+
+                    console.log(data);
 
                     if ( data.status == 422) {
                         displayAlertNotification(data, 'errorsInImportingProducts');
