@@ -160,6 +160,24 @@
 
                             <div class="errorsInRegisteringUser"></div>
 
+                            <p class="text-justify mb-3">
+                                By clicking on Submit, you agree to our
+                                <a
+                                    href="javascript:void(0)"
+                                    target="_blank"
+                                    class="mainSiteLink"
+                                >
+                                    Terms of Service
+                                </a> and
+                                <a
+                                    href="javascript:void(0)"
+                                    target="_blank"
+                                    class="mainSiteLink"
+                                >
+                                    Privacy Policy
+                                </a>
+                            </p>
+
                             <button class="btn submitButton btnRegisterUser">Submit</button>
                         </form>
                     </div>
