@@ -138,12 +138,21 @@
 
             modal.find('.modal-title').html('Edit Category: ' + category.name);
             modal.find('.modal-body #name').val(category.name);
-            modal.find('.modal-body #parent_id').val(category.parent_id);
             modal.find('.modal-body #display').val(category.display);
             modal.find('.modal-body #short_description').val(category.short_description);
             modal.find('.modal-body #meta_title').val(category.meta_title);
             modal.find('.modal-body #meta_description').val(category.meta_description);
             modal.find('.modal-body #meta_keywords').val(category.meta_keywords);
+
+            var $selectize = modal.find('.modal-body #parent_id').selectize();
+            $selectize[0].selectize.removeOption(categoryId);
+            $selectize[0].selectize.setValue(category.parent_id);
+        });
+
+        $('#editCategoryModal').on('hide.bs.modal', function (e) {
+            var $selectize = $(this).find('.modal-body #parent_id').selectize();
+
+            $selectize[0].selectize.destroy();
         });
 
         $('.btnEditCategory').click(function (e) {

@@ -56,7 +56,10 @@
             warningClass: "mxlSuccess"
         });
 
-        $('.singleSelectize').selectize();
+        $('.singleSelectize').selectize({
+            hideSelected: true,
+            closeAfterSelect: true
+        });
 
         $('.multipleSelect').selectize({
             hideSelected: true,
