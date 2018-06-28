@@ -610,3 +610,41 @@ Following files were created / changed:
 
 5. **`routes/web.php`**<br />
     The routes that are defined to access the importing and exporting of products data.
+
+----
+
+#### Products - Tags
+
+The tags feature for the product at the time of updating and at Import / Export.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/ExportController.php`**<br />
+    Add the tags data.
+
+2. **`app/Http/Controllers/Admin/Products/ImportController.php`**<br />
+    Modified to add the tags and attach the same to the product.
+
+3. **`app/Http/Controllers/Admin/Products/ProductsController.php`**<br />
+    Modified to add the tags in General Section of the product editing.
+
+4. **`app/Product.php`**<br />
+    Modified to add the relationship between `Product` and `Tag`.
+
+5. **`app/Tag.php`**<br />
+    Modified to add the relationship between `Product` and `Tag`.
+
+6. **`database/migrations/2018_06_28_074706_create_product_tag_table.php`**<br />
+    The table structure to add / update the mapping of product and tag.
+
+7. **`resources/views/admin/products/_general.blade.php`**<br />
+    Modified to include the tags feature in the product.
+
+8. **`resources/views/admin/products/edit.blade.php`**<br />
+      Modified to update the viewing of default tags attached to the product.
+
+9. **`resources/views/admin/products/index.blade.php`**<br />
+      Modified to notify the user.
+
+10. **`tests/Feature/Admin/Products/ProductUpdateGeneralDetailsTest.php`**<br />
+    Modified to add the test of tags associating to the product feature.

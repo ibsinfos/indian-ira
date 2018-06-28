@@ -62,6 +62,34 @@ class ProductUpdateGeneralDetailsTest extends TestCase
     }
 
     /** @test */
+    function super_administrator_may_attach_tags_to_the_product()
+    {
+        $tags = factory(\IndianIra\Tag::class, 5)->create();
+        $product = factory(Product::class)->create();
+
+        $formValues = array_merge($product->toArray(), [
+            'code' => 'PRD-1',
+            'name' => 'Product 1',
+            'display' => 'Enabled',
+            'gst_percent' => 18.00,
+            'number_of_options' => 0,
+            'tag_id' => $tags->pluck('id')->toArray()
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateGeneral', $product->id), $formValues);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product general details updated successfully!');
+
+        $this->assertTrue($product->fresh()->tags->isNotEmpty());
+    }
+
+    /** @test */
     function product_code_field_is_required()
     {
         $product = factory(Product::class)->create();

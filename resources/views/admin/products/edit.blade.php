@@ -70,8 +70,10 @@
 
         @if (request()->exists('general'))
             var $selectize = $('#category_id').selectize();
+            var $tagsSelectize = $('#tag_id').selectize();
 
             $selectize[0].selectize.setValue([{{ $selectedCategories }}]);
+            $tagsSelectize[0].selectize.setValue([{{ $selectedTags }}]);
         @endif
 
         $('.btnUpdateGeneralDetails').click(function (e) {

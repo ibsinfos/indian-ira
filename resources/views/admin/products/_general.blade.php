@@ -120,6 +120,15 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label class="normal" for="tag_id">Select Tags (Optional):</label>
+                <select name="tag_id[]" id="tag_id" class="multipleSelect" multiple="multiple">
+                    @foreach ($tags as $tag)
+                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="errorsInUpdatingGeneralDetails"></div>
 
             <button class="btn submitButton btnUpdateGeneralDetails mt-3">Submit</button>

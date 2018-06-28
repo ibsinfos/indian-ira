@@ -72,7 +72,12 @@ class ProductsController extends Controller
 
         $categories = \IndianIra\Category::whereDisplay('Enabled')->get();
 
-        return view('admin.products.edit', compact('product', 'categories', 'selectedCategories'));
+        $tags = \IndianIra\Tag::all();
+        $selectedTags = $product->tags->pluck('id')->implode(',');
+
+        return view('admin.products.edit', compact(
+            'product', 'categories', 'selectedCategories', 'tags', 'selectedTags'
+        ));
     }
 
     /**
@@ -118,6 +123,8 @@ class ProductsController extends Controller
         $product->update($request->all());
 
         $product->categories()->sync($request->category_id);
+
+        $product->tags()->sync($request->tag_id);
 
         return response([
             'status'  => 'success',
@@ -329,6 +336,8 @@ class ProductsController extends Controller
         }
 
         $product->categories()->sync([]);
+
+        $product->tags()->sync([]);
 
         $product->forceDelete();
 

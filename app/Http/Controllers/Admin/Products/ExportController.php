@@ -49,6 +49,7 @@ class ExportController extends Controller
                 'display'           => $product->display,
                 'images'            => $product->images,
                 'categories'        => str_replace(' - ', '>', $product->categories->implode('display_text', '; ')),
+                'tags'              => $product->tags->implode('name', '; '),
                 'created_at'        => $product->created_at,
                 'updated_at'        => $product->updated_at,
                 'deleted_at'        => $product->deleted_at,

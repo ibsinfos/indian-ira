@@ -43,6 +43,16 @@ class Product extends Model
     }
 
     /**
+     * A product belongs to multiple tags.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    /**
      * A product has many prices and options.
      *
      * @return  \Illuminate\Database\Eloquent\Relations\HasMany

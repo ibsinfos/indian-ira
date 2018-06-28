@@ -2,6 +2,7 @@
 
 namespace IndianIra\Http\Controllers\Admin\Products;
 
+use IndianIra\Tag;
 use IndianIra\Product;
 use IndianIra\Category;
 use Illuminate\Support\Facades\DB;
@@ -123,6 +124,10 @@ class ImportController extends Controller
 
                             $product->categories()->sync(
                                 $this->syncCategories($sheet)
+                            );
+
+                            $product->tags()->sync(
+                                $this->syncTags($sheet)
                             );
                         }
 
@@ -305,6 +310,41 @@ class ImportController extends Controller
             'meta_description' => null,
             'meta_keywords'    => null,
             'display'          => 'Enabled',
+        ];
+    }
+
+    protected function syncTags($sheet)
+    {
+        $tagsName = explode('; ', $sheet['tags']);
+
+        $tags = Tag::whereIn('name', $tagsName)->get();
+
+        $tagsList = [];
+
+        if (count($tagsName) >= 1) {
+            foreach($tagsName as $name) {
+                $tag = Tag::where('name', $name)->first();
+
+                if ($tag == null && $name != '') {
+                    $tag = Tag::create($this->insertTag($name));
+                }
+
+                $tagsList[] = $tag->id;
+            }
+        }
+
+        return $tagsList;
+    }
+
+    protected function insertTag($name)
+    {
+        return [
+            'name'               => $name,
+            'slug'               => str_slug($name),
+            'short_description'  => null,
+            'meta_title'         => null,
+            'meta_description'   => null,
+            'meta_keywords'      => null,
         ];
     }
 }

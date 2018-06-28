@@ -28,4 +28,14 @@ class Tag extends Model
         'name', 'slug', 'short_description',
         'meta_title', 'meta_description', 'meta_keywords',
     ];
+
+    /**
+     * A tag belongs to multiple products.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)->withTimestamps();
+    }
 }

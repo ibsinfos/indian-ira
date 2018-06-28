@@ -53,7 +53,7 @@
                     <p class="text-danger text-justify mb-5" style="font-size: 14px;">
                         The light red background color (if any) indicates, that particular product has been temporarily deleted and is not accessible.<br /><br />
                         You can click on the column header if you want to sort that column either in Ascending order or in Descending order.<br />Default: Descending Order.<br /><br />
-                        When permanently deleting a product, the respective images will also get deleted and the categories associated with the product shall get dissociated.
+                        When permanently deleting a product, the respective images will also get deleted and the categories and tags associated with the product shall get dissociated.
                     </p>
 
                     <div class="table-responsive">
