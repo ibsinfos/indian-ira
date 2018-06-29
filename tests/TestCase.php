@@ -38,4 +38,21 @@ abstract class TestCase extends BaseTestCase
 
         auth()->login($admin);
     }
+
+    /**
+     * Sign in as the user.
+     *
+     * @param   $user
+     * @return  void
+     */
+    public function signInUser($user = null)
+    {
+        if ($user == null) {
+            $user = factory(User::class)->create();
+        }
+
+        auth()->login($user->fresh());
+
+        return $user->fresh();
+    }
 }
