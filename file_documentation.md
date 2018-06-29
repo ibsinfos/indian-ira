@@ -681,3 +681,24 @@ Following files were created / changed:
 
 8. **`tests/Feature/Users/BillingAddressTest.php`**<br />
     Tests that conforms to the feature of `Billing Address` is working as per expectations.
+
+----
+
+#### User - General Settings
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Users/Settings/GeneralSettingsController.php`**<br />
+    Controller that handles the logic of displaying the general details data in the form and updating the same.
+
+2. **`resources/views/users/partials/_navigation.blade.php`**<br />
+    Modified to add the link for `Settings - General`.
+
+3. **`resources/views/users/settings/general.blade.php`**<br />
+    Displays the general user details in the form to update.
+
+4. **`routes/web.php`**<br />
+    Modified to add the routes that access the `Settings - General` section of the user.
+
+5. **`tests/Feature/Users/Settings/GeneralSettingsTest.php`**<br />
+    Tests that conforms to the feature of `Settings - General` is working as per expectations.
