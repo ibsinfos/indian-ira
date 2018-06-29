@@ -157,6 +157,9 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
             Route::group(['prefix' => 'settings', 'namespace' => 'Settings'], function () {
                 Route::get('/', 'GeneralSettingsController@index')->name('users.settings.general');
                 Route::post('/', 'GeneralSettingsController@update')->name('users.settings.general.update');
+
+                Route::get('/password', 'ChangePasswordController@index')->name('users.settings.password');
+                Route::post('/password', 'ChangePasswordController@update')->name('users.settings.password.update');
             });
 
             Route::group(['prefix' => 'billing-address'], function () {

@@ -702,3 +702,24 @@ Following files were created / changed:
 
 5. **`tests/Feature/Users/Settings/GeneralSettingsTest.php`**<br />
     Tests that conforms to the feature of `Settings - General` is working as per expectations.
+
+----
+
+#### User - Change Password
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Users/Settings/ChangePasswordController.php`**<br />
+    Controller that handles the logic of updating the password and displaying the form.
+
+2. **`resources/views/users/partials/_navigation.blade.php`**<br />
+    Modified to add the link for `Settings - Change Password`.
+
+3. **`resources/views/users/settings/change_password.blade.php`**<br />
+    Displays the change password form.
+
+4. **`routes/web.php`**<br />
+    Modified to add the routes that access the `Settings - Change Password` section of the user.
+
+5. **`tests/Feature/Users/Settings/ChangePasswordTest.php`**<br />
+    Tests that conforms to the feature of `Settings - Change Password` is working as per expectations.

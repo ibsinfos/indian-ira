@@ -31,6 +31,9 @@
                     <a class="dropdown-item" href="{{ route('users.settings.general') }}">
                         <i class="fas fa-wrench"></i> General
                     </a>
+                    <a class="dropdown-item" href="{{ route('users.settings.password') }}">
+                        <i class="fas fa-key"></i> Password
+                    </a>
                 </div>
             </li>
             <li class="nav-item">
