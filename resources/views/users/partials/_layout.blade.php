@@ -13,13 +13,13 @@
     <link rel="shortcut icon" href="{{ url('/images/favicon.ico') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{ url('/css/app.css') }}" />
-    {{-- <link rel="stylesheet" href="{{ url('/css/navbar-fixed-left.min.css') }}" /> --}}
+    <link rel="stylesheet" href="{{ url('/css/navbar-fixed-left.min.css') }}" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
 
     @yield('pageStyles')
 </head>
 <body>
-    @if (auth()->check() && auth()->id() == 1)
+    @if (auth()->check() && auth()->id() != 1)
         @include('users.partials._navigation')
     @endif
 
