@@ -32,6 +32,12 @@
                     </div>
 
                     <div class="card-body">
+                        @if (session('successfullyConfirmed'))
+                            <div class="alert alert-success mb-4">
+                                {{ session('successfullyConfirmed') }}
+                            </div>
+                        @endif
+
                         <form
                             action="{{ route('users.postLogin') }}"
                             method="POST"
