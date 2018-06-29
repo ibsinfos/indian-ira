@@ -58,4 +58,23 @@ class ConfirmRegistrationTest extends TestCase
 
         Mail::assertSent(RegistrationSuccessful::class);
     }
+
+    /** @test */
+    public function empty_user_billing_address_is_created_when_they_confirm_their_account()
+    {
+        $user = factory(User::class)->create([
+            'is_verified'        => false,
+            'verified_on'        => null,
+            'verification_token' => str_random(60),
+        ]);
+
+        $this->assertFalse($user->fresh()->hasBillingAddress());
+
+        $this->withoutExceptionHandling()
+             ->get(route('users.confirmRegistration', $user->verification_token))
+             ->assertStatus(302)
+             ->assertRedirect(route('users.login'));
+
+        $this->assertTrue($user->fresh()->hasBillingAddress());
+    }
 }

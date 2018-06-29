@@ -25,4 +25,16 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->isVerified());
     }
+
+    /** @test */
+    function user_has_a_billing_address()
+    {
+        $user = factory(User::class)->create();
+
+        $this->assertFalse($user->fresh()->hasBillingAddress());
+
+        $user->billingAddress()->create();
+
+        $this->assertTrue($user->fresh()->hasBillingAddress());
+    }
 }

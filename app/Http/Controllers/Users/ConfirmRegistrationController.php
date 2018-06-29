@@ -44,6 +44,8 @@ class ConfirmRegistrationController extends Controller
         Mail::to($user->email, $user->getFullName())
              ->send(new RegistrationSuccessful($user));
 
+        $user->billingAddress()->create();
+
         session()->flash(
             'successfullyConfirmed', 'You have successfully confirmed your E-Mail address. Please login.'
         );

@@ -44,6 +44,26 @@ class User extends Authenticatable
     ];
 
     /**
+     * A User has only one billing address.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function billingAddress()
+    {
+        return $this->hasOne(UserBillingAddress::class);
+    }
+
+    /**
+     * Check whether the user has billing address.
+     *
+     * @return  boolean
+     */
+    public function hasBillingAddress()
+    {
+        return $this->billingAddress != null;
+    }
+
+    /**
      * Get the full name of the user.
      *
      * @return  string
