@@ -153,6 +153,11 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         Route::group(['middleware' => 'user_logged_in'], function () {
             Route::get('/dashboard', 'DashboardController@index')->name('users.dashboard');
             Route::get('/logout', 'DashboardController@logout')->name('users.logout');
+
+            Route::group(['prefix' => 'billing-address'], function () {
+                Route::get('/', 'BillingAddressController@index')->name('users.billingAddress');
+                Route::post('/', 'BillingAddressController@update')->name('users.billingAddress.update');
+            });
         });
     });
 });

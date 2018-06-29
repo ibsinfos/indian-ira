@@ -648,3 +648,36 @@ Following files were created / changed:
 
 10. **`tests/Feature/Admin/Products/ProductUpdateGeneralDetailsTest.php`**<br />
     Modified to add the test of tags associating to the product feature.
+
+
+----
+
+#### User - Billing Address
+
+The billing address is required for us to know where to send the generated invoice and the product(s) when you place an order of purchasing.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Users/BillingAddressController.php`**<br />
+    Controller that handles the logic of displaying the billing address data in the form and updating the same.
+
+2. **`app/User.php`**<br />
+    Modified to add the relationship between `User` and `User Billing Address`.
+
+3. **`app/UserBillingAddress.php`**<br />
+    Modified to add the relationship between `User` and `User Billing Address`.
+
+4. **`database/migrations/2018_06_28_121411_create_user_billing_addresses_table.php`**<br />
+    The table structure for storing the billing address of the user.
+
+5. **`resources/views/users/billing_address.blade.php`**<br />
+    Displays the billing address details in the form.
+
+6. **`resources/views/users/partials/_navigation.blade.php`**<br />
+    Modified to add the link for `Billing Address`.
+
+7. **`routes/web.php`**<br />
+    Modified to add the routes that access the Billing Address section of the user.
+
+8. **`tests/Feature/Users/BillingAddressTest.php`**<br />
+    Tests that conforms to the feature of `Billing Address` is working as per expectations.
