@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="{{ url('/css/navbar-fixed-left.min.css') }}" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
 
+    <style>
+        body {
+            margin-top: 20px;
+        }
+    </style>
+
     @yield('pageStyles')
 </head>
 <body>
