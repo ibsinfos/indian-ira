@@ -27,7 +27,7 @@ class DashboardTest extends TestCase
              ->get(route('users.dashboard'))
              ->assertStatus(200)
              ->assertViewIs('users.dashboard')
-             ->assertSeeText('Welcome ' . $user->getFullName());
+             ->assertSeeText('Welcome ' . $user->fresh()->getFullName());
     }
 
     /** @test */
