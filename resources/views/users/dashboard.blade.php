@@ -11,9 +11,5 @@
                 Welcome {{ $user->getFullName() }}
             </h2>
         </div>
-
-        <div class="mt-5">
-            <a href="{{ route('users.logout') }}" class="mainSiteLink">Logout</a>
-        </div>
     </div>
 @endsection
