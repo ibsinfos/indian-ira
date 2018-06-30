@@ -137,3 +137,10 @@ $factory->define(IndianIra\ForgotPassword::class, function (Faker $faker) {
         'expires_on' => \Carbon\Carbon::now()->addHour(),
     ];
 });
+
+$factory->define(IndianIra\Coupon::class, function (Faker $faker) {
+    return [
+        'code'             => strtoupper($faker->word) . mt_rand(1000, 9999),
+        'discount_percent' => round($faker->randomFloat(2, 0, 100), 2),
+    ];
+});

@@ -116,6 +116,15 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/restore', 'ProductsController@restore')->name('admin.products.restore');
                 Route::get('/{id}/destroy', 'ProductsController@destroy')->name('admin.products.destroy');
             });
+
+            Route::group(['prefix' => 'coupons'], function () {
+                Route::get('/', 'CouponsController@index')->name('admin.coupons');
+                Route::post('/', 'CouponsController@store')->name('admin.coupons.store');
+                Route::post('/{id}/update', 'CouponsController@update')->name('admin.coupons.update');
+                Route::get('/{id}/delete', 'CouponsController@delete')->name('admin.coupons.delete');
+                Route::get('/{id}/restore', 'CouponsController@restore')->name('admin.coupons.restore');
+                Route::get('/{id}/destroy', 'CouponsController@destroy')->name('admin.coupons.destroy');
+            });
         });
     });
 

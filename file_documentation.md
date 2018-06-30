@@ -723,3 +723,46 @@ Following files were created / changed:
 
 5. **`tests/Feature/Users/Settings/ChangePasswordTest.php`**<br />
     Tests that conforms to the feature of `Settings - Change Password` is working as per expectations.
+
+-----
+
+#### Coupons:
+
+The coupons will be used by the buyers to add the discount in the cart which will reduce the cart total payable amount after deducting the coupon discount.
+
+Following files were created / changed:
+
+1. **`app/Coupon.php`**<br />
+    The model for accessing the Coupons data.
+
+2. **`app/Http/Controllers/Admin/CouponsController.php`**<br />
+    Controller that handles the logic of displaying the coupons along with adding / updating / deleting / destroying coupons.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `Coupon` fake data.
+
+4. **`database/migrations/2018_06_30_060124_create_coupons_table.php`**<br />
+    The table structure where the coupons data will be stored.
+
+5. **`resources/views/admin/coupons/addCoupon.blade.php`**<br />
+    Displaying the form to add New Coupon.
+
+6. **`resources/views/admin/coupons/editCoupon.blade.php`**<br />
+    Displaying the pre-populated form to update an existing Coupon.
+
+7. **`resources/views/admin/coupons/index.blade.php`**<br />
+    Displaying the index of tags. Super admin can add, update, temporarily delete, permanently destroy, download / export, upload / import the category.
+
+8. **`resources/views/admin/coupons/table.blade.php`**<br />
+    Displaying all the coupons (including temporarily deleted) in tabular format.
+
+9. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Coupons`.
+
+10. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Coupons` section.
+
+11. **`tests/Feature/Admin/CouponsTest.php`**<br />
+    Tests that conforms and validates that the `Coupons` feature is working as per expectations.
+
+----

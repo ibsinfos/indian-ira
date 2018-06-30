@@ -55,6 +55,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.coupons') }}">
+                    <i class="fas fa-eraser"></i> Coupons
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.logout') }}">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
