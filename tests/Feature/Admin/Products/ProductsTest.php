@@ -85,35 +85,6 @@ class ProductsTest extends TestCase
     }
 
     /** @test */
-    function super_administrator_can_update_the_general_details_of_the_product()
-    {
-        $product = factory(Product::class)->create();
-
-        $formValues = array_merge($product->toArray(), [
-            'code' => 'PRD-1',
-            'name' => 'Product 1',
-            'display' => 'Enabled',
-            'gst_percent' => 18.00,
-            'number_of_options' => 2
-        ]);
-
-        $response = $this->withoutExceptionHandling()
-                         ->post(route('admin.products.updateGeneral', $product->id), $formValues);
-
-        $result = json_decode($response->getContent());
-
-        $this->assertNotNull($result);
-        $this->assertEquals($result->status, 'success');
-        $this->assertEquals($result->title, 'Success !');
-        $this->assertEquals($result->message, 'Product general details updated successfully!');
-
-        $this->assertEquals('PRD-1', Product::first()->code);
-        $this->assertEquals('Product 1', Product::first()->name);
-        $this->assertNotEquals('PRD-1', $product->code);
-        $this->assertNotEquals('Product 1', $product->name);
-    }
-
-    /** @test */
     function super_administrator_can_temporarily_delete_a_product()
     {
         $products = factory(Product::class, 3)->create();

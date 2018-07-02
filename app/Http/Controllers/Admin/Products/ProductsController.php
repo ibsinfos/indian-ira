@@ -130,7 +130,10 @@ class ProductsController extends Controller
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
-            'message' => 'Product general details updated successfully!',
+            'message' => 'Product general details updated successfully! Redirecting...',
+            'location' => ! $product->fresh()->hasFilledDetailedInformation()
+                            ? route('admin.products.edit', $product->id) . '?detailed-information'
+                            : route('admin.products')
         ]);
     }
 
@@ -168,7 +171,10 @@ class ProductsController extends Controller
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
-            'message' => 'Product detailed information updated successfully!',
+            'message' => 'Product detailed information updated successfully! Redirecting...',
+            'location' => ! $product->fresh()->hasFilledMetaInformation()
+                            ? route('admin.products.edit', $product->id) . '?meta-information'
+                            : route('admin.products')
         ]);
     }
 
@@ -203,7 +209,10 @@ class ProductsController extends Controller
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
-            'message' => 'Product meta information updated successfully!',
+            'message' => 'Product meta information updated successfully! Redirecting...',
+            'location' => ! $product->fresh()->hasUploadedImageFile()
+                            ? route('admin.products.edit', $product->id) . '?image'
+                            : route('admin.products')
         ]);
     }
 

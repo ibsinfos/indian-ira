@@ -95,7 +95,11 @@
 
                     displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
-                    if (res.status == 'success') {}
+                    if (res.status == 'success') {
+                        setTimeout(function () {
+                            window.location = res.location;
+                        }, res.delay + 1000);
+                    }
                 },
                 error: function (err) {
                     self.prop('disabled', false);
@@ -135,7 +139,11 @@
 
                     displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
-                    if (res.status == 'success') {}
+                    if (res.status == 'success') {
+                        setTimeout(function () {
+                            window.location = res.location;
+                        }, res.delay + 1000);
+                    }
                 },
                 error: function (err) {
                     self.prop('disabled', false);
@@ -171,7 +179,11 @@
 
                     displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
-                    if (res.status == 'success') {}
+                    if (res.status == 'success') {
+                        setTimeout(function () {
+                            window.location = res.location;
+                        }, res.delay + 1000);
+                    }
                 },
                 error: function (err) {
                     self.prop('disabled', false);

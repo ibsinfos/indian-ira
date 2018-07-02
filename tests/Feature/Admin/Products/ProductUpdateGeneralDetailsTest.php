@@ -53,12 +53,64 @@ class ProductUpdateGeneralDetailsTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->title, 'Success !');
-        $this->assertEquals($result->message, 'Product general details updated successfully!');
+        $this->assertEquals($result->message, 'Product general details updated successfully! Redirecting...');
 
         $this->assertEquals('PRD-1', Product::first()->code);
         $this->assertEquals('Product 1', Product::first()->name);
         $this->assertNotEquals('PRD-1', $product->code);
         $this->assertNotEquals('Product 1', $product->name);
+    }
+
+    /** @test */
+    function super_administrator_is_redirected_to_edit_the_detailed_information_if_it_is_not_filled()
+    {
+        $product = factory(Product::class)->create();
+
+        $formValues = array_merge($product->toArray(), [
+            'code' => 'PRD-1',
+            'name' => 'Product 1',
+            'display' => 'Enabled',
+            'gst_percent' => 18.00,
+            'number_of_options' => 2,
+            'description' => null,
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateGeneral', $product->id), $formValues);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product general details updated successfully! Redirecting...');
+        $this->assertEquals($result->location, route('admin.products.edit', $product->id) . '?detailed-information');
+    }
+
+    /** @test */
+    function super_administrator_is_redirected_to_products_index_page_if_detailed_info_is_already_filled()
+    {
+        $product = factory(Product::class)->create();
+
+        $formValues = array_merge($product->toArray(), [
+            'code' => 'PRD-1',
+            'name' => 'Product 1',
+            'display' => 'Enabled',
+            'gst_percent' => 18.00,
+            'number_of_options' => 2,
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui labore minus quae explicabo nostrum perferendis voluptatum vitae reprehenderit natus. Incidunt, deleniti hic illo tempore assumenda tempora iusto labore quae laudantium?',
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateGeneral', $product->id), $formValues);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product general details updated successfully! Redirecting...');
+        $this->assertEquals($result->location, route('admin.products'));
     }
 
     /** @test */
@@ -84,7 +136,7 @@ class ProductUpdateGeneralDetailsTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->title, 'Success !');
-        $this->assertEquals($result->message, 'Product general details updated successfully!');
+        $this->assertEquals($result->message, 'Product general details updated successfully! Redirecting...');
 
         $this->assertTrue($product->fresh()->tags->isNotEmpty());
     }

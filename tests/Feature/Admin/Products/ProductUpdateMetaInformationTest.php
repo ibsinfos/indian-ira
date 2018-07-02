@@ -51,7 +51,7 @@ class ProductUpdateMetaInformationTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->title, 'Success !');
-        $this->assertEquals($result->message, 'Product meta information updated successfully!');
+        $this->assertEquals($result->message, 'Product meta information updated successfully! Redirecting...');
 
         $this->assertEquals('Product 1 ka meta title', Product::first()->meta_title);
         $this->assertEquals('Product 1 ka meta description', Product::first()->meta_description);
@@ -59,6 +59,46 @@ class ProductUpdateMetaInformationTest extends TestCase
         $this->assertNotEquals('Product 1 ka meta title', $product->meta_title);
         $this->assertNotEquals('Product 1 ka meta description', $product->meta_description);
         $this->assertNotEquals('Product 1 k meta keywords', $product->meta_keywords);
+    }
+
+    /** @test */
+    function super_administrator_is_redirected_to_upload_the_product_image_section()
+    {
+        $product = factory(Product::class)->create();
+
+        $formValues = array_merge($product->toArray(), [
+            'images' => null,
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateMetaInformation', $product->id), $formValues);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product meta information updated successfully! Redirecting...');
+        $this->assertEquals($result->location, route('admin.products.edit', $product->id) . '?image');
+    }
+
+    /** @test */
+    function super_administrator_is_redirected_to_product_index_if_product_image_already_uploaded()
+    {
+        $product = factory(Product::class)->create();
+
+        $formValues = $product->toArray();
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateMetaInformation', $product->id), $formValues);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product meta information updated successfully! Redirecting...');
+        $this->assertEquals($result->location, route('admin.products'));
     }
 
     /** @test */

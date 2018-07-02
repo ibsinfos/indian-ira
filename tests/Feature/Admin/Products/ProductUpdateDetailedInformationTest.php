@@ -51,10 +51,66 @@ class ProductUpdateDetailedInformationTest extends TestCase
         $this->assertNotNull($result);
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->title, 'Success !');
-        $this->assertEquals($result->message, 'Product detailed information updated successfully!');
+        $this->assertEquals($result->message, 'Product detailed information updated successfully! Redirecting...');
 
         $this->assertEquals($desc, Product::first()->description);
         $this->assertNotEquals($desc, $product->description);
+    }
+
+    /** @test */
+    function super_administrator_is_redirected_to_edit_the_meta_information_if_it_is_not_filled()
+    {
+        $product = factory(Product::class)->create();
+
+        $desc = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, eligendi, et! Dolorum id deleniti in soluta facere perferendis tempora, quis a ducimus quae similique asperiores esse eaque animi, sint aperiam.';
+
+        $formValues = array_merge($product->toArray(), [
+            'description' => $desc,
+            'meta_title' => null,
+            'meta_description' => null,
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateDetailedInformation', $product->id), $formValues);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product detailed information updated successfully! Redirecting...');
+        $this->assertEquals($result->location, route('admin.products.edit', $product->id) . '?meta-information');
+
+        $this->assertNull(Product::first()->meta_title);
+        $this->assertNull(Product::first()->meta_description);
+    }
+
+    /** @test */
+    function super_administrator_is_redirected_to_products_index_if_it_is_meta_information_is_filled()
+    {
+        $product = factory(Product::class)->create();
+
+        $desc = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, eligendi, et! Dolorum id deleniti in soluta facere perferendis tempora, quis a ducimus quae similique asperiores esse eaque animi, sint aperiam.';
+
+        $formValues = array_merge($product->toArray(), [
+            'description' => $desc,
+            'meta_title' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+            'meta_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate nisi ut iusto velit quibusdam at fugit similique quia earum incidunt',
+        ]);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateDetailedInformation', $product->id), $formValues);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product detailed information updated successfully! Redirecting...');
+        $this->assertEquals($result->location, route('admin.products'));
+
+        $this->assertNotNull(Product::first()->meta_title);
+        $this->assertNotNull(Product::first()->meta_description);
     }
 
     /** @test */
