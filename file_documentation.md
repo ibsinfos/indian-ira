@@ -766,3 +766,49 @@ Following files were created / changed:
     Tests that conforms and validates that the `Coupons` feature is working as per expectations.
 
 ----
+
+
+#### Carousels:
+
+The carousels are a special way of saying that these products are of best quality. A section on a page which acts as a Merry-Go Round.
+
+Following files were created / changed:
+
+1. **`app/Carousel.php`**<br />
+    The model for accessing the Carousel data.
+
+2. **`app/Http/Controllers/Admin/CarouselsController.php`**<br />
+    Controller that handles the logic of displaying the carousels along with adding / updating / deleting / destroying carousels.
+
+3. **`app/Product.php`**<br />
+    Modified to add the relationship with Carousel.
+
+4. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `Carousel` fake data.
+
+5. **`database/migrations/2018_07_02_062228_create_carousels_table.php`**<br />
+    The table structure where the carousels data will be stored.
+
+6. **`database/migrations/2018_07_02_064511_create_carousel_product_table.php`**<br />
+    The table structure where the carousels and the products mapping will be stored.
+
+7. **`resources/views/admin/carousels/addCarousel.blade.php`**<br />
+    Displaying the form to add New Carousel in a modal window.
+
+8. **`resources/views/admin/carousels/editCarousel.blade.php`**<br />
+    Displaying in the modal window, the pre-populated form to update an existing Carousel.
+
+9. **`resources/views/admin/carousels/index.blade.php`**<br />
+    Displaying the index of carousels. Super admin can add, update, temporarily delete, permanently destroy the carousels.
+
+10. **`resources/views/admin/carousels/table.blade.php`**<br />
+    Displaying all the carousels (including temporarily deleted) in tabular format.
+
+11. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Carousel`.
+
+12. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Carousel` section.
+
+13. **`tests/Feature/Admin/CarouselsTest.php`**<br />
+    Tests that conforms and validates that the `Carousel` feature is working as per expectations.

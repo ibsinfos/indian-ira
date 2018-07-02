@@ -144,3 +144,11 @@ $factory->define(IndianIra\Coupon::class, function (Faker $faker) {
         'discount_percent' => round($faker->randomFloat(2, 0, 100), 2),
     ];
 });
+
+$factory->define(IndianIra\Carousel::class, function (Faker $faker) {
+    return [
+        'name'              => title_case($faker->word),
+        'display'           => array_random(['Enabled', 'Disabled']),
+        'short_description' => $faker->sentence,
+    ];
+});

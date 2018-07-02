@@ -55,6 +55,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.carousels') }}">
+                    <i class="fas fa-cubes"></i> Carousels
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.coupons') }}">
                     <i class="fas fa-eraser"></i> Coupons
                 </a>

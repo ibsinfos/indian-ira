@@ -63,6 +63,16 @@ class Product extends Model
     }
 
     /**
+     * A product belongs to multiple carousels.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function carousels()
+    {
+        return $this->belongsToMany(Carousel::class)->withTimestamps();
+    }
+
+    /**
      * Get the cart image of the product.
      *
      * @return  string

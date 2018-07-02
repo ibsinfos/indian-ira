@@ -125,6 +125,15 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/restore', 'CouponsController@restore')->name('admin.coupons.restore');
                 Route::get('/{id}/destroy', 'CouponsController@destroy')->name('admin.coupons.destroy');
             });
+
+            Route::group(['prefix' => 'carousels'], function () {
+                Route::get('/', 'CarouselsController@index')->name('admin.carousels');
+                Route::post('/', 'CarouselsController@store')->name('admin.carousels.store');
+                Route::post('/{id}/update', 'CarouselsController@update')->name('admin.carousels.update');
+                Route::get('/{id}/delete', 'CarouselsController@delete')->name('admin.carousels.delete');
+                Route::get('/{id}/restore', 'CarouselsController@restore')->name('admin.carousels.restore');
+                Route::get('/{id}/destroy', 'CarouselsController@destroy')->name('admin.carousels.destroy');
+            });
         });
     });
 
