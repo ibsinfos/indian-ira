@@ -134,6 +134,22 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/restore', 'CarouselsController@restore')->name('admin.carousels.restore');
                 Route::get('/{id}/destroy', 'CarouselsController@destroy')->name('admin.carousels.destroy');
             });
+
+            Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
+                Route::get('/', 'UsersController@index')->name('admin.users');
+
+                Route::group(['prefix' => '{id}'], function () {
+                    Route::get('/verify', 'UsersController@verify')->name('admin.users.verify');
+                    Route::get('/delete', 'UsersController@delete')->name('admin.users.delete');
+                    Route::get('/restore', 'UsersController@restore')->name('admin.users.restore');
+                    Route::get('/destroy', 'UsersController@destroy')->name('admin.users.destroy');
+
+                    Route::get('/edit', 'UsersController@edit')->name('admin.users.edit');
+                    Route::post('/general', 'UsersController@updateGeneral')->name('admin.users.edit.updateGeneral');
+                    Route::post('/billing', 'UsersController@updateBilling')->name('admin.users.edit.updateBilling');
+                    Route::post('/password', 'UsersController@updatePassword')->name('admin.users.edit.updatePassword');
+                });
+            });
         });
     });
 

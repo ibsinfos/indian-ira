@@ -812,3 +812,56 @@ Following files were created / changed:
 
 13. **`tests/Feature/Admin/CarouselsTest.php`**<br />
     Tests that conforms and validates that the `Carousel` feature is working as per expectations.
+
+----
+
+#### Super Administrator - User:
+
+The list of all users who have registered. If permanently deleting a user, their billing address will also get deleted.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Users/UsersController.php`**<br />
+    Controller that handles the logic of displaying the users along with adding / updating / deleting / destroying user.
+
+2. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `User Billing Address` fake data.
+
+3. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Users`.
+
+4. **`resources/views/admin/users/_billing.blade.php`**<br />
+    Displays the form to update the `Billing Address` of the user.
+
+5. **`resources/views/admin/users/_editing_links.blade.php`**<br />
+    Displays the links to `General Details`, `Billing Address` and `Change Password`.
+
+6. **`resources/views/admin/users/_general.blade.php`**<br />
+    Displays the form to update the `General Details` of the user.
+
+7. **`resources/views/admin/users/_password.blade.php`**<br />
+    Displays the form to update the `Password` of the user.
+
+8. **`resources/views/admin/users/edit.blade.php`**<br />
+    The master file for editing the user getails.
+
+9. **`resources/views/admin/users/index.blade.php`**<br />
+    Displays the list of all the registered users.
+
+10. **`resources/views/admin/users/index.blade.php`**<br />
+    The table that displays the user data in tabular format.
+
+11. **`routes/web.php`**<br />
+    Modified to add the routes that access the `User` section.
+
+12. **`tests/Feature/Admin/Users/UpdateBillingAddressTest.php`**<br />
+    Tests that conforms and validates that the `User - Billing Address` feature is working as per expectations.
+
+13. **`tests/Feature/Admin/Users/UpdateGeneralDetailsTest.php`**<br />
+    Tests that conforms and validates that the `User - General Details` feature is working as per expectations.
+
+14. **`tests/Feature/Admin/Users/UsersTest.php`**<br />
+    Tests that conforms and validates that the `Users` feature is working as per expectations.
+
+15. **`tests/Feature/Admin/Users/VerifiesUserTest.php`**<br />
+    Tests that conforms and validates that the `Users - Verification` feature is working as per expectations.

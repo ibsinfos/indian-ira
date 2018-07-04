@@ -17,7 +17,7 @@ $factory->define(IndianIra\User::class, function (Faker $faker) {
     return [
         'first_name'         => $faker->firstName,
         'last_name'          => $faker->lastName,
-        'username'           => str_replace('.', '_', $faker->userName),
+        'username'           => substr(str_replace('.', '_', $faker->userName), 0, 50),
         'email'              => $faker->unique()->safeEmail,
         'password'           => bcrypt('Password'),
         'remember_token'     => str_random(10),
@@ -25,6 +25,20 @@ $factory->define(IndianIra\User::class, function (Faker $faker) {
         'is_verified'        => true,
         'verified_on'        => \Carbon\Carbon::now(),
         'contact_number'     => '9876543210'
+    ];
+});
+
+$factory->define(IndianIra\UserBillingAddress::class, function (Faker $faker) {
+    return [
+        'user_id'        => factory(\IndianIra\User::class)->create()->id,
+        'address_line_1' => $faker->buildingNumber . ' ' . $faker->streetName,
+        'address_line_2' => $faker->citySuffix,
+        'area'           => $faker->secondaryAddress,
+        'landmark'       => $faker->streetSuffix,
+        'city'           => $faker->city,
+        'pin_code'       => array_random(range(100000, 999999)),
+        'state'          => $faker->state,
+        'country'        => $faker->country,
     ];
 });
 
