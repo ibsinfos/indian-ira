@@ -20,8 +20,6 @@ $dropDown       : true;
     font-size: 14px;
     .nav-link {
       color: $colDefault;
-      padding-right: 0 !important;
-      padding-left: 0 !important;
       &:not(.disabled) {
         &:hover, &:focus {
           color: $cta; }}}
