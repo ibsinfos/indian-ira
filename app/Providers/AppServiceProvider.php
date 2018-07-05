@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Illuminate\Support\Facades\View::share(
+            'parentCategoriesInMenu',
+            \IndianIra\Category::whereParentId(0)->where('display_in_menu', 1)->get()
+        );
     }
 
     /**
