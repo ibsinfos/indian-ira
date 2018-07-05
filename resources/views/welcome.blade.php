@@ -8,36 +8,60 @@
 
 @section('pageStyles')
     <link rel="stylesheet" href="{{ url('/plugins/slippry/dist/slippry.css') }}">
+    <link rel="stylesheet" href="{{ url('/plugins/owl-carousel/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/plugins/owl-carousel/dist/assets/owl.theme.default.min.css') }}">
+
+    <style>
+        .owl-carousel .item {
+            border: 1px solid #000;
+            border-radius: 3px;
+        }
+
+        .productName {
+            min-height: 100px;
+        }
+    </style>
 @endsection
 
 @section('content')
-    <ul id="slipprySlider">
-        <li>
-            <a href="#slide1">
-                <img src="http://placehold.it/1920x400" alt="Image Banner - 1">
-            </a>
-        </li>
-        <li>
-            <a href="#slide2">
-                <img src="http://placehold.it/1920x400"  alt="Image Banner - 2">
-            </a>
-        </li>
-        <li>
-            <a href="#slide3">
-                <img src="http://placehold.it/1920x400" alt="Image Banner - 3">
-            </a>
-        </li>
-    </ul>
+    @include('partials._slider')
+
+    @include('partials._carousels')
 @endsection
 
 @section('pageScripts')
     <script src="{{ url('/plugins/slippry/dist/slippry.min.js') }}"></script>
+    <script src="{{ url('/plugins/owl-carousel/dist/owl.carousel.min.js') }}"></script>
 
     <script>
         $('#slipprySlider').slippry({
             captions: false,
             transition: 'horizontal',
             pager: false
+        });
+
+        $('.owl-carousel').owlCarousel({
+            loop: false,
+            nav: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true
+                },
+                400: {
+                    items: 2,
+                    nav: true
+                },
+                600: {
+                    items: 3,
+                    nav: true
+                },
+                1000: {
+                    items: 5,
+                    nav: true,
+                }
+            }
         });
     </script>
 @endsection

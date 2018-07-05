@@ -93,6 +93,46 @@ class Product extends Model
     }
 
     /**
+     * Get the catalogue image of the product.
+     *
+     * @return  string
+     */
+    public function catalogueImage()
+    {
+        $images = explode('; ', $this->images);
+        $images = collect($images)->filter();
+
+        if (
+            $images->isNotEmpty() &&
+            \Illuminate\Support\Facades\File::exists($this->getPublicPath() . $images[1])
+        ) {
+            return $images[1];
+        }
+
+        return 'images/no-image-catalogue.png';
+    }
+
+    /**
+     * Get the zoomed image of the product.
+     *
+     * @return  string
+     */
+    public function zoomedImage()
+    {
+        $images = explode('; ', $this->images);
+        $images = collect($images)->filter();
+
+        if (
+            $images->isNotEmpty() &&
+            \Illuminate\Support\Facades\File::exists($this->getPublicPath() . $images[2])
+        ) {
+            return $images[2];
+        }
+
+        return 'images/no-image-zoomed.png';
+    }
+
+    /**
      * Check whether products detailed information section contains any data.
      * Specifically, it should contain the description as additional notes and
      * terms are optional fields.

@@ -865,3 +865,29 @@ Following files were created / changed:
 
 15. **`tests/Feature/Admin/Users/VerifiesUserTest.php`**<br />
     Tests that conforms and validates that the `Users - Verification` feature is working as per expectations.
+
+----
+
+#### Home Page
+
+Contains Carousels of products which are `Enabled` from various categories.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/HomeController.php`**<br />
+    Controller that handles the logic of displaying the home and the carousels.
+
+2. **`app/Product.php`**<br />
+    Modified to add the default `Not Available` Image in different image dimensions.
+
+3. **`resources/views/partials/_carousels.blade.php`**<br />
+    Displays all the carousels that have been `Enabled` along with the products.
+
+4. **`resources/views/partials/_slider.blade.php`**<br />
+    Displays the full width slider (responsive).
+
+5. **`resources/views/welcome.blade.php`**<br />
+    Modified to remove the slider and carousel into separate files altogether.
+
+11. **`routes/web.php`**<br />
+    Modified to include the `HomeController` instead of Closure.

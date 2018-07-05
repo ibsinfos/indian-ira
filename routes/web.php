@@ -153,9 +153,7 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         });
     });
 
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('homePage');
+    Route::get('/', 'HomeController@index')->name('homePage');
 
     Route::group([
         'prefix' => 'users',
