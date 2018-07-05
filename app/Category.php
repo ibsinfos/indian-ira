@@ -42,6 +42,16 @@ class Category extends Model
     }
 
     /**
+     * A category belongs to a parent category.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function childs()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
+
+    /**
      * A category belongs to many products.
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
