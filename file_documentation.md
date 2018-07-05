@@ -889,5 +889,4 @@ Following files were created / changed:
 5. **`resources/views/welcome.blade.php`**<br />
     Modified to remove the slider and carousel into separate files altogether.
 
-11. **`routes/web.php`**<br />
     Modified to include the `HomeController` instead of Closure.
