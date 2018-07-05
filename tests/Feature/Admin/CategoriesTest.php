@@ -52,6 +52,7 @@ class CategoriesTest extends TestCase
             'parent_id'         => 0,
             'name'              => 'Apparels',
             'display'           => 'Enabled',
+            'display_in_menu'   => 1,
             'short_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
             'meta_title'        => 'Magnam et necessitatibus ut placeat dolor sunt eum tempore.',
             'meta_description'  => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptate.',
@@ -83,6 +84,7 @@ class CategoriesTest extends TestCase
             'parent_id'         => $category->id,
             'name'              => 'Apparels',
             'display'           => 'Enabled',
+            'display_in_menu'   => 0,
             'short_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
             'meta_title'        => 'Magnam et necessitatibus ut placeat dolor sunt eum tempore.',
             'meta_description'  => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptate.',
@@ -420,6 +422,34 @@ class CategoriesTest extends TestCase
         $this->assertEquals(
             $errors->first('display'),
             'The display field should be either Enabled or Disabled.'
+        );
+    }
+
+    /** @test */
+    function display_in_menu_field_is_required()
+    {
+        $formValues = factory(Category::class)->make(['display_in_menu' => '']);
+        $this->post(route('admin.categories.store'), $formValues->toArray())
+            ->assertSessionHasErrors('display_in_menu');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('display_in_menu'),
+            'The display in menu field is required.'
+        );
+    }
+
+    /** @test */
+    function display_field_should_be_either_Yes_or_No()
+    {
+        $formValues = factory(Category::class)->make(['display_in_menu' => 'Radon-World']);
+        $this->post(route('admin.categories.store'), $formValues->toArray())
+            ->assertSessionHasErrors('display_in_menu');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('display_in_menu'),
+            'The display in menu field should be either Yes or No.'
         );
     }
 

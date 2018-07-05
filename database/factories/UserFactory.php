@@ -93,6 +93,7 @@ $factory->define(IndianIra\Category::class, function (Faker $faker) {
         'slug'              => $faker->slug,
         'page_url'          => $faker->url,
         'display'           => 'Enabled',
+        'display_in_menu'   => array_random([0, 1]),
         'display_text'      => title_case($faker->word),
         'short_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates perferendis neque suscipit soluta quasi odio ratione voluptate, quo provident maiores sapiente laborum dolorem, cupiditate eos cumque illo sunt commodi temporibus.',
         'meta_title'        => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',

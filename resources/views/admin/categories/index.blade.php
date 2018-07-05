@@ -143,6 +143,7 @@
             modal.find('.modal-body #meta_title').val(category.meta_title);
             modal.find('.modal-body #meta_description').val(category.meta_description);
             modal.find('.modal-body #meta_keywords').val(category.meta_keywords);
+            modal.find('.modal-body #display_in_menu').val(category.display_in_menu);
 
             var $selectize = modal.find('.modal-body #parent_id').selectize();
             $selectize[0].selectize.removeOption(categoryId);

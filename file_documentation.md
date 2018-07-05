@@ -889,4 +889,47 @@ Following files were created / changed:
 5. **`resources/views/welcome.blade.php`**<br />
     Modified to remove the slider and carousel into separate files altogether.
 
+6. **`routes/web.php`**<br />
     Modified to include the `HomeController` instead of Closure.
+
+----
+
+#### Categories - On Navigation Menu
+
+Feature of displaying the categor(y/ies) in the navigation menu.
+
+Following files were created / changed:
+
+1. **`app/Category.php`**<br />
+    Modified to add the `display_in_menu` field.
+
+2. **`app/Http/Controllers/Admin/Categories/CategoriesController.php`**<br />
+    Modified to include the validation for `display_in_menu` field.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to add the `display_in_menu` field while generating dummy data.
+
+4. **`database/migrations/2018_06_20_071934_create_categories_table.php`**<br />
+    Modified to include the column `display_in_menu` in the table.
+
+5. **`database/seeds/DatabaseSeeder.php`**<br />
+    Modified to create the dummy data on executing `php artisan migrate:refresh --seed`.
+
+6. **`resources/views/admin/categories/addCategory.blade.php`**<br />
+    Modified to add `display_in_menu` field.
+
+7. **`resources/views/admin/categories/editCategory.blade.php`**<br />
+    Modified to add `display_in_menu` field.
+
+8. **`resources/views/admin/categories/index.blade.php`**<br />
+    Modified to add `display_in_menu` field.
+
+9. **`resources/views/admin/categories/table.blade.php`**<br />
+    Modified to view the `display_in_menu` value.
+
+10. **`tests/Feature/Admin/CategoriesTest.php`**<br />
+    Modified to test the functionality of `display_in_menu` field.
+
+11. **`tests/Feature/Unit/CategoryTest.php`**<br />
+    Modified to test the functionality of `display_in_menu` field.
+

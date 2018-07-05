@@ -16,6 +16,10 @@
             </div>
 
             <div class="modal-body">
+                <p class="text-danger text-justify mb-4 form-control-sm p-0">
+                    If the <span class="font-weight-bold">Display in Menu</span> field is Yes, then this menu will be shown in the Navigation Menu Bar.
+                </p>
+
                 <form
                     action="{{ route('admin.categories.store') }}"
                     method="POST"
@@ -49,12 +53,26 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label class="normal" for="display">Display:</label>
-                        <select name="display" id="display" class="form-control singleSelectize">
-                            <option value="Enabled" selected="selected">Enabled</option>
-                            <option value="Disabled">Disabled</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="normal" for="display">Display:</label>
+                                <select name="display" id="display" class="form-control">
+                                    <option value="Enabled" selected="selected">Enabled</option>
+                                    <option value="Disabled">Disabled</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="normal" for="display_in_menu">Display In Menu:</label>
+                                <select name="display_in_menu" id="display_in_menu" class="form-control">
+                                    <option value="0" selected="selected">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">

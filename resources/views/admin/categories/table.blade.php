@@ -1,9 +1,10 @@
 <table class="table table-striped table-bordered allCategoriesTable" data-page-length="100">
     <thead>
-        <th>Sr. No</th>
+        <th style="width: 5%">Sr. No</th>
         <th>Category Name</th>
-        {{-- <th>Display Text</th> --}}
+        <th>Display Text</th>
         <th>Display</th>
+        <th>Display In Menu</th>
         <th>Added On</th>
         <th>Action</th>
     </thead>
@@ -13,14 +14,15 @@
             <tr @if ($category->deleted_at != null) class="deletedRow" @endif>
                 <td>{{ ++$key }}</td>
                 <td>{{ $category->name }}</td>
-                {{-- <td>{{ $category->display_text }}</td> --}}
+                <td>{{ $category->display_text }}</td>
                 <td>{{ $category->display }}</td>
+                <td>{{ $category->display_in_menu == true ? 'Yes' : 'No' }}</td>
                 <td>{{ $category->formatsCreatedAt() }}</td>
                 <td>
                     @if ($category->deleted_at != null)
                         <a
                             href="{{ route('admin.categories.restore', $category->id) }}"
-                            class="btn btn-sm btn-success text-white ajaxBtnOnTable"
+                            class="btn btn-sm btn-success text-white ajaxBtnOnTable mb-sm-2 mb-md-2 mb-lg-2"
                             title="Restore this category details"
                             data-toggle="tooltip"
                             data-placement="top"
@@ -42,7 +44,7 @@
                     @else
                         <a
                             href="#"
-                            class="btn btn-sm btn-info mb-sm-2 mb-md-2 mb-lg-0"
+                            class="btn btn-sm btn-info mb-sm-2 mb-md-2 mb-lg-2"
                             title="Edit this category details"
                             data-toggle="modal"
                             data-target="#editCategoryModal"

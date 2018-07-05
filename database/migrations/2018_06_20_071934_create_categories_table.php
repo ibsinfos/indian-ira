@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->nullable();
             $table->string('display_text')->nullable();
             $table->string('display')->nullable();
+            $table->boolean('display_in_menu')->default(false);
             $table->string('page_url')->nullable();
             $table->string('short_description')->nullable();
             $table->string('meta_title')->nullable();

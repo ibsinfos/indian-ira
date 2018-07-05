@@ -53,4 +53,14 @@ class CategoryTest extends TestCase
         $category = factory(Category::class)->create(['parent_id' => $parent->id]);
         $this->assertTrue($category->isParent());
     }
+
+    /** @test */
+    function only_parent_category_can_be_seen_in_navigation_menu()
+    {
+        $parent = factory(Category::class)->create(['display_in_menu' => 1]);
+        $this->assertTrue($parent->seenInNavigationMenu());
+
+        $category = factory(Category::class)->create(['parent_id' => $parent->id]);
+        $this->assertFalse($category->seenInNavigationMenu());
+    }
 }

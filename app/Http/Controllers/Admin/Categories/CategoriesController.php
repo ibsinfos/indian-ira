@@ -34,17 +34,19 @@ class CategoriesController extends Controller
             'parent_id'         => 'bail|required|integer|min:0',
             'name'              => 'bail|required|string|max:250',
             'display'           => 'bail|required|in:Enabled,Disabled',
+            'display_in_menu'   => 'bail|required|in:0,1',
             'short_description' => 'bail|nullable|max:250',
             'meta_title'        => 'bail|required|max:60',
             'meta_description'  => 'bail|required|max:160',
             'meta_keywords'     => 'nullable|max:150',
         ], [
-            'name.required'     => 'The category name field is required.',
-            'name.unique'       => 'The category name has already been taken.',
-            'name.max'          => 'The category name may not be greater than 250 characters.',
-            'parent_id.integer' => 'Invalid parent category selected.',
-            'parent_id.min'     => 'Invalid parent category selected.',
-            'display.in'        => 'The display field should be either Enabled or Disabled.',
+            'name.required'      => 'The category name field is required.',
+            'name.unique'        => 'The category name has already been taken.',
+            'name.max'           => 'The category name may not be greater than 250 characters.',
+            'parent_id.integer'  => 'Invalid parent category selected.',
+            'parent_id.min'      => 'Invalid parent category selected.',
+            'display.in'         => 'The display field should be either Enabled or Disabled.',
+            'display_in_menu.in' => 'The display in menu field should be either Yes or No.',
         ]);
 
         $parentCategory = null;
@@ -97,17 +99,19 @@ class CategoriesController extends Controller
             'parent_id'         => 'bail|required|integer|min:0',
             'name'              => 'bail|required|string|max:250',
             'display'           => 'bail|required|in:Enabled,Disabled',
+            'display_in_menu'   => 'bail|required|in:0,1',
             'short_description' => 'bail|nullable|max:250',
             'meta_title'        => 'bail|required|max:60',
             'meta_description'  => 'bail|required|max:160',
             'meta_keywords'     => 'nullable|max:150',
         ], [
-            'name.required'     => 'The category name field is required.',
-            'name.unique'       => 'The category name has already been taken.',
-            'name.max'          => 'The category name may not be greater than 250 characters.',
-            'parent_id.integer' => 'Invalid parent category selected.',
-            'parent_id.min'     => 'Invalid parent category selected.',
-            'display.in'        => 'The display field should be either Enabled or Disabled.',
+            'name.required'      => 'The category name field is required.',
+            'name.unique'        => 'The category name has already been taken.',
+            'name.max'           => 'The category name may not be greater than 250 characters.',
+            'parent_id.integer'  => 'Invalid parent category selected.',
+            'parent_id.min'      => 'Invalid parent category selected.',
+            'display.in'         => 'The display field should be either Enabled or Disabled.',
+            'display_in_menu.in' => 'The display in menu field should be either Yes or No.',
         ]);
 
         $category = Category::find($id);

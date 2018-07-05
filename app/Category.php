@@ -26,7 +26,7 @@ class Category extends Model
      */
     protected $fillable = [
         'parent_id',
-        'name', 'slug', 'display_text', 'display', 'page_url',
+        'name', 'slug', 'display_text', 'display', 'display_in_menu', 'page_url',
         'short_description',
         'meta_title', 'meta_description', 'meta_keywords',
     ];
@@ -109,5 +109,16 @@ class Category extends Model
         }
 
         return false;
+    }
+
+    /**
+     * Check whether the category can be seen on navigation menu.
+     *
+     * @return  boolean
+     */
+    public function seenInNavigationMenu()
+    {
+        return $this->display_in_menu == true &&
+                $this->isSuperParent();
     }
 }
