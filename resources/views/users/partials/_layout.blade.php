@@ -20,6 +20,11 @@
         body {
             margin-top: 20px;
         }
+
+        .navbar .navbar-nav .nav-link {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
     </style>
 
     @yield('pageStyles')
