@@ -933,3 +933,22 @@ Following files were created / changed:
 11. **`tests/Feature/Unit/CategoryTest.php`**<br />
     Modified to test the functionality of `display_in_menu` field.
 
+----
+
+#### Cart - Back end
+
+Products quantity added / updated / deleted in the cart. Only the backend, no front end code added.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/CartController.php`**<br />
+    Controller that handles the processing of request of adding / updating / deleting / emptying the product quantity in the cart.
+
+2. **`app/Utilities/Cart.php`**<br />
+    The file that handles the logic of adding / updating / deleting / emptying the product quantity in the cart.
+
+3. **`routes/web.php`**<br />
+    The routes that access the functionality of the cart.
+
+4. **`tests/Feature/CartTest.php`**<br />
+    Tests that conforms and validates that the `Cart` feature is working as per expectations.

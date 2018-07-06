@@ -200,4 +200,11 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
             });
         });
     });
+
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('/add/{productCode}/{optionCode?}', 'CartController@add')->name('cart.add');
+        Route::post('/update/{productCode}', 'CartController@updateQty')->name('cart.updateQty');
+        Route::get('/remove/{productCode}', 'CartController@remove')->name('cart.remove');
+        Route::get('/empty', 'CartController@empty')->name('cart.empty');
+    });
 });
