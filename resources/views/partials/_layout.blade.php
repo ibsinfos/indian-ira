@@ -24,84 +24,99 @@
     @yield('pageStyles')
 </head>
 <body class="bg-white">
-    <div class="topBorder"></div>
+    <div class="position-fixed w-100 topBar" style="z-index: 1000">
+        <div class="topBorder"></div>
 
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-8 d-none d-sm-block">
-                    <ul class="list-inline p-0 my-1">
-                        <li class="list-inline-item">
-                            <i class="fas fa-phone align-middle"></i>
-                            +91 9876543210
-                        </li>
+        <section class="bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-8 d-none d-sm-block">
+                        <ul class="list-inline p-0 my-1">
+                            <li class="list-inline-item">
+                                <i class="fas fa-phone align-middle"></i>
+                                +91 9876543210
+                            </li>
 
-                        <li class="list-inline-item">
-                            <i class="fas fa-envelope align-middle"></i>
-                            support&#64;example.com
-                        </li>
-                    </ul>
-                </div>
+                            <li class="list-inline-item">
+                                <i class="fas fa-envelope align-middle"></i>
+                                support&#64;example.com
+                            </li>
+                        </ul>
+                    </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-4">
-                    <ul class="list-inline p-0 my-1 float-md-right">
-                        <li class="list-inline-item">
-                            <i class="fas fa-sign-in-alt align-middle"></i>
-                            Login
-                        </li>
+                    <div class="col-xl-6 col-lg-6 col-md-4">
+                        <ul class="list-inline p-0 my-1 float-md-right">
+                            <li class="list-inline-item">
+                                <i class="fas fa-sign-in-alt align-middle"></i>
+                                Login
+                            </li>
 
-                        <li class="list-inline-item">
-                            <i class="fas fa-user-plus align-middle"></i>
-                            Register
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="contactOnTopBar" style="background: #b9a693 !important; ">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="mb-3 mb-md-0">
-                        <img
-                            src="{{ url('/images/Indian-Ira-Logo-1.png') }}"
-                            alt="{{ config('app.name') }} - Logo"
-                            class="bg-dark img-fluid"
-                        >
+                            <li class="list-inline-item">
+                                <i class="fas fa-user-plus align-middle"></i>
+                                Register
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="col-md-9">
-                    <form action="#" class="form-inline float-right">
-                        <div class="input-group mb-3 mt-0 mt-md-3">
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Search Products"
+        <section class="contactOnTopBar" style="background: #b9a693 !important; ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3 mb-md-0">
+                            <img
+                                src="{{ url('/images/Indian-Ira-Logo-1.png') }}"
+                                alt="{{ config('app.name') }} - Logo"
+                                class="bg-dark img-fluid"
                             >
-
-                            <div class="input-group-append">
-                                <button class="btn btn-warning" type="button">Submit</button>
-                            </div>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="col-md-9">
+                        <form action="#" class="form-inline float-right">
+                            <div class="input-group mb-3 mt-0 mt-md-3">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Search Products"
+                                >
+
+                                <div class="input-group-append">
+                                    <button class="btn btn-warning" type="button">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    @if (auth()->check() && auth()->id() != 1)
-        {{-- @include('users.partials._navigation') --}}
-    @endif
+        @include('partials._navigation')
+    </div>
 
-    @yield('content')
+    <div class="allContents">
+        @yield('content')
+    </div>
 
     <script src="{{ url('/js/app.js') }}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
     <script>
+        var outerHeight = $(".topBar").outerHeight(true);
+        $('.allContents').css({
+            'padding-top': outerHeight + 'px'
+        });
+
+        $(window).resize(function (e) {
+            var outerHeight = $(".topBar").outerHeight(true);
+
+            $('.allContents').css({
+                'padding-top': outerHeight + 'px'
+            });
+        });
+
         $('[data-toggle="tooltip"]').tooltip();
 
         $('.hasMaxLength').maxlength({
