@@ -109,7 +109,7 @@ $factory->define(IndianIra\Product::class, function (Faker $faker) {
         'name'              => implode(' ', $faker->words(5)),
         'gst_percent'       => 18,
         'display'           => array_random(['Enabled', 'Disabled']),
-        'number_of_options' => array_random([1, 2, 3]),
+        'number_of_options' => array_random([0, 1, 2]),
 
         'description'       => $faker->paragraph(3, true),
         'additional_notes'  => $faker->paragraph(3, true),
