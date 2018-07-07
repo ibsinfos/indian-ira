@@ -139,7 +139,7 @@ $factory->define(IndianIra\ProductPriceAndOption::class, function (Faker $faker)
         'selling_price'    => round($faker->randomFloat(2, 100, 9999), 2),
         'discount_price'   => round($faker->randomFloat(2, 100, 9999), 2),
         'stock'            => $faker->randomNumber(2, true),
-        'weight'           => round($faker->randomFloat(2, 1000, 9999), 2),
+        'weight'           => round($faker->randomFloat(2, 1, 1000), 2),
         'display'          => 'Enabled',
         'image'            => '/images-products/image-option-cart.jpg; /images-products/image-option-catalog.jpg; /images-products/image-option-zoomed.jpg',
     ];
