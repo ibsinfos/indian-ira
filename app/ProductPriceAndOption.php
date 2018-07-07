@@ -53,4 +53,14 @@ class ProductPriceAndOption extends Model
 
         return 'images/no-image.jpg';
     }
+
+    /**
+     * Check whether product's image exists.
+     *
+     * @return boolean
+     */
+    public function hasUploadedImageFile()
+    {
+        return ($this->images != null || $this->images != '');
+    }
 }
