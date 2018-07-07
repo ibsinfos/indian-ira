@@ -130,7 +130,6 @@ $factory->define(IndianIra\ProductPriceAndOption::class, function (Faker $faker)
         'product_id'       => $product = function () {
             return factory(\IndianIra\Product::class)->create();
         },
-        // 'option_code'      => 'OPT-' . time() . '-' . mt_rand(1000, 9999),
         'option_code'      => uniqid().mt_rand(1, 99999),
         'option_1_heading' => 'Header 1',
         'option_1_value'   => 'Value 1',
