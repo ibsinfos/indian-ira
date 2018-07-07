@@ -1,13 +1,26 @@
 <?php
 
-namespace IndianIra\Http\Controllers;
+namespace IndianIra\Http\Controllers\Cart;
 
 use IndianIra\Product;
 use Illuminate\Http\Request;
 use IndianIra\Utilities\Cart;
+use IndianIra\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
+    /**
+     * Display the cart page.
+     *
+     * @return  \Illuminate\View\View
+     */
+    public function show()
+    {
+        $cart = session('cart', collect());
+
+        return view('cart.index', compact('cart'));
+    }
+
     /**
      * Add product of the given product code in the cart.
      *
@@ -47,6 +60,8 @@ class CartController extends Controller
 
         session(['cart' => $cart]);
 
+        $this->updateCouponDiscountAmount();
+
         $message = $optionCode != null
             ? 'Product: ' . $product->name . ' with option code ' . $optionCode . ' added successfully in the cart.'
             : 'Product: ' . $product->name . ' with code ' . $product->code . ' added successfully in the cart.';
@@ -83,11 +98,16 @@ class CartController extends Controller
 
         session(['cart' => $cart]);
 
+        $cart = session('cart', collect());
+
+        $this->updateCouponDiscountAmount();
+
         return response([
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
-            'message' => 'Product updated successfully!'
+            'message' => 'Product updated successfully!',
+            'htmlResult' => view('cart.table', compact('cart'))->render()
         ]);
     }
 
@@ -113,11 +133,16 @@ class CartController extends Controller
 
         session(['cart' => $cart]);
 
+        $this->updateCouponDiscountAmount();
+
+        $cart = session('cart', collect());
+
         return response([
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
-            'message' => 'Product removed successfully...'
+            'message' => 'Product removed successfully...',
+            'htmlResult' => view('cart.table', compact('cart'))->render()
         ]);
     }
 
@@ -130,12 +155,36 @@ class CartController extends Controller
     {
         Cart::empty();
 
+        $cart = session('cart', collect());
+
         return response([
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
             'message' => 'Cart emptied successfully! Redirecting...',
+            'htmlResult' => view('cart.table', compact('cart'))->render(),
             'location' => route('homePage')
         ]);
+    }
+
+    /**
+     * Update the coupon discount amount if it exists in session.
+     *
+     * @return  void
+     */
+    protected function updateCouponDiscountAmount()
+    {
+        if (session('appliedDiscount')) {
+            $coupon = session('appliedDiscount')['coupon'];
+
+            $grandTotalWithShipping = \IndianIra\Utilities\Cart::totalWithoutCouponDiscount();
+
+            $discountAmount = ((float) $grandTotalWithShipping * ($coupon->discount_percent / 100));
+
+            session(['appliedDiscount' => [
+                'coupon' => $coupon,
+                'amount' => $discountAmount
+            ]]);
+        }
     }
 }

@@ -26,6 +26,15 @@ class CartTest extends TestCase
     }
 
     /** @test */
+    function user_can_view_the_cart()
+    {
+        $this->withoutExceptionHandling()
+             ->get(route('cart.show'))
+             ->assertViewIs('cart.index')
+             ->assertSee('Cart');
+    }
+
+    /** @test */
     function user_adds_a_product_with_zero_options_in_the_cart()
     {
         $product = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
@@ -60,6 +69,7 @@ class CartTest extends TestCase
             'options' => $option = $product->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => $option->selling_price,
         ])]);
 
         $this->assertNotNull(session('cart'));
@@ -74,7 +84,7 @@ class CartTest extends TestCase
         $this->assertEquals($result->message, 'Product: ' . $product->name . ' with code ' . $product->code . ' added successfully in the cart.');
 
         $this->assertEquals(session('cart')[$product->code]['quantity'], 2);
-        $this->assertEquals(session('cart')[$product->code]['selling_price'], 500.00);
+        $this->assertEquals(session('cart')[$product->code]['product_total'], 500.00);
     }
 
     /** @test */
@@ -126,6 +136,7 @@ class CartTest extends TestCase
             'options'       => $option = $product->options->last(),
             'quantity'      => 1,
             'selling_price' => (float) $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ])]);
 
         $product = $products->where('id', '<>', $product->id)->random();
@@ -220,6 +231,7 @@ class CartTest extends TestCase
             'options'       => $option,
             'quantity'      => 1,
             'selling_price' => (float) $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ])]);
 
         $this->assertNotNull(session('cart'));
@@ -234,7 +246,7 @@ class CartTest extends TestCase
         $this->assertEquals($result->message, 'Product: ' . $product->name . ' with option code ' . $option->option_code . ' added successfully in the cart.');
 
         $this->assertEquals(session('cart')[$option->option_code]['quantity'], 2);
-        $this->assertEquals(session('cart')[$option->option_code]['selling_price'], 200.00);
+        $this->assertEquals(session('cart')[$option->option_code]['product_total'], 200.00);
     }
 
     /** @test */
@@ -253,6 +265,7 @@ class CartTest extends TestCase
             'options' => $option = $product->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ])]);
 
         $response = $this->withoutExceptionHandling()
@@ -280,6 +293,7 @@ class CartTest extends TestCase
             'options' => $option = $product->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ])]);
 
         $this->assertNotNull(session('cart'));
@@ -294,7 +308,7 @@ class CartTest extends TestCase
         $this->assertEquals($result->message, 'Product updated successfully!');
 
         $this->assertEquals(session('cart')[$product->code]['quantity'], 3);
-        $this->assertEquals(session('cart')[$product->code]['selling_price'], 750.00);
+        $this->assertEquals(session('cart')[$product->code]['product_total'], 750.00);
     }
 
     /** @test */
@@ -336,6 +350,7 @@ class CartTest extends TestCase
             'options' => $option = $product1->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ]);
 
         $cart->put($product2->code, [
@@ -343,6 +358,7 @@ class CartTest extends TestCase
             'options' => $option = $product2->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ]);
 
         session(['cart' => $cart]);
@@ -386,6 +402,7 @@ class CartTest extends TestCase
             'options' => $option = $product1->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ]);
 
         $cart->put($product2->code, [
@@ -393,6 +410,7 @@ class CartTest extends TestCase
             'options' => $option = $product2->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ]);
 
         session(['cart' => $cart]);
@@ -413,6 +431,109 @@ class CartTest extends TestCase
     }
 
     /** @test */
+    function user_may_apply_a_coupon_to_avail_discount()
+    {
+        $product1 = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
+        factory(ProductPriceAndOption::class)->create([
+            'product_id'    => $product1->id,
+            'display'       => 'Enabled',
+            'selling_price' => 250.00,
+        ]);
+
+        $product2 = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
+        factory(ProductPriceAndOption::class)->create([
+            'product_id'    => $product2->id,
+            'display'       => 'Enabled',
+            'selling_price' => 250.00,
+        ]);
+
+        $coupon = factory(\IndianIra\Coupon::class)->create([
+            'code' => 'JULY12', 'discount_percent' => 12
+        ]);
+
+        $cart = collect();
+
+        $cart->put($product1->code, [
+            'product' => $product1,
+            'options' => $option = $product1->options->last(),
+            'quantity' => 1,
+            'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
+        ]);
+
+        $cart->put($product2->code, [
+            'product' => $product2,
+            'options' => $option = $product2->options->last(),
+            'quantity' => 1,
+            'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
+        ]);
+
+        session(['cart' => $cart]);
+
+        $this->assertNotNull(session('cart'));
+        $this->assertEquals(2, session('cart')->count());
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('cart.applyCoupon'), ['couponCode' => $coupon->code]);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Coupon Code applied successfully...');
+    }
+
+    /** @test */
+    function user_may_remove_a_coupon_to_if_it_is_already_applied()
+    {
+        $product1 = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
+        factory(ProductPriceAndOption::class)->create([
+            'product_id'    => $product1->id,
+            'display'       => 'Enabled',
+            'selling_price' => 250.00,
+        ]);
+
+        $coupon = factory(\IndianIra\Coupon::class)->create([
+            'code' => 'JULY12', 'discount_percent' => 12
+        ]);
+
+        $cart = collect();
+
+        $cart->put($product1->code, [
+            'product' => $product1,
+            'options' => $option = $product1->options->last(),
+            'quantity' => 1,
+            'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
+        ]);
+
+        $totalWithoutCouponDiscount = \IndianIra\Utilities\Cart::totalWithoutCouponDiscount();
+
+        session(['appliedDiscount' => [
+            'coupon' => $coupon,
+            'amount' => ((float) $totalWithoutCouponDiscount * ($coupon->discount_percent / 100)),
+        ]]);
+
+        session(['cart' => $cart]);
+
+        $this->assertNotNull(session('cart'));
+        $this->assertNotNull(session('appliedDiscount'));
+        $this->assertEquals(1, session('cart')->count());
+
+        $response = $this->withoutExceptionHandling()
+                         ->get(route('cart.removeCoupon'));
+
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Coupon Code removed successfully...');
+
+        $this->assertNull(session('appliedDiscount'));
+    }
+
+    /** @test */
     function user_can_empty_the_cart()
     {
         $product = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
@@ -426,6 +547,7 @@ class CartTest extends TestCase
             'options' => $option = $product->options->last(),
             'quantity' => 1,
             'selling_price' => $option->selling_price,
+            'product_total' => (float) $option->selling_price,
         ])]);
 
         $this->assertNotNull(session('cart'));

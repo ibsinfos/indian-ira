@@ -63,5 +63,22 @@
                 }
             }
         });
+
+        $('body').on('click', '.btnAddToCart', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: $(this).attr('href'),
+                type: 'GET',
+                success: function (res) {
+                    displayGrowlNotification(res.status, res.title, res.message, res.delay);
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+            });
+
+            return false;
+        });
     </script>
 @endsection

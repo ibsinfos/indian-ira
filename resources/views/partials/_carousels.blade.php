@@ -31,7 +31,18 @@
                                             {{ number_format($product->options->last()->selling_price, 2) }}
                                         </div>
 
-                                        <a href="javascript:void(0)" class="btn btn-dark btn-sm">
+                                        @php
+                                        $link = route('cart.add', $product->code);
+                                        if ($product->number_of_options >= 1) {
+                                            $options = $product->options->sortBy('selling_price');
+
+                                            $link = route('cart.add', [
+                                                $product->code, $options->first()->option_code
+                                            ]);
+                                        }
+                                        @endphp
+
+                                        <a href="{{ $link }}" class="btn btn-dark btn-sm btnAddToCart">
                                             Add To Cart
                                         </a>
                                     </div>

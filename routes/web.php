@@ -201,7 +201,10 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         });
     });
 
-    Route::group(['prefix' => 'cart'], function () {
+    Route::group(['prefix' => 'cart', 'namespace' => 'Cart'], function () {
+        Route::get('/', 'CartController@show')->name('cart.show');
+        Route::post('/apply-coupon', 'CouponsController@apply')->name('cart.applyCoupon');
+        Route::get('/remove-coupon', 'CouponsController@remove')->name('cart.removeCoupon');
         Route::get('/add/{productCode}/{optionCode?}', 'CartController@add')->name('cart.add');
         Route::post('/update/{productCode}', 'CartController@updateQty')->name('cart.updateQty');
         Route::get('/remove/{productCode}', 'CartController@remove')->name('cart.remove');

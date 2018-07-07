@@ -952,3 +952,38 @@ Following files were created / changed:
 
 4. **`tests/Feature/CartTest.php`**<br />
     Tests that conforms and validates that the `Cart` feature is working as per expectations.
+
+----
+
+#### Cart - Everything
+
+The entire process of adding products in to the cart from the application.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Cart/CartController.php`**<br />
+    Moved and modified the controller that handles the processing of request of adding / updating / deleting / emptying the product quantity in the cart.
+
+2. **`app/Http/Controllers/Cart/CouponsController.php`**<br />
+    Controller that handles the logic of applying and removing the coupon in the cart.
+
+3. **`app/Utilities/Cart.php`**<br />
+    Modified to add the amounts totals.
+
+4. **`resources/views/cart/index.blade.php`**<br />
+    The index page of the cart.
+
+5. **`resources/views/cart/table.blade.php`**<br />
+    The table of the products that are added in the cart by the user.
+
+6. **`resources/views/partials/_carousels.blade.php`**<br />
+    Modified to add the link of adding the product into the cart.
+
+7. **`resources/views/welcome.blade.php`**<br />
+    Modified to add the jQuery ajax functionality of adding the product into the cart.
+
+8. **`routes/web.php`**<br />
+    Modified to access the routes of cart functionality from the application.
+
+9. **`tests/Feature/CartTest.php`**<br />
+    Tests that conforms and validates that the `Cart` feature is working as per expectations.
