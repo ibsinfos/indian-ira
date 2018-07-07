@@ -24,7 +24,7 @@
                     Contact Us
                 </a>
             </li>
-            @if ($parentCategoriesInMenu->isNotEmpty())
+            @if (isset($parentCategoriesInMenu) && $parentCategoriesInMenu->isNotEmpty())
                 @foreach ($parentCategoriesInMenu as $category)
                     @if ($category->childs->isNotEmpty())
                         <li class="nav-item dropdown">
