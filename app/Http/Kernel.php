@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'super_admin_exists' => \IndianIra\Http\Middleware\SuperAdministratorExists::class,
         'super_admin_logged_in' => \IndianIra\Http\Middleware\SuperAdminAlreadyLoggedIn::class,
         'user_logged_in' => \IndianIra\Http\Middleware\UserIsAlreadyLoggedIn::class,
+        'product_added_in_cart' => \IndianIra\Http\Middleware\CheckoutOnlyWhenProductAddedInCart::class,
     ];
 }
