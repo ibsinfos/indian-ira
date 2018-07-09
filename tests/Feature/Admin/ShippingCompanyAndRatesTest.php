@@ -17,12 +17,14 @@ class ShippingCompanyAndRatesTest extends TestCase
     {
         parent::setUp();
 
-        $this->admin = $this->generateSuperAdministrator();
+        $this->signInSuperAdministrator();
     }
 
     /** @test */
     function only_logged_in_super_administrator_can_access_the_shipping_rates_section()
     {
+        auth()->logout();
+
         $this->withoutExceptionHandling()
              ->get(route('admin.shippingRates'))
              ->assertStatus(302)
@@ -32,8 +34,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_can_view_the_shipping_rates_section()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $this->withoutExceptionHandling()
              ->get(route('admin.shippingRates'))
              ->assertViewIs('admin.shipping-rates.index')
@@ -49,8 +49,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_can_add_new_shipping_rates()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $formValues = factory(ShippingRate::class)->make([
             'weight_from' => 1,
             'weight_to' => 500,
@@ -74,8 +72,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_can_update_an_existing_shipping_rate()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->create([
             'weight_from' => 1,
             'weight_to' => 500,
@@ -104,8 +100,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_cannot_update_a_shipping_rate_that_does_not_exist()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRates = factory(ShippingRate::class, 3)->create();
         $formValues = factory(ShippingRate::class)->make([
             'weight_from' => 1,
@@ -129,8 +123,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_can_temporarily_delete_a_shipping_rate()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRates = factory(ShippingRate::class, 3)->create();
 
         $response = $this->withoutExceptionHandling()
@@ -152,8 +144,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_cannot_temporarily_delete_a_shipping_rate_that_does_not_exists()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRates = factory(ShippingRate::class, 3)->create();
 
         $response = $this->withoutExceptionHandling()
@@ -174,8 +164,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_can_restore_a_temporarily_deleted_shipping_rate()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         factory(ShippingRate::class, 3)->create();
         $shippingRate = factory(ShippingRate::class)->create(['deleted_at' => \Carbon\Carbon::now()]);
 
@@ -198,8 +186,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_cannot_restore_a_temporarily_deleted_shipping_rate_that_does_not_exists()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRates = factory(ShippingRate::class, 3)->create();
         $shippingRate = factory(ShippingRate::class)->create(['deleted_at' => \Carbon\Carbon::now()]);
 
@@ -221,8 +207,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_can_permanently_delete_a_temporarily_deleted_shipping_rate()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         factory(ShippingRate::class, 3)->create();
         $shippingRate = factory(ShippingRate::class)->create(['deleted_at' => \Carbon\Carbon::now()]);
 
@@ -247,8 +231,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function super_administrator_cannot_permanently_delete_a_temporarily_deleted_shipping_rate_that_does_not_exists()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRates = factory(ShippingRate::class, 3)->create();
         $shippingRate = factory(ShippingRate::class)->create(['deleted_at' => \Carbon\Carbon::now()]);
 
@@ -270,8 +252,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function shipping_company_name_field_is_required()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['shipping_company_name' => '']);
 
@@ -288,8 +268,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function shipping_company_name_should_be_less_than_250_characters()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['shipping_company_name' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam tempora sunt quae rem aspernatur labore corporis soluta earum, aliquam, culpa quis, repellendus enim nemo ducimus vitae iure molestiae. Temporibus, veritatis. Lorem ipsum dolor sit amet, consectetur adipisicing elit.']);
 
@@ -306,8 +284,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function shipping_company_tracking_url_field_is_required()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['shipping_company_tracking_url' => '']);
 
@@ -324,8 +300,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function shipping_company_tracking_url_should_be_a_proper_url()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['shipping_company_tracking_url' => str_random(50)]);
 
@@ -342,8 +316,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function shipping_company_tracking_url_should_be_less_than_250_characters()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge(
             $shippingRate->toArray(), [
@@ -364,8 +336,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function weight_from_field_is_required()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['weight_from' => '']);
 
@@ -382,8 +352,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function weight_from_field_should_contain_only_numbers_with_decimal_upto_2_precisions_only()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['weight_from' => '25,280.0504']);
 
@@ -400,8 +368,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function weight_to_field_is_required()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['weight_to' => '']);
 
@@ -418,8 +384,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function weight_to_field_should_contain_only_numbers_with_decimal_upto_2_precisions_only()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['weight_to' => '25,280.0504']);
 
@@ -436,8 +400,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function amount_field_is_required()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['amount' => '']);
 
@@ -454,8 +416,6 @@ class ShippingCompanyAndRatesTest extends TestCase
     /** @test */
     function amount_field_should_contain_only_numbers_with_decimal_upto_2_precisions_only()
     {
-        $this->signInSuperAdministrator($this->admin);
-
         $shippingRate = factory(ShippingRate::class)->make();
         $formValues = array_merge($shippingRate->toArray(), ['amount' => '25,280.0504']);
 
