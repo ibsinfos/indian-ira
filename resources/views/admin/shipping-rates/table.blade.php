@@ -4,6 +4,7 @@
         <th>Company Details</th>
         <th>Weight Details</th>
         <th>Amount</th>
+        <th>Added On</th>
         <th>Action</th>
     </thead>
 
@@ -28,6 +29,9 @@
                 <td>
                     <i class="fas fa-rupee-sign"></i>
                     {{ number_format($shippingRate->amount, 2) }}
+                </td>
+                <td>
+                    {{ $shippingRate->formatsCreatedAt() }}
                 </td>
                 <td>
                     @if ($shippingRate->deleted_at != null)

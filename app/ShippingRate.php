@@ -3,11 +3,13 @@
 namespace IndianIra;
 
 use Illuminate\Database\Eloquent\Model;
+use IndianIra\Utilities\FormatsDateAndTime;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ShippingRate extends Model
 {
     use SoftDeletes;
+    use SoftDeletes, FormatsDateAndTime;
 
     /**
      * The dates that will be mutated to Carbon instance.
