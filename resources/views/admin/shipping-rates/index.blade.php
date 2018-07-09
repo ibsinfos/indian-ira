@@ -130,6 +130,8 @@
             modal.find('.modal-title').html('Edit Shipping Rate of Id: ' + id);
             modal.find('.modal-body #shipping_company_name').val(shipping.shipping_company_name);
             modal.find('.modal-body #shipping_company_tracking_url').val(shipping.shipping_company_tracking_url);
+            modal.find('.modal-body #location_type').val(shipping.location_type);
+            modal.find('.modal-body #location_name').val(shipping.location_name);
             modal.find('.modal-body #weight_from').val(shipping.weight_from);
             modal.find('.modal-body #weight_to').val(shipping.weight_to);
             modal.find('.modal-body #amount').val(shipping.amount);

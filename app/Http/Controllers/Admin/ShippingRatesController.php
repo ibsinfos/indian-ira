@@ -31,6 +31,8 @@ class ShippingRatesController extends Controller
         $this->validate($request, [
             'shipping_company_name'         => 'required|max:250',
             'shipping_company_tracking_url' => 'required|url|max:250',
+            'location_type'                 => 'required|in:City,State,Country',
+            'location_name'                 => 'required|max:200',
             'weight_from'                   => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
             'weight_to'                     => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
             'amount'                        => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
@@ -38,6 +40,7 @@ class ShippingRatesController extends Controller
             'weight_from.regex' => 'The weight from field should contain only numbers with decimal upto 2 precisions only.',
             'weight_to.regex' => 'The weight to field should contain only numbers with decimal upto 2 precisions only.',
             'amount.regex' => 'The amount field should contain only numbers with decimal upto 2 precisions only.',
+            'location_type.in' => 'The location type should be either City, State or Country.'
         ]);
 
         ShippingRate::create($request->all());
@@ -66,9 +69,16 @@ class ShippingRatesController extends Controller
         $this->validate($request, [
             'shipping_company_name'         => 'required|max:250',
             'shipping_company_tracking_url' => 'required|url|max:250',
+            'location_type'                 => 'required|in:City,State,Country',
+            'location_name'                 => 'required|max:200',
             'weight_from'                   => 'required|min:0|regex:/^\d+(\.(\d{0,2}))?$/',
             'weight_to'                     => 'required|min:0|regex:/^\d+(\.(\d{0,2}))?$/',
             'amount'                        => 'required|min:0|regex:/^\d+(\.(\d{0,2}))?$/',
+        ], [
+            'weight_from.regex' => 'The weight from field should contain only numbers with decimal upto 2 precisions only.',
+            'weight_to.regex' => 'The weight to field should contain only numbers with decimal upto 2 precisions only.',
+            'amount.regex' => 'The amount field should contain only numbers with decimal upto 2 precisions only.',
+            'location_type.in' => 'The location type should be either City, State or Country.'
         ]);
 
         $shippingRate = ShippingRate::find($id);

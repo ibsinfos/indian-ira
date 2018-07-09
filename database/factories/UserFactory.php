@@ -69,8 +69,10 @@ $factory->define(IndianIra\ShippingRate::class, function (Faker $faker) {
     return [
         'shipping_company_name'         => str_replace(['-', '_', '.'], [' ', ' ', ' '], $faker->company) . ' ' . $faker->companySuffix,
         'shipping_company_tracking_url' => substr($faker->url, 0, 200),
-        'weight_from'                   => (float) round($faker->randomFloat(2, 1000, 9999), 2),
-        'weight_to'                     => (float) round($faker->randomFloat(2, 1000, 9999), 2),
+        'location_type'                 => array_random(['City', 'State', 'Country']),
+        'location_name'                 => array_random([$faker->city, $faker->state, $faker->country]),
+        'weight_from'                   => (float) round($faker->randomFloat(2, 100, 999), 2),
+        'weight_to'                     => (float) round($faker->randomFloat(2, 100, 999), 2),
         'amount'                        => (float) round($faker->randomFloat(2, 1, 9999), 2),
     ];
 });

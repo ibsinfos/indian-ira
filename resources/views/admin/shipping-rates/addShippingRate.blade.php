@@ -57,6 +57,38 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6">
                             <div class="form-group">
+                                <label class="normal" for="location_type">Location Type:</label>
+                                <select name="location_type" id="location_type" class="form-control">
+                                    <option value="City" selected="selected">City</option>
+                                    <option value="State">State</option>
+                                    <option value="Country">Country</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label class="normal" for="location_name">Location Name:</label>
+                                <input
+                                    type="text"
+                                    name="location_name"
+                                    id="location_name"
+                                    value="{{ old('location_name') }}"
+                                    class="form-control hasMaxLength"
+                                    placeholder="Eg. Either City, State or Country Name"
+                                    required="required"
+                                    autocomplete="sc-notWanted"
+                                    data-toggle="tooltip"
+                                    title="Eg. Mumbai or Maharashtra or India"
+                                    maxlength="200"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="form-group">
                                 <label class="normal" for="weight_from">Weight From (in grams):</label>
                                 <input
                                     type="text"

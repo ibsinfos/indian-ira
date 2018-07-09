@@ -1031,3 +1031,35 @@ Following files were created / changed:
 
 11. **`tests/Feature/Checkout/RegisterTest.php`**<br />
     Tests that conforms and validates that `Checkout - Register` feature is working as per expectations.
+
+----
+
+#### Shipping Rate - Locations
+
+Added the `location_type` and `location_name` fields.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/ShippingRatesController.php`**<br />
+    Modified to add the validation on the `location_type` and `location_name` field.
+
+2. **`app/ShippingRate.php`**<br />
+    Modified to add the columns in `$fillable` property.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to add the fake data for the `location_type` and `location_name` fields.
+
+4. **`database/migrations/2018_06_18_033825_create_shipping_rates_table.php`**<br />
+    Modified to include the `location_type` and `location_name` in table structure.
+
+5. **`resources/views/admin/shipping-rates/addShippingRate.blade.php`**<br />
+    Modified to include the fields `location_type` and `location_name`.
+
+6. **`resources/views/admin/shipping-rates/editShippingRate.blade.php`**<br />
+    Modified to include the fields `location_type` and `location_name`.
+
+7. **`resources/views/admin/shipping-rates/index.blade.php`**<br />
+    Modified so that the `location_type` and `location_name` fields are pre-populated while editing shipping rates.
+
+8. **`tests/Feature/Admin/ShippingCompanyAndRatesTest.php`**<br />
+    Tests that conforms and validates that `Shipping Rate - Location` feature works as per expectations.

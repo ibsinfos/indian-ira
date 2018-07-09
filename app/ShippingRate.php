@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ShippingRate extends Model
 {
-    use SoftDeletes;
     use SoftDeletes, FormatsDateAndTime;
 
     /**
@@ -27,6 +26,7 @@ class ShippingRate extends Model
      */
     protected $fillable = [
         'shipping_company_name', 'shipping_company_tracking_url',
+        'location_type', 'location_name',
         'weight_from', 'weight_to',
         'amount',
     ];

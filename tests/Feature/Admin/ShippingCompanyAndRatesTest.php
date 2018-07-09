@@ -334,6 +334,70 @@ class ShippingCompanyAndRatesTest extends TestCase
     }
 
     /** @test */
+    function location_type_field_is_required()
+    {
+        $shippingRate = factory(ShippingRate::class)->make();
+        $formValues = array_merge($shippingRate->toArray(), ['location_type' => '']);
+
+        $this->post(route('admin.shippingRates.store'), $formValues)
+            ->assertSessionHasErrors('location_type');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('location_type'),
+            'The location type field is required.'
+        );
+    }
+
+    /** @test */
+    function location_type_field_should_be_either_city_state_country()
+    {
+        $shippingRate = factory(ShippingRate::class)->make();
+        $formValues = array_merge($shippingRate->toArray(), ['location_type' => '3aefe4z8dc54']);
+
+        $this->post(route('admin.shippingRates.store'), $formValues)
+            ->assertSessionHasErrors('location_type');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('location_type'),
+            'The location type should be either City, State or Country.'
+        );
+    }
+
+    /** @test */
+    function location_name_field_is_required()
+    {
+        $shippingRate = factory(ShippingRate::class)->make();
+        $formValues = array_merge($shippingRate->toArray(), ['location_name' => '']);
+
+        $this->post(route('admin.shippingRates.store'), $formValues)
+            ->assertSessionHasErrors('location_name');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('location_name'),
+            'The location name field is required.'
+        );
+    }
+
+    /** @test */
+    function location_name_field_should_be_less_than_200_characters()
+    {
+        $shippingRate = factory(ShippingRate::class)->make();
+        $formValues = array_merge($shippingRate->toArray(), ['location_name' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur modi necessitatibus, blanditiis in nisi, molestiae quo consectetur tenetur rerum animi nostrum cum ipsum sit facilis, corrupti quibusdam iste ut deleniti!']);
+
+        $this->post(route('admin.shippingRates.store'), $formValues)
+            ->assertSessionHasErrors('location_name');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('location_name'),
+            'The location name may not be greater than 200 characters.'
+        );
+    }
+
+    /** @test */
     function weight_from_field_is_required()
     {
         $shippingRate = factory(ShippingRate::class)->make();

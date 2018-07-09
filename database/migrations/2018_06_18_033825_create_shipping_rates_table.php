@@ -17,6 +17,8 @@ class CreateShippingRatesTable extends Migration
             $table->increments('id');
             $table->string('shipping_company_name')->nullable();
             $table->string('shipping_company_tracking_url')->nullable();
+            $table->string('location_type')->nullable();
+            $table->string('location_name')->nullable();
             $table->float('weight_from')->default(0.0);
             $table->float('weight_to')->default(0.0);
             $table->float('amount')->default(0.0);
