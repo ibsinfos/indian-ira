@@ -28,7 +28,7 @@
         </div>
 
         <div class="float-right">
-            <a href="javascript:void(0)" class="btn btn-success font-weight-bold btnProceedToCheckout">
+            <a href="{{ route('checkout') }}" class="btn btn-success font-weight-bold btnProceedToCheckout">
                 Proceed To Checkout
             </a>
         </div>

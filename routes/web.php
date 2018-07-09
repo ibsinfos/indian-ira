@@ -210,4 +210,18 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         Route::get('/remove/{productCode}', 'CartController@remove')->name('cart.remove');
         Route::get('/empty', 'CartController@empty')->name('cart.empty');
     });
+
+    Route::group([
+        'middleware' => 'product_added_in_cart',
+        'prefix'     => 'checkout',
+        'namespace'  => 'Checkout'
+    ], function () {
+        Route::get('/', 'CheckoutController@index')->name('checkout');
+        Route::post('/login', 'LoginController@postLogin')->name('checkout.postLogin');
+        Route::post('/register', 'RegisterController@store')->name('checkout.register');
+
+        Route::group(['middleware' => 'user_logged_in'], function () {
+            Route::get('/address', 'CheckoutController@singlePage')->name('checkout.address');
+        });
+    });
 });

@@ -987,3 +987,47 @@ Following files were created / changed:
 
 9. **`tests/Feature/CartTest.php`**<br />
     Tests that conforms and validates that the `Cart` feature is working as per expectations.
+
+----
+
+#### Checkout - Authentication
+
+The authentication process at the time of checkout. The single page checkout is incomplete at the time of this commit.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Checkout/CheckoutController.php`**<br />
+    Controller that handles the logic of displaying the authentication page which includes registration and login section.
+
+2. **`app/Http/Controllers/Checkout/LoginController.php`**<br />
+    Controller that handles the logic of processing the login credentials.
+
+3. **`app/Http/Controllers/Checkout/RegisterController.php`**<br />
+    Controller that handles the logic of processing the registration data and registering the user.
+
+4. **`resources/views/cart/index.blade.php`**<br />
+    Modified to add the checkout link.
+
+5. **`resources/views/checkout/_login.blade.php`**<br />
+    View partial file that displays the login form for the user.
+
+6. **`resources/views/checkout/_register.blade.php`**<br />
+    View partial file that displays the register form for the user.
+
+7. **`resources/views/checkout/authentication.blade.php`**<br />
+    The file that displays both login and registration forms to the user.
+
+8. **`resources/views/checkout/single_page.blade.php`**<br />
+    Single page checkout form.
+
+9. **`routes/web.php`**<br />
+    Modified to add the checkout routes.
+
+10. **`tests/Feature/Checkout/CheckoutTest.php`**<br />
+    Tests that conforms and validates that `Checkout` feature is working as per expectations.
+
+11. **`tests/Feature/Checkout/LoginTest.php`**<br />
+    Tests that conforms and validates that `Checkout - Login` feature is working as per expectations.
+
+11. **`tests/Feature/Checkout/RegisterTest.php`**<br />
+    Tests that conforms and validates that `Checkout - Register` feature is working as per expectations.
