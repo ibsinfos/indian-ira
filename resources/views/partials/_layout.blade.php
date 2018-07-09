@@ -23,7 +23,7 @@
 
     @yield('pageStyles')
 </head>
-<body class="bg-white">
+<body class="bg-light">
     <div class="position-fixed w-100 topBar" style="z-index: 1000">
         <div class="topBorder"></div>
 
