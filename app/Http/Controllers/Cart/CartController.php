@@ -3,6 +3,7 @@
 namespace IndianIra\Http\Controllers\Cart;
 
 use IndianIra\Product;
+use IndianIra\ShippingRate;
 use Illuminate\Http\Request;
 use IndianIra\Utilities\Cart;
 use IndianIra\Http\Controllers\Controller;
@@ -18,7 +19,27 @@ class CartController extends Controller
     {
         $cart = session('cart', collect());
 
-        return view('cart.index', compact('cart'));
+        $shippingRatesCity    = ShippingRate::whereLocationType('City')
+                                    ->orderBy('location_name')
+                                    ->get()
+                                    ->pluck('location_name')
+                                    ->unique();
+
+        $shippingRatesState   = ShippingRate::whereLocationType('State')
+                                    ->orderBy('location_name')
+                                    ->get()
+                                    ->pluck('location_name')
+                                    ->unique();
+
+        $shippingRatesCountry = ShippingRate::whereLocationType('Country')
+                                    ->orderBy('location_name')
+                                    ->get()
+                                    ->pluck('location_name')
+                                    ->unique();
+
+        return view('cart.index', compact(
+            'cart', 'shippingRatesCity', 'shippingRatesState', 'shippingRatesCountry'
+        ));
     }
 
     /**
@@ -107,6 +128,41 @@ class CartController extends Controller
             'title'   => 'Success !',
             'delay'   => 3000,
             'message' => 'Product updated successfully!',
+            'htmlResult' => view('cart.table', compact('cart'))->render()
+        ]);
+    }
+
+    /**
+     * Calculate the shipping amount based on the location provided.
+     *
+     * @return  \Symfony\Component\HttpFoundation\Response
+     */
+    public function shippingAmount()
+    {
+        $request = request();
+
+        session()->forget('shippingRateRecord');
+
+        $shippingRate = ShippingRate::whereLocationName($request->location)->first();
+
+        if ($shippingRate == null) {
+            return response([
+                'status'  => 'failed',
+                'title'   => 'Failed',
+                'delay'   => 3000,
+                'message' => 'Shipping Rate with that Location name cannot be found!',
+            ]);
+        }
+
+        session(['shippingRateRecord' => $shippingRate]);
+
+        $cart = session('cart');
+
+        return response([
+            'status'     => 'success',
+            'title'      => 'Success !',
+            'delay'      => 3000,
+            'message'    => 'Shipping Rate calculated successfully...',
             'htmlResult' => view('cart.table', compact('cart'))->render()
         ]);
     }

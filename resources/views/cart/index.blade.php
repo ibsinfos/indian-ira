@@ -27,18 +27,51 @@
             @include('cart.table')
         </div>
 
-        <div class="float-right">
-            <a href="{{ route('checkout') }}" class="btn btn-success font-weight-bold btnProceedToCheckout">
+        <div class="float-right mb-5">
+            <a
+                @if (session('shippingRateRecord'))
+                    href="{{ route('checkout') }}"
+                    class="btn btn-success font-weight-bold btnProceedToCheckout"
+                @else
+                    href="javascript:void(0)"
+                    class="btn btn-outline-dark disabled font-weight-bold"
+                    title="This button will get selected when you add Select the Location for Shipping Calculation."
+                @endif
+            >
                 Proceed To Checkout
             </a>
         </div>
     </div>
 
-    <div class="mb-5"></div>
+    @include('cart.selectLocationModal')
 @endsection
 
 @section('pageScripts')
     <script>
+        $('.selectLocation').selectize({
+            'sortField': 'text',
+
+            onChange: function (query) {
+                $.ajax({
+                    url: "{{ route('cart.shippingAmount') }}",
+                    type: 'GET',
+                    data: "_token={{ csrf_token() }}&location=" + query,
+                    success: function (res) {
+                        displayGrowlNotification(res.status, res.title, res.message, res.delay);
+
+                        $('.cartTable').html(res.htmlResult);
+
+                        $('#selectLocationModal').modal('hide');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+
+                console.log(query);
+            }
+        });
+
         $('body').on('focus', '.txtUpdateQty', function (e) {
             $(this).select();
         });

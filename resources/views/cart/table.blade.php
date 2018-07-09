@@ -143,7 +143,16 @@
         </tr>
 
         <tr>
-            <td colspan="5" class="font-weight-bold text-right">Total Shipping:</td>
+            <td colspan="5" class="font-weight-bold text-right">
+                Total Shipping:
+
+                <a
+                    href="#"
+                    class="btn btn-sm btn-warning"
+                    data-toggle="modal"
+                    data-target="#selectLocationModal"
+                >Select Location</a>
+            </td>
             <td class="text-right">
                 <i class="fas fa-rupee-sign"></i>
                 {{ number_format(\IndianIra\Utilities\Cart::totalShippingAmount(), 2) }}

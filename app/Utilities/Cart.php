@@ -130,7 +130,8 @@ class Cart
     public static function empty()
     {
         session()->forget([
-            'cart', 'cartTotalAmounts', 'appliedDiscount'
+            'cart', 'cartTotalAmounts', 'appliedDiscount',
+            'shippingRateRecord',
         ]);
     }
 
@@ -195,8 +196,13 @@ class Cart
             $totalWeight += ($row['options']->weight * $row['quantity']);
         }
 
-        $shippingRate = \IndianIra\ShippingRate::whereRaw('? between weight_from and weight_to', [$totalWeight])
-                         ->first();
+        $shippingRate = null;
+
+        if (session('shippingRateRecord')) {
+            $shippingRate = \IndianIra\ShippingRate::whereRaw('? between weight_from and weight_to', [$totalWeight])
+                             ->whereLocationName(session('shippingRateRecord')->location_name)
+                             ->first();
+        }
 
         if ($shippingRate) {
             return $shippingRate->amount;

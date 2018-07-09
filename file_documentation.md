@@ -1063,3 +1063,29 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/ShippingCompanyAndRatesTest.php`**<br />
     Tests that conforms and validates that `Shipping Rate - Location` feature works as per expectations.
+
+----
+
+#### Cart - Shipping Rate Calculation
+
+Calculating the shipping amount in the cart.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Cart/CartController.php`**<br />
+    Modified to add the logic of `Shipping Rate` calculation.
+
+2. **`app/Utilities/Cart.php`**<br />
+    Modified to add the logic of selecting the correct `Shipping Rate` based on the location chosen.
+
+3. **`resources/views/cart/index.blade.php`**<br />
+    Modified to add the modal view file.
+
+4. **`resources/views/cart/selectLocationModal.blade.php`**<br />
+    The view file that displays the form to select the location where the products shall be shipped which calculates the shipping amount based on the selected location.
+
+5. **`resources/views/cart/table.blade.php`**<br />
+    Modified to add the button link for opening the `selectLocationModal` window.
+
+6. **`routes/web.php`**<br />
+    Modified to access the route for calculation of shipping amount.

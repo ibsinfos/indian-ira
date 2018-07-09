@@ -208,6 +208,7 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         Route::get('/add/{productCode}/{optionCode?}', 'CartController@add')->name('cart.add');
         Route::post('/update/{productCode}', 'CartController@updateQty')->name('cart.updateQty');
         Route::get('/remove/{productCode}', 'CartController@remove')->name('cart.remove');
+        Route::get('/shipping-amount', 'CartController@shippingAmount')->name('cart.shippingAmount');
         Route::get('/empty', 'CartController@empty')->name('cart.empty');
     });
 
