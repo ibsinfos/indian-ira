@@ -34,7 +34,7 @@
                     class="btn btn-success font-weight-bold btnProceedToCheckout"
                 @else
                     href="javascript:void(0)"
-                    class="btn btn-outline-dark disabled font-weight-bold"
+                    class="btn btn-outline-dark disabled font-weight-bold btnProceedToCheckout"
                     title="This button will get selected when you add Select the Location for Shipping Calculation."
                 @endif
             >
@@ -59,16 +59,20 @@
                     success: function (res) {
                         displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
-                        $('.cartTable').html(res.htmlResult);
+                        if (res.status == 'success') {
+                            $('.cartTable').html(res.htmlResult);
 
-                        $('#selectLocationModal').modal('hide');
+                            $('#selectLocationModal').modal('hide');
+
+                            $('.btnProceedToCheckout').attr('href', "{{ route('checkout') }}")
+                                .removeClass('btn-outline-dark disabled')
+                                .addClass('btn-success');
+                        }
                     },
                     error: function (err) {
-                        console.log(err);
+                        alert('Something went wrong. Please try again later');
                     }
                 });
-
-                console.log(query);
             }
         });
 
