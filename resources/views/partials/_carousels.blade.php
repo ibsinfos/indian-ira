@@ -28,7 +28,16 @@
 
                                         <div class="productPrice mb-3">
                                             <i class="fas fa-rupee-sign"></i>
-                                            {{ number_format($product->options->last()->selling_price, 2) }}
+                                            @php
+                                            $option = $product->options->last();
+
+                                            if ($option && $option->discount_price > 0.0) {
+                                                $price = $option->discount_price;
+                                            } elseif ($option && $option->discount_price <= 0.0) {
+                                                $price = $option->selling_price;
+                                            }
+                                            @endphp
+                                            {{ number_format($price, 2) }}
                                         </div>
 
                                         @php

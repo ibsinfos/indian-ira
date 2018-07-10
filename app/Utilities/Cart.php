@@ -66,7 +66,7 @@ class Cart
                 $qty = ++$c['quantity'];
             }
 
-            $c['product_total'] = $c['selling_price'] * $qty;
+            $c['product_total'] = ($c['selling_price'] * $qty);
 
             return $c;
         });
@@ -95,7 +95,7 @@ class Cart
                 $qty = $c['quantity'] = $quantity;
             }
 
-            $c['product_total'] = $c['selling_price'] * $qty;
+            $c['product_total'] = ($c['selling_price'] * $qty);
 
             return $c;
         });
@@ -131,7 +131,7 @@ class Cart
     {
         session()->forget([
             'cart', 'cartTotalAmounts', 'appliedDiscount',
-            'shippingRateRecord',
+            'shippingRateRecord', 'codCharges',
         ]);
     }
 
@@ -146,8 +146,15 @@ class Cart
         $totalNet = 0.0;
 
         foreach ($cart as $row) {
-            $gstAmount = ($row['options']->selling_price * ($row['product']->gst_percent / 100));
-            $totalNet += (($row['options']->selling_price - $gstAmount) * $row['quantity']);
+            $sellingPrice = $row['options']->selling_price;
+
+            if ($row['options']->discount_price > 0.0) {
+                $sellingPrice = $row['options']->discount_price;
+            }
+
+            $netPrice = ($sellingPrice / (1 + ($row['product']->gst_percent / 100)));
+
+            $totalNet += ($netPrice * $row['quantity']);
         }
 
         return $totalNet;
@@ -164,9 +171,17 @@ class Cart
         $totalGst = 0.0;
 
         foreach ($cart as $row) {
-            $percent = $row['product']->gst_percent / 100;
+            $sellingPrice = $row['options']->selling_price;
 
-            $totalGst += (($row['options']->selling_price * $percent) * $row['quantity']);
+            if ($row['options']->discount_price > 0.0) {
+                $sellingPrice = $row['options']->discount_price;
+            }
+
+            $netPrice = ($sellingPrice / (1 + ($row['product']->gst_percent / 100)));
+
+            $gstAmount = $sellingPrice - $netPrice;
+
+            $totalGst += ($gstAmount * $row['quantity']);
         }
 
         return $totalGst;
