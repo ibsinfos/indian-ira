@@ -37,6 +37,7 @@ class CheckoutTest extends TestCase
             'product_id' => $product->id,
             'display' => 'Enabled',
             'selling_price' => 250.00,
+            'discount_price' => 0.0
         ]);
 
         session(['cart' => collect()->put($product->code, [
@@ -59,6 +60,7 @@ class CheckoutTest extends TestCase
             'product_id'    => $product->id,
             'display'       => 'Enabled',
             'selling_price' => 250.00,
+            'discount_price' => 0.0
         ]);
 
         session(['cart' => collect()->put($product->code, [
@@ -86,6 +88,7 @@ class CheckoutTest extends TestCase
             'product_id'    => $product->id,
             'display'       => 'Enabled',
             'selling_price' => 250.00,
+            'discount_price' => 0.0
         ]);
 
         session(['cart' => collect()->put($product->code, [
@@ -121,6 +124,7 @@ class CheckoutTest extends TestCase
             'product_id'    => $product->id,
             'display'       => 'Enabled',
             'selling_price' => 250.00,
+            'discount_price' => 0.0
         ]);
 
         session(['cart' => collect()->put($product->code, [
