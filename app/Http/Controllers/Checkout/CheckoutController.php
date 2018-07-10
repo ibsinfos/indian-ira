@@ -28,6 +28,33 @@ class CheckoutController extends Controller
 
         $billingAddress = $user->billingAddress;
 
-        return view('checkout.single_page', compact('user', 'billingAddress'));
+        $cart = session('cart', collect());
+
+        return view('checkout.single_page', compact('user', 'billingAddress', 'cart'));
+    }
+
+    /**
+     * Add Cash On Delivery charges in the total cart payable amount.
+     *
+     * @return  \Symfony\Component\HttpFoundation\Response
+     */
+    public function addCodCharges()
+    {
+        session()->forget('codCharges');
+
+        $codCharges = 0.00;
+
+        if (request()->payment_method == 'cod') {
+            $codCharges = \IndianIra\GlobalSettingCodCharge::first();
+
+            session(['codCharges' => $codCharges]);
+        }
+
+        $cart = session('cart', collect());
+
+        return response([
+            'status'     => 'success',
+            'htmlResult' => view('checkout._confirm_cart_table', compact('cart'))->render()
+        ]);
     }
 }

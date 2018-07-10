@@ -212,6 +212,20 @@ class Cart
     }
 
     /**
+     * Add cod charges to the cart total payable amount.
+     *
+     * @return  float
+     */
+    public static function codCharges()
+    {
+        if (session('codCharges')) {
+            return session('codCharges')->amount;
+        }
+
+        return 0.00;
+    }
+
+    /**
      * Get the total payable amount of the products in the cart,
      * excluding the coupon discount.
      *
@@ -219,7 +233,7 @@ class Cart
      */
     public static function totalWithoutCouponDiscount()
     {
-        return self::grandTotalAmount() + self::totalShippingAmount();
+        return self::grandTotalAmount() + self::totalShippingAmount() + self::codCharges();
     }
 
     /**

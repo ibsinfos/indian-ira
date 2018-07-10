@@ -74,4 +74,74 @@ class CheckoutTest extends TestCase
              ->assertViewIs('checkout.authentication')
              ->assertSee('Checkout Authentication');
     }
+
+    /** @test */
+    function add_cod_charges_if_payment_method_is_COD()
+    {
+        $this->signInUser();
+
+        $codCharges = factory(\IndianIra\GlobalSettingCodCharge::class)->create(['amount' => 60.00]);
+        $product = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
+        $option = factory(ProductPriceAndOption::class)->create([
+            'product_id'    => $product->id,
+            'display'       => 'Enabled',
+            'selling_price' => 250.00,
+        ]);
+
+        session(['cart' => collect()->put($product->code, [
+            'product'       => $product,
+            'options'       => $option,
+            'quantity'      => 1,
+            'selling_price' => $option->selling_price,
+            'product_total' => $option->selling_price,
+        ])]);
+
+        $response = $this->withoutExceptionHandling()
+                        ->get(route('checkout.addCodCharges', ['payment_method' => 'cod']));
+
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals($result->status, 'success');
+        $this->assertNotNull(session('codCharges'));
+
+        $this->assertEquals(60, \IndianIra\Utilities\Cart::codCharges());
+
+        // 250 + 60 = 310
+        $this->assertEquals(310, \IndianIra\Utilities\Cart::totalPayableAmount());
+    }
+
+    /** @test */
+    function no_cod_charges_are_applied_if_payment_method_is_is_not_COD()
+    {
+        $this->signInUser();
+
+        $codCharges = factory(\IndianIra\GlobalSettingCodCharge::class)->create(['amount' => 60.00]);
+        $product = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
+        $option = factory(ProductPriceAndOption::class)->create([
+            'product_id'    => $product->id,
+            'display'       => 'Enabled',
+            'selling_price' => 250.00,
+        ]);
+
+        session(['cart' => collect()->put($product->code, [
+            'product'       => $product,
+            'options'       => $option,
+            'quantity'      => 1,
+            'selling_price' => $option->selling_price,
+            'product_total' => $option->selling_price,
+        ])]);
+
+        $response = $this->withoutExceptionHandling()
+                        ->get(route('checkout.addCodCharges', ['payment_method' => array_random(['online', 'offline'])]));
+
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals($result->status, 'success');
+        $this->assertNull(session('codCharges'));
+
+        $this->assertEquals(0.0, \IndianIra\Utilities\Cart::codCharges());
+
+        // 250 + 0.00 = 250.0
+        $this->assertEquals(250, \IndianIra\Utilities\Cart::totalPayableAmount());
+    }
 }
