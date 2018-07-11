@@ -19,6 +19,17 @@
             height: 5px;
             background: #cb5e00;
         }
+
+        .footer {
+            font-size: .85rem;
+        }
+
+        .footer .header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
     </style>
 
     @yield('pageStyles')
@@ -114,6 +125,8 @@
     <div class="allContents">
         @yield('content')
     </div>
+
+    @include('partials._footer')
 
     <script src="{{ url('/js/app.js') }}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
