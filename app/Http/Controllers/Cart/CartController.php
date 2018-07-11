@@ -91,7 +91,8 @@ class CartController extends Controller
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
-            'message' => $message
+            'message' => $message,
+            'count'   => \IndianIra\Utilities\Cart::totalProducts(),
         ]);
     }
 
@@ -128,6 +129,7 @@ class CartController extends Controller
             'title'   => 'Success !',
             'delay'   => 3000,
             'message' => 'Product updated successfully!',
+            'count'   => \IndianIra\Utilities\Cart::totalProducts(),
             'htmlResult' => view('cart.table', compact('cart'))->render()
         ]);
     }
@@ -163,6 +165,7 @@ class CartController extends Controller
             'title'      => 'Success !',
             'delay'      => 3000,
             'message'    => 'Shipping Rate calculated successfully...',
+            'count'      => \IndianIra\Utilities\Cart::totalProducts(),
             'htmlResult' => view('cart.table', compact('cart'))->render()
         ]);
     }
@@ -198,6 +201,7 @@ class CartController extends Controller
             'title'   => 'Success !',
             'delay'   => 3000,
             'message' => 'Product removed successfully...',
+            'count'   => \IndianIra\Utilities\Cart::totalProducts(),
             'htmlResult' => view('cart.table', compact('cart'))->render()
         ]);
     }
@@ -218,6 +222,7 @@ class CartController extends Controller
             'title'   => 'Success !',
             'delay'   => 3000,
             'message' => 'Cart emptied successfully! Redirecting...',
+            'count'   => \IndianIra\Utilities\Cart::totalProducts(),
             'htmlResult' => view('cart.table', compact('cart'))->render(),
             'location' => route('homePage')
         ]);

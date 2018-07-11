@@ -136,6 +136,22 @@ class Cart
     }
 
     /**
+     * Get the total quantity of all the products in the cart.
+     *
+     * @return  integer
+     */
+    public static function totalProducts()
+    {
+        $cart = session('cart', collect());
+
+        if ($cart->isNotEmpty()) {
+            return $cart->sum('quantity');
+        }
+
+        return 0;
+    }
+
+    /**
      * Get the total net amount of the products in the cart.
      *
      * @return  float

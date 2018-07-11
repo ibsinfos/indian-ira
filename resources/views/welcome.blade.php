@@ -72,6 +72,8 @@
                 type: 'GET',
                 success: function (res) {
                     displayGrowlNotification(res.status, res.title, res.message, res.delay);
+
+                    $('.cartBadge').html(res.count);
                 },
                 error: function (err) {
                     console.log(err);

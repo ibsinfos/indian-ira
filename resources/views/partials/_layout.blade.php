@@ -38,8 +38,10 @@
                             </li>
 
                             <li class="list-inline-item">
-                                <i class="fas fa-envelope align-middle"></i>
-                                support&#64;example.com
+                                <a href="mailto:support&#64;example.com" class="mainSiteLink">
+                                    <i class="fas fa-envelope align-middle"></i>
+                                    support&#64;example.com
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -47,13 +49,26 @@
                     <div class="col-xl-6 col-lg-6 col-md-4">
                         <ul class="list-inline p-0 my-1 float-md-right">
                             <li class="list-inline-item">
-                                <i class="fas fa-sign-in-alt align-middle"></i>
-                                Login
+                                <a href="{{ route('users.login') }}" class="mainSiteLink">
+                                    <i class="fas fa-sign-in-alt align-middle"></i>
+                                    Login
+                                </a>
                             </li>
 
                             <li class="list-inline-item">
-                                <i class="fas fa-user-plus align-middle"></i>
-                                Register
+                                <a href="{{ route('users.register') }}" class="mainSiteLink">
+                                    <i class="fas fa-user-plus align-middle"></i>
+                                    Register
+                                </a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="{{ route('cart.show') }}" class="mainSiteLink">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Cart <span class="badge badge-success cartBadge">
+                                        {{ \IndianIra\Utilities\Cart::totalProducts() }}
+                                    </span>
+                                </a>
                             </li>
                         </ul>
                     </div>

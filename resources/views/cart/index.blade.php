@@ -62,6 +62,8 @@
                         if (res.status == 'success') {
                             $('.cartTable').html(res.htmlResult);
 
+                            $('.cartBadge').html({{ \IndianIra\Utilities\Cart::totalProducts() }});
+
                             $('#selectLocationModal').modal('hide');
 
                             $('.btnProceedToCheckout').attr('href', "{{ route('checkout') }}")
@@ -100,6 +102,8 @@
                             displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
                             $('.cartTable').html(res.htmlResult);
+
+                            $('.cartBadge').html(res.count);
                         },
                         error: function (err) {
                             $('span#'+code+'.error').html(err.responseText);
@@ -124,6 +128,8 @@
                         displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
                         $('.cartTable').html(res.htmlResult);
+
+                        $('.cartBadge').html({{ \IndianIra\Utilities\Cart::totalProducts() }});
 
                         if (res.location) {
                             setTimeout(function () {
@@ -155,6 +161,8 @@
                         displayGrowlNotification(res.status, res.title, res.message, res.delay);
 
                         $('.cartTable').html(res.htmlResult);
+
+                        $('.cartBadge').html({{ \IndianIra\Utilities\Cart::totalProducts() }});
                     },
                     error: function (err) {
                         displayGrowlNotification(
