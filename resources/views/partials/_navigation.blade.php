@@ -37,21 +37,21 @@
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                              {{ $category->name }}
+                              {{ title_case($category->name) }}
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach ($category->childs as $child)
                                     <a class="dropdown-item" href="javascript:void(0)">
-                                        {{ $child->name }}
+                                        {{ title_case($child->name) }}
                                     </a>
                                 @endforeach
                             </div>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)">
-                                {{ $category->name }}
+                            <a class="nav-link" href="{{ url($category->pageUrl()) }}">
+                                {{ title_case($category->name) }}
                             </a>
                         </li>
                     @endif
