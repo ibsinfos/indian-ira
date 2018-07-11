@@ -30,6 +30,22 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
+
+        @media screen and (max-width: 580px) {
+            .imgLogo {
+                width: 40% !important;
+                display: block;
+                margin: 0 auto !important;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .imgLogo {
+                width: 60% !important;
+                display: block;
+                margin: 0 auto !important;
+            }
+        }
     </style>
 
     @yield('pageStyles')
@@ -41,7 +57,7 @@
         <section class="bg-white">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-8 d-none d-sm-block">
+                    <div class="col-xl-6 col-lg-6 col-md-8 d-none d-md-block">
                         <ul class="list-inline p-0 my-1">
                             <li class="list-inline-item">
                                 <i class="fas fa-phone align-middle"></i>
@@ -66,7 +82,7 @@
                                 </a>
                             </li>
 
-                            <li class="list-inline-item">
+                            <li class="list-inline-item d-none d-sm-inline">
                                 <a href="{{ route('users.register') }}" class="mainSiteLink">
                                     <i class="fas fa-user-plus align-middle"></i>
                                     Register
@@ -90,30 +106,34 @@
         <section class="contactOnTopBar" style="background: #b9a693 !important; ">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="mb-3 mb-md-0">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="mb-3 mb-sm-0">
                             <img
                                 src="{{ url('/images/Indian-Ira-Logo-1.png') }}"
                                 alt="{{ config('app.name') }} - Logo"
-                                class="bg-dark img-fluid"
+                                class="bg-dark img-fluid imgLogo"
                             >
                         </div>
                     </div>
 
-                    <div class="col-md-9">
-                        <form action="#" class="form-inline float-right">
-                            <div class="input-group mb-3 mt-0 mt-md-3">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="float-none float-sm-right mt-0 mt-sm-4 mb-3 mb-sm-0 w-100">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </div>
+
                                 <input
                                     type="text"
                                     class="form-control"
                                     placeholder="Search Products"
                                 >
-
-                                <div class="input-group-append">
-                                    <button class="btn btn-warning" type="button">Submit</button>
-                                </div>
                             </div>
-                        </form>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
