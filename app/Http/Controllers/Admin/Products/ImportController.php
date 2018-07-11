@@ -313,11 +313,17 @@ class ImportController extends Controller
         ];
     }
 
+    /**
+     * Sync the product's tags.
+     *
+     * @param   \Maatwebsite\Excel\Collections\SheetCollection  $sheet
+     * @return  array
+     */
     protected function syncTags($sheet)
     {
         $tagsName = explode('; ', $sheet['tags']);
 
-        $tags = Tag::whereIn('name', $tagsName)->get();
+        $tags = Tag::whereIn('name', array_filter($tagsName))->get();
 
         $tagsList = [];
 
@@ -329,13 +335,21 @@ class ImportController extends Controller
                     $tag = Tag::create($this->insertTag($name));
                 }
 
-                $tagsList[] = $tag->id;
+                if ($tag) {
+                    $tagsList[] = $tag->id;
+                }
             }
         }
 
         return $tagsList;
     }
 
+    /**
+     * Return the data for the given tag name.
+     *
+     * @param   string  $name
+     * @return  array
+     */
     protected function insertTag($name)
     {
         return [
