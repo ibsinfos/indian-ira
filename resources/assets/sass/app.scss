@@ -169,6 +169,17 @@ body {
     }
 }
 
+.mainSiteLink-invert {
+    color: $cta;
+    outline: none;
+    box-shadow: none;
+
+    &:hover {
+        color: $cta-dark;
+        text-decoration: none;
+    }
+}
+
 .bootstrap-maxlength {
     font-size: 11px;
     font-weight: bold;
