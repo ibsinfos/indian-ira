@@ -73,6 +73,26 @@ class Category extends Model
     }
 
     /**
+     * Scope the query to fetch only Enabled Categories.
+     *
+     * @return  \Illuminate\Database\Eloquent\Collection
+     */
+    public function scopeOnlyEnabled($query)
+    {
+        return $query->where('display', 'Enabled');
+    }
+
+    /**
+     * Fetch only the enabled products.
+     *
+     * @return  \Illuminate\Database\Eloquent\Collection
+     */
+    public function onlyEnabledProducts()
+    {
+        return $this->products->where('display', 'Enabled');
+    }
+
+    /**
      * Check whether the category is the super parent category.
      *
      * @return  boolean

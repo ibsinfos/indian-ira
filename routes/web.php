@@ -155,6 +155,10 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
 
     Route::get('/', 'HomeController@index')->name('homePage');
 
+    Route::group(['prefix' => 'categories/{id}'], function () {
+        Route::get('/{slug}', 'CategoriesController@show')->name('categories.show');
+    });
+
     Route::group([
         'prefix' => 'users',
         'namespace' => 'Users'

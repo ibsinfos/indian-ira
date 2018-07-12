@@ -73,6 +73,17 @@ class Product extends Model
     }
 
     /**
+     * Scope the query to fetch only the Enabled Products.
+     *
+     * @param   \Illuminate\Database\Eloquent\Builder  $query
+     * @return  \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnlyEnabled($query)
+    {
+        return $query->whereDisplay('Enabled');
+    }
+
+    /**
      * Get the cart image of the product.
      *
      * @return  string
