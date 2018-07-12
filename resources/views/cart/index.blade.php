@@ -27,19 +27,23 @@
             @include('cart.table')
         </div>
 
-        <div class="float-right mb-5">
-            <a
-                @if (session('shippingRateRecord'))
-                    href="{{ route('checkout') }}"
-                    class="btn btn-success font-weight-bold btnProceedToCheckout"
-                @else
-                    href="javascript:void(0)"
-                    class="btn btn-outline-dark disabled font-weight-bold btnProceedToCheckout"
-                    title="This button will get selected when you add Select the Location for Shipping Calculation."
-                @endif
-            >
-                Proceed To Checkout
-            </a>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-right mb-5">
+                    <a
+                        @if (session('shippingRateRecord'))
+                            href="{{ route('checkout') }}"
+                            class="btn btn-success font-weight-bold btnProceedToCheckout"
+                        @else
+                            href="javascript:void(0)"
+                            class="btn btn-outline-dark disabled font-weight-bold btnProceedToCheckout"
+                            title="This button will get selected when you add Select the Location for Shipping Calculation."
+                        @endif
+                    >
+                        Proceed To Checkout
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
