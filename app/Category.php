@@ -62,6 +62,17 @@ class Category extends Model
     }
 
     /**
+     * Scope the query to fetch only the Super Parent Categories.
+     *
+     * @param   \Illuminate\Database\Eloquent\Builder  $query
+     * @return  \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnlySuperParent($query)
+    {
+        return $query->whereParentId(0);
+    }
+
+    /**
      * Check whether the category is the super parent category.
      *
      * @return  boolean
@@ -130,5 +141,15 @@ class Category extends Model
     {
         return $this->display_in_menu == true &&
                 $this->isSuperParent();
+    }
+
+    /**
+     * Get the page url of the category.
+     *
+     * @return  string
+     */
+    public function pageUrl()
+    {
+        return '/categories/'. $this->id .'/'. $this->slug;
     }
 }

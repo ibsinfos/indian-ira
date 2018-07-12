@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="{{ url('/css/app.css') }}" />
 
     <style>
+        .dropdown-menu .show > .dropdown-toggle::after{
+            transform: rotate(-90deg);
+        }
+
+        .dropdown-menu .nav-link.dropdown-toggle {
+            font-weight: normal !important;
+            padding-left: 25px;
+        }
+
         .topBorder {
             height: 5px;
             background: #cb5e00;
@@ -152,6 +161,28 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
     <script>
+        $( '.dropdown-menu a.dropdown-toggle' ).on( 'click', function ( e ) {
+                var $el = $( this );
+                var $parent = $( this ).offsetParent( ".dropdown-menu" );
+                if ( !$( this ).next().hasClass( 'show' ) ) {
+                    $( this ).parents( '.dropdown-menu' ).first().find( '.show' ).removeClass( "show" );
+                }
+                var $subMenu = $( this ).next( ".dropdown-menu" );
+                $subMenu.toggleClass( 'show' );
+
+                $( this ).parent( "li" ).toggleClass( 'show' );
+
+                $( this ).parents( 'li.nav-item.dropdown.show' ).on( 'hidden.bs.dropdown', function ( e ) {
+                    $( '.dropdown-menu .show' ).removeClass( "show" );
+                } );
+
+                 if ( !$parent.parent().hasClass( 'navbar-nav' ) ) {
+                    $el.next().css( { "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 } );
+                }
+
+                return false;
+            } );
+
         var outerHeight = $(".topBar").outerHeight(true);
         $('.allContents').css({
             'padding-top': outerHeight + 'px'

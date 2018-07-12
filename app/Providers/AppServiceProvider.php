@@ -14,9 +14,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if (app()->environment() != 'testing') {
+            $categories = \IndianIra\Category::onlySuperParent()->whereDisplay('Enabled')->get();
+
             \Illuminate\Support\Facades\View::share(
                 'parentCategoriesInMenu',
-                \IndianIra\Category::whereParentId(0)->where('display_in_menu', 1)->get()
+                $categories->where('display_in_menu', 1)
+            );
+
+            \Illuminate\Support\Facades\View::share(
+                'allCategoriesInMenu',
+                $categories
             );
         }
     }
