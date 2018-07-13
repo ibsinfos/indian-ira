@@ -177,4 +177,34 @@ class Product extends Model
     {
         return ($this->images != null || $this->images != '');
     }
+
+    /**
+     * Get the page url of the given category. If the category is not provided
+     * then go with the Canonical page url.
+     *
+     * @param   \IndianIra\Category  $category
+     * @return  string
+     */
+    public function pageUrl($category = null)
+    {
+        if ($category == null || func_num_args() <= 0) {
+            return $this->canonicalPageUrl();
+        }
+
+        return $category->pageUrl()
+                .'/products/'
+                .$this->code.'/'.str_slug($this->name);
+    }
+
+    /**
+     * Get the canonical page url of the product.
+     *
+     * @return  string
+     */
+    public function canonicalPageUrl()
+    {
+        return $this->categories->first()->pageUrl()
+                .'/products/'
+                .$this->code.'/'.str_slug($this->name);
+    }
 }

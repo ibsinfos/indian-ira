@@ -1149,3 +1149,36 @@ Following files were created / changed:
 
 5. **`tests/Feature/CategoriesPageTest.php`**<br />
     Tests that conform and validates that the categories pages are functioning as per expectations.
+
+----
+
+#### Products Page
+
+Displaying of products on the product page.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/ProductsController.php`**<br />
+    Controller that handles the logic of displaying the products in the given category.
+
+2. **`app/Product.php`**<br />
+    Modified to include the `pageUrl()` and `canonicalPageUrl()` methods.
+
+3. **`app/ProductPriceAndOption.php`**<br />
+    Modified to include the `zoomedImage()` method.
+
+4. **`resources/views/products/_detailed_info.blade.php`**<br />
+    The view file that displays only the `description`, `additional_notes` and `terms` data of the product.
+
+5. **`resources/views/products/_options_setting.blade.php`**<br />
+    The view file that displays the `options` data of the product.
+
+6. **`resources/views/products/show.blade.php`**<br />
+    The view file that displays the `product` the product itself.
+
+7. **`routes/web.php`**<br />
+    The routes that are required to access the product page.
+
+8. **`tests/Feature/CategoriesPageTest.php`**<br />
+    Modified to include the tests for the products page from the category section.<br />
+    The tests that conforms and validates that the `Product` page is working as per expectations.

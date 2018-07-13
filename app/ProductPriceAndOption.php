@@ -55,6 +55,37 @@ class ProductPriceAndOption extends Model
     }
 
     /**
+     * Scope the query to fetch only the Enabled Price and Option.
+     *
+     * @param   \Illuminate\Database\Eloquent\Builder  $query
+     * @return  \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnlyEnabled($query)
+    {
+        return $query->whereDisplay('Enabled');
+    }
+
+    /**
+     * Get the zoomed image of the product.
+     *
+     * @return  string
+     */
+    public function zoomedImage()
+    {
+        $images = explode('; ', $this->image);
+        $images = collect($images)->filter();
+
+        if (
+            $images->isNotEmpty() &&
+            \Illuminate\Support\Facades\File::exists($this->getPublicPath() . $images[2])
+        ) {
+            return $images[2];
+        }
+
+        return 'images/no-image-zoomed.png';
+    }
+
+    /**
      * Check whether product's image exists.
      *
      * @return boolean

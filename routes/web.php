@@ -157,6 +157,7 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
 
     Route::group(['prefix' => 'categories/{id}'], function () {
         Route::get('/{slug}', 'CategoriesController@show')->name('categories.show');
+        Route::get('/{slug}/products/{code}/{name}', 'ProductsController@show')->name('products.show');
     });
 
     Route::group([
