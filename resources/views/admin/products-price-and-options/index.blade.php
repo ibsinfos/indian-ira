@@ -103,6 +103,10 @@
                 modal           = $(this);
 
             modal.find('.modal-title').html('Edit Option: ' + option.option_code);
+            modal.find('.modal-body #option_1_heading').val(option.option_1_heading);
+            modal.find('.modal-body #option_1_value').val(option.option_1_value);
+            modal.find('.modal-body #option_2_heading').val(option.option_2_heading);
+            modal.find('.modal-body #option_2_value').val(option.option_2_value);
             modal.find('.modal-body #option_code').val(option.option_code);
             modal.find('.modal-body #display').val(option.display);
             modal.find('.modal-body #selling_price').val(option.selling_price);
