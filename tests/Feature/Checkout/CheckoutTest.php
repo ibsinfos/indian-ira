@@ -39,6 +39,9 @@ class CheckoutTest extends TestCase
             'selling_price' => 250.00,
             'discount_price' => 0.0
         ]);
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
+        $category->products()->attach([$product->id]);
 
         session(['cart' => collect()->put($product->code, [
             'product' => $product,
@@ -62,6 +65,9 @@ class CheckoutTest extends TestCase
             'selling_price' => 250.00,
             'discount_price' => 0.0
         ]);
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
+        $category->products()->attach([$product->id]);
 
         session(['cart' => collect()->put($product->code, [
             'product'       => $product,
@@ -90,6 +96,9 @@ class CheckoutTest extends TestCase
             'selling_price' => 250.00,
             'discount_price' => 0.0
         ]);
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
+        $category->products()->attach([$product->id]);
 
         session(['cart' => collect()->put($product->code, [
             'product'       => $product,
@@ -126,6 +135,9 @@ class CheckoutTest extends TestCase
             'selling_price' => 250.00,
             'discount_price' => 0.0
         ]);
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
+        $category->products()->attach([$product->id]);
 
         session(['cart' => collect()->put($product->code, [
             'product'       => $product,

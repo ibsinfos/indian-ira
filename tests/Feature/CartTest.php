@@ -281,12 +281,16 @@ class CartTest extends TestCase
     /** @test */
     function user_may_update_the_quantity_of_the_product_in_the_cart()
     {
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
         $product = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
         factory(ProductPriceAndOption::class)->create([
             'product_id'    => $product->id,
             'display'       => 'Enabled',
             'selling_price' => 250.00,
         ]);
+
+        $category->products()->attach([$product->id]);
 
         session(['cart' => collect()->put($product->code, [
             'product' => $product,
@@ -329,6 +333,8 @@ class CartTest extends TestCase
     /** @test */
     function a_product_can_be_removed_from_the_cart()
     {
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
         $product1 = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
         factory(ProductPriceAndOption::class)->create([
             'product_id'    => $product1->id,
@@ -342,6 +348,8 @@ class CartTest extends TestCase
             'display'       => 'Enabled',
             'selling_price' => 250.00,
         ]);
+
+        $category->products()->attach([$product1->id, $product2->id]);
 
         $cart = collect();
 
@@ -381,6 +389,8 @@ class CartTest extends TestCase
     /** @test */
     function a_product_cannot_be_if_it_does_not_exists_in_the_cart()
     {
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
         $product1 = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
         factory(ProductPriceAndOption::class)->create([
             'product_id'    => $product1->id,
@@ -394,6 +404,8 @@ class CartTest extends TestCase
             'display'       => 'Enabled',
             'selling_price' => 250.00,
         ]);
+
+        $category->products()->attach([$product1->id, $product2->id]);
 
         $cart = collect();
 
@@ -433,6 +445,8 @@ class CartTest extends TestCase
     /** @test */
     function user_may_apply_a_coupon_to_avail_discount()
     {
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
         $product1 = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
         factory(ProductPriceAndOption::class)->create([
             'product_id'    => $product1->id,
@@ -446,6 +460,8 @@ class CartTest extends TestCase
             'display'       => 'Enabled',
             'selling_price' => 250.00,
         ]);
+
+        $category->products()->attach([$product1->id, $product2->id]);
 
         $coupon = factory(\IndianIra\Coupon::class)->create([
             'code' => 'JULY12', 'discount_percent' => 12
@@ -487,12 +503,16 @@ class CartTest extends TestCase
     /** @test */
     function user_may_remove_a_coupon_to_if_it_is_already_applied()
     {
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
         $product1 = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
         factory(ProductPriceAndOption::class)->create([
             'product_id'    => $product1->id,
             'display'       => 'Enabled',
             'selling_price' => 250.00,
         ]);
+
+        $category->products()->attach([$product1->id]);
 
         $coupon = factory(\IndianIra\Coupon::class)->create([
             'code' => 'JULY12', 'discount_percent' => 12
@@ -541,6 +561,9 @@ class CartTest extends TestCase
             'product_id' => $product->id,
             'display'    => 'Enabled',
         ]);
+        $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+
+        $category->products()->attach([$product->id]);
 
         session(['cart' => collect()->put($product->code, [
             'product' => $product,
