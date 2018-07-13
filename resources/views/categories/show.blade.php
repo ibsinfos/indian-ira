@@ -107,7 +107,7 @@
 
                                     <div class="p-2">
                                         <div class="productName mb-3">
-                                            <a href="javascript:void(0)" class="mainSiteLink">
+                                            <a href="{{ url($product->pageUrl($category)) }}" class="mainSiteLink">
                                                 @if(strlen($product->name) > 40)
                                                     {{ substr(title_case($product->name), 0, 40) . '...' }}
                                                 @else

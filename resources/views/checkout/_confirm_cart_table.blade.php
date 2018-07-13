@@ -39,7 +39,7 @@
 
                     <div class="mb-2">
                         <a
-                            href="javascript:void(0)"
+                            href="{{ $row['product']->pageUrl() }}"
                             class="mainSiteLink font-weight-bold"
                             style="font-size: 15px;"
                         >
