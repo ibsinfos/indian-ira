@@ -1089,3 +1089,63 @@ Following files were created / changed:
 
 6. **`routes/web.php`**<br />
     Modified to access the route for calculation of shipping amount.
+
+----
+
+#### Footer
+
+The footer that will be used by the application
+
+Following files were created / changed:
+
+1. **`resources/views/partials/footer.blade.php`**<br />
+    The footer view of the application.
+
+2. **`resources/views/partials/_layout.blade.php`**<br />
+    The master layout file wherein the footer file is integrated.
+
+----
+
+#### Categories in Menu
+
+The super parent categories that will be seen in the navigation menu.
+
+Following files were created / changed:
+
+1. **`app/Category.php`**<br />
+    Modified to include the `pageUrl()` method.
+
+2. **`app/Providers/AppServiceProvider.php`**<br />
+    Modified to include the categories result at every request.
+
+3. **`app/Utilities/PaginateCollection.php`**<br />
+    Added the trait to paginate the collection results.
+
+4. **`resources/views/partials/_layout.blade.php`**<br />
+    Modified to make the categories link dropdown - the javascript behaviour.
+
+5. **`resources/views/partials/_navigation.blade.php`**<br />
+    Modified to make the categories link dropdown.
+
+----
+
+#### Categories Page
+
+Displaying of all the products that are available in the category.
+
+Following files were created / changed:
+
+1. **`app/Category.php`**<br />
+    Modified to include only the `Enabled` products.
+
+2. **`app/Http/Controllers/CategoriesController.php`**<br />
+    Controller that handles the logic of displaying the products in the given category.
+
+3. **`app/Product.php`**<br />
+    Modified to include only the `Enabled` products.
+
+4. **`routes/web.php`**<br />
+    The routes that access the categories page.
+
+5. **`tests/Feature/CategoriesPageTest.php`**<br />
+    Tests that conform and validates that the categories pages are functioning as per expectations.
