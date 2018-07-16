@@ -148,6 +148,30 @@ class PlaceCodOrdersTest extends TestCase
              ->assertSee('Thank You for placing order with us.');
     }
 
+    /** @test */
+    function cart_should_get_emptied_on_successfully_completing_checkout_process()
+    {
+        $user = auth()->user();
+
+        $sessionCart = $this->addProductsInSessionCart();
+
+        $formValues = $this->getCodOrderProductsFormData(['payment_method' => 'cod']);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('checkout.proceedCod'), $formValues);
+
+        $this->withoutExceptionHandling()
+             ->get(route('orderPlacedCodSuccess'));
+
+        $this->assertNull(session('cart'));
+        $this->assertNull(session('cartTotalAmounts'));
+        $this->assertNull(session('appliedDiscount'));
+        $this->assertNull(session('shippingRateRecord'));
+        $this->assertNull(session('codCharges'));
+
+        $this->assertNotNull(session('codOrders'));
+    }
+
     /**
      * Get the default address details for the user.
      *

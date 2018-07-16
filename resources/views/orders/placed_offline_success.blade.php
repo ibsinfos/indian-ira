@@ -68,4 +68,8 @@
 
         <div class="mb-5"></div>
     </div>
+
+    @php
+    \IndianIra\Utilities\Cart::empty();
+    @endphp
 @endsection

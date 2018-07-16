@@ -140,6 +140,30 @@ class PlaceOfflineOrdersTest extends TestCase
              ->assertSee('Thank You for placing order with us.');
     }
 
+    /** @test */
+    function cart_should_get_emptied_on_successfully_completing_checkout_process()
+    {
+        $user = auth()->user();
+
+        $sessionCart = $this->addProductsInSessionCart();
+
+        $formValues = $this->getOfflineOrderProductsFormData(['payment_method' => 'offline']);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('checkout.proceedOffline'), $formValues);
+
+        $this->withoutExceptionHandling()
+             ->get(route('orderPlacedOfflineSuccess'));
+
+        $this->assertNull(session('cart'));
+        $this->assertNull(session('cartTotalAmounts'));
+        $this->assertNull(session('appliedDiscount'));
+        $this->assertNull(session('shippingRateRecord'));
+        $this->assertNull(session('codCharges'));
+
+        $this->assertNotNull(session('offlineOrders'));
+    }
+
     /**
      * Get the default address details for the user.
      *
