@@ -52,30 +52,7 @@ class PlaceOfflineOrdersTest extends TestCase
 
         $sessionCart = $this->addProductsInSessionCart();
 
-        $formValues = [
-            'full_name'               => $user->getFullName(),
-            'address_line_1'          => 'A 705, Golden Nest Building',
-            'address_line_2'          => 'Sector 9 Charkop',
-            'area'                    => 'Kandivali West',
-            'landmark'                => 'Swami Samarth Temple',
-            'city'                    => 'Mumbai',
-            'pin_code'                => '400067',
-            'state'                   => 'Maharashtra',
-            'country'                 => 'India',
-
-            'sameAsBillingAddress'    => 'yes',
-            'payment_method'          => 'offline',
-
-            'shipping_full_name'      => $user->getFullName(),
-            'shipping_address_line_1' => 'A 705, Golden Nest Building',
-            'shipping_address_line_2' => 'Sector 9 Charkop',
-            'shipping_area'           => 'Kandivali West',
-            'shipping_landmark'       => 'Swami Samarth Temple',
-            'shipping_city'           => 'Mumbai',
-            'shipping_pin_code'       => '400067',
-            'shipping_state'          => 'Maharashtra',
-            'shipping_country'        => 'India',
-        ];
+        $formValues = $this->getOfflineOrderProductsFormData(['payment_method' => 'offline']);
 
         $response = $this->withoutExceptionHandling()
                          ->post(route('checkout.proceedOffline'), $formValues);
@@ -85,8 +62,8 @@ class PlaceOfflineOrdersTest extends TestCase
         $this->assertCount(1, Order::all());
         $this->assertCount(1, OrderAddress::all());
         $this->assertNotNull(session('offlineOrders'));
-        // $this->assertEquals(9, $sessionCart['option']->stock);
-        //
+        $this->assertEquals(9, $sessionCart['option']->stock);
+
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->location, route('orderPlacedOfflineSuccess'));
     }
@@ -100,30 +77,7 @@ class PlaceOfflineOrdersTest extends TestCase
 
         $sessionCart = $this->addProductsInSessionCart();
 
-        $formValues = [
-            'full_name'               => $user->getFullName(),
-            'address_line_1'          => 'A 705, Golden Nest Building',
-            'address_line_2'          => 'Sector 9 Charkop',
-            'area'                    => 'Kandivali West',
-            'landmark'                => 'Swami Samarth Temple',
-            'city'                    => 'Mumbai',
-            'pin_code'                => '400067',
-            'state'                   => 'Maharashtra',
-            'country'                 => 'India',
-
-            'sameAsBillingAddress'    => 'yes',
-            'payment_method'          => 'offline',
-
-            'shipping_full_name'      => $user->getFullName(),
-            'shipping_address_line_1' => 'A 705, Golden Nest Building',
-            'shipping_address_line_2' => 'Sector 9 Charkop',
-            'shipping_area'           => 'Kandivali West',
-            'shipping_landmark'       => 'Swami Samarth Temple',
-            'shipping_city'           => 'Mumbai',
-            'shipping_pin_code'       => '400067',
-            'shipping_state'          => 'Maharashtra',
-            'shipping_country'        => 'India',
-        ];
+        $formValues = $this->getOfflineOrderProductsFormData(['payment_method' => 'offline']);
 
         $response = $this->withoutExceptionHandling()
                          ->post(route('checkout.proceedOffline'), $formValues);
@@ -149,30 +103,7 @@ class PlaceOfflineOrdersTest extends TestCase
 
         $sessionCart = $this->addProductsInSessionCart();
 
-        $formValues = [
-            'full_name'               => $user->getFullName(),
-            'address_line_1'          => 'A 705, Golden Nest Building',
-            'address_line_2'          => 'Sector 9 Charkop',
-            'area'                    => 'Kandivali West',
-            'landmark'                => 'Swami Samarth Temple',
-            'city'                    => 'Mumbai',
-            'pin_code'                => '400067',
-            'state'                   => 'Maharashtra',
-            'country'                 => 'India',
-
-            'sameAsBillingAddress'    => 'yes',
-            'payment_method'          => 'offline',
-
-            'shipping_full_name'      => $user->getFullName(),
-            'shipping_address_line_1' => 'A 705, Golden Nest Building',
-            'shipping_address_line_2' => 'Sector 9 Charkop',
-            'shipping_area'           => 'Kandivali West',
-            'shipping_landmark'       => 'Swami Samarth Temple',
-            'shipping_city'           => 'Mumbai',
-            'shipping_pin_code'       => '400067',
-            'shipping_state'          => 'Maharashtra',
-            'shipping_country'        => 'India',
-        ];
+        $formValues = $this->getOfflineOrderProductsFormData(['payment_method' => 'offline']);
 
         $response = $this->withoutExceptionHandling()
                          ->post(route('checkout.proceedOffline'), $formValues);
@@ -196,30 +127,7 @@ class PlaceOfflineOrdersTest extends TestCase
 
         $sessionCart = $this->addProductsInSessionCart();
 
-        $formValues = [
-            'full_name'               => $user->getFullName(),
-            'address_line_1'          => 'A 705, Golden Nest Building',
-            'address_line_2'          => 'Sector 9 Charkop',
-            'area'                    => 'Kandivali West',
-            'landmark'                => 'Swami Samarth Temple',
-            'city'                    => 'Mumbai',
-            'pin_code'                => '400067',
-            'state'                   => 'Maharashtra',
-            'country'                 => 'India',
-
-            'sameAsBillingAddress'    => 'yes',
-            'payment_method'          => 'offline',
-
-            'shipping_full_name'      => $user->getFullName(),
-            'shipping_address_line_1' => 'A 705, Golden Nest Building',
-            'shipping_address_line_2' => 'Sector 9 Charkop',
-            'shipping_area'           => 'Kandivali West',
-            'shipping_landmark'       => 'Swami Samarth Temple',
-            'shipping_city'           => 'Mumbai',
-            'shipping_pin_code'       => '400067',
-            'shipping_state'          => 'Maharashtra',
-            'shipping_country'        => 'India',
-        ];
+        $formValues = $this->getOfflineOrderProductsFormData(['payment_method' => 'offline']);
 
         $response = $this->withoutExceptionHandling()
                          ->post(route('checkout.proceedOffline'), $formValues);
@@ -230,6 +138,42 @@ class PlaceOfflineOrdersTest extends TestCase
              ->get(route('orderPlacedOfflineSuccess'))
              ->assertViewIs('orders.placed_offline_success')
              ->assertSee('Thank You for placing order with us.');
+    }
+
+    /**
+     * Get the default address details for the user.
+     *
+     * @param   array  $attributes
+     * @return  array
+     */
+    protected function getOfflineOrderProductsFormData($attributes = [])
+    {
+        return array_merge([
+            'full_name'               => auth()->user()->getFullName(),
+            'address_line_1'          => 'A 705, Golden Nest Building',
+            'address_line_2'          => 'Sector 9 Charkop',
+            'area'                    => 'Kandivali West',
+            'landmark'                => 'Swami Samarth Temple',
+            'city'                    => 'Mumbai',
+            'pin_code'                => '400067',
+            'state'                   => 'Maharashtra',
+            'country'                 => 'India',
+            'contact_number'          => '9876543210',
+
+            'sameAsBillingAddress'    => 'yes',
+            'payment_method'          => 'offline',
+
+            'shipping_full_name'      => auth()->user()->getFullName(),
+            'shipping_address_line_1' => 'A 705, Golden Nest Building',
+            'shipping_address_line_2' => 'Sector 9 Charkop',
+            'shipping_area'           => 'Kandivali West',
+            'shipping_landmark'       => 'Swami Samarth Temple',
+            'shipping_city'           => 'Mumbai',
+            'shipping_pin_code'       => '400067',
+            'shipping_state'          => 'Maharashtra',
+            'shipping_country'        => 'India',
+            'shipping_contact_number' => '9876543210',
+        ], $attributes);
     }
 
     protected function addProductsInSessionCart()
