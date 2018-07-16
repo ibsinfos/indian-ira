@@ -232,6 +232,9 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
 
             Route::post('/proceed-offline', 'OfflineController@store')->name('checkout.proceedOffline');
             Route::get('/order-placed-offline-success', 'OfflineController@show')->name('orderPlacedOfflineSuccess');
+
+            Route::post('/proceed-cod', 'CodController@store')->name('checkout.proceedCod');
+            Route::get('/order-placed-cod-success', 'CodController@show')->name('orderPlacedCodSuccess');
         });
     });
 });

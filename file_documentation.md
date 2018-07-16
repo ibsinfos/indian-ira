@@ -1236,3 +1236,23 @@ Following files were created / changed:
 15. **`tests/Feature/PlaceOfflineOrdersTest.php`**<br />
     Modified to include the tests for making an offline order.<br />
     The tests that conforms and validates that the `Placement of Offline Order` is working as per expectations.
+
+----
+
+#### COD Order Placing
+
+The entire process of placing an offline order.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Checkout/CodController.php`**<br />
+    The controller that handles the logic of placing an COD Order.
+
+2. **`resources/views/orders/placed_cod_success.blade.php`**<br />
+    The thank you page displayed after making an cod order.
+
+3. **`routes/web.php`**<br />
+    The routes that are required to access the placing of cod order.
+
+4. **`tests/Feature/PlaceCodOrdersTest.php`**<br />
+    The tests that conforms and validates that the `Placement of COD Order` is working as per expectations.
