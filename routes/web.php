@@ -229,6 +229,9 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         Route::group(['middleware' => 'user_logged_in'], function () {
             Route::get('/address', 'CheckoutController@singlePage')->name('checkout.address');
             Route::get('/add-cod-charges', 'CheckoutController@addCodCharges')->name('checkout.addCodCharges');
+
+            Route::post('/proceed-offline', 'OfflineController@store')->name('checkout.proceedOffline');
+            Route::get('/order-placed-offline-success', 'OfflineController@show')->name('orderPlacedOfflineSuccess');
         });
     });
 });

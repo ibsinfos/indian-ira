@@ -179,7 +179,7 @@
                     placeholder="Eg. India"
                     required="required"
                     autocomplete="nope"
-                    maxlength="100"
+                    maxlength="50"
                 />
             </div>
         </div>

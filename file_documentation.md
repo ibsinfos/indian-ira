@@ -1182,3 +1182,57 @@ Following files were created / changed:
 8. **`tests/Feature/CategoriesPageTest.php`**<br />
     Modified to include the tests for the products page from the category section.<br />
     The tests that conforms and validates that the `Product` page is working as per expectations.
+
+----
+
+#### Offline Order Placing
+
+The entire process of placing an offline order.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Checkout/OfflineController.php`**<br />
+    The controller that handles the logic of placing an Offline Order.
+
+2. **`app/Mail/OrderPlaced.php`**<br />
+    The mail that will be sent to buyer.
+
+3. **`app/Mail/OrderReceived.php`**<br />
+    The mail that will be sent to the super administrator.
+
+4. **`app/Order.php`**<br />
+    The model for accessing the Orders data.
+
+5. **`app/OrderAddress.php`**<br />
+    The model for accessing the Order Address data.
+
+6. **`app/Utilities/Cart.php`**<br />
+    Modified to include the methods `gstAmount()` and `netAmount()`.
+
+7. **`database/migrations/2018_07_14_061048_create_orders_table.php`**<br />
+    The table structure for orders.
+
+8. **`database/migrations/2018_07_14_071053_create_order_addresses_table.php`**<br />
+    The table structure for orders address.
+
+9. **`resources/views/checkout/_shipping.blade.php`**<br />
+    Modified to change the maxlength from 100 to 50
+
+10. **`resources/views/checkout/single_page.blade.php`**<br />
+    Modified to include the link for placing of offline order.
+
+11. **`resources/views/emails/orders_placed.blade.php`**<br />
+    The view file that will be used for rendering the email sent to the buyer.
+
+12. **`resources/views/emails/orders_received.blade.php`**<br />
+    The view file that will be used for rendering the email sent to the super administrator.
+
+13. **`resources/views/orders/placed_offline_success.blade.php`**<br />
+    The thank you page displayed after making an offline order.
+
+14. **`routes/web.php`**<br />
+    The routes that are required to access the placing of offline order.
+
+15. **`tests/Feature/PlaceOfflineOrdersTest.php`**<br />
+    Modified to include the tests for making an offline order.<br />
+    The tests that conforms and validates that the `Placement of Offline Order` is working as per expectations.

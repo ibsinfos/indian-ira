@@ -152,6 +152,32 @@ class Cart
     }
 
     /**
+     * Get the net amount of the product for the given index.
+     *
+     * @param   string  $code
+     * @return  float
+     */
+    public static function netAmount($code)
+    {
+        $cart = session('cart', collect());
+        $totalNet = 0.0;
+
+        foreach ($cart as $key => $row) {
+            if ($key == $code) {
+                $sellingPrice = $row['options']->selling_price;
+
+                if ($row['options']->discount_price > 0.0) {
+                    $sellingPrice = $row['options']->discount_price;
+                }
+
+                $totalNet += ($sellingPrice / (1 + ($row['product']->gst_percent / 100)));
+            }
+        }
+
+        return (float) round($totalNet, 2);
+    }
+
+    /**
      * Get the total net amount of the products in the cart.
      *
      * @return  float
@@ -174,6 +200,32 @@ class Cart
         }
 
         return $totalNet;
+    }
+
+    /**
+     * Get the gst amount of the product for the given index.
+     *
+     * @param   string  $code
+     * @return  float
+     */
+    public static function gstAmount($code)
+    {
+        $cart = session('cart', collect());
+        $totalGst = 0.0;
+
+        foreach ($cart as $key => $row) {
+            if ($key == $code) {
+                $sellingPrice = $row['options']->selling_price;
+
+                if ($row['options']->discount_price > 0.0) {
+                    $sellingPrice = $row['options']->discount_price;
+                }
+
+                $totalGst += ($sellingPrice - self::netAmount($code));
+            }
+        }
+
+        return (float) round($totalGst, 2);
     }
 
     /**

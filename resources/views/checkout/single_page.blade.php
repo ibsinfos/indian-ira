@@ -40,36 +40,48 @@
             </div>
         </h1>
 
-        <div class="row">
-            <div class="col-md-6">
-                @include('checkout._billing')
+        <form action="#" method="POST" id="formCheckout">
+            @csrf
+
+            <div class="row">
+                <div class="col-md-6">
+                    @include('checkout._billing')
+                </div>
+
+                <div class="col-md-6">
+                    @include('checkout._shipping')
+                </div>
             </div>
 
-            <div class="col-md-6">
-                @include('checkout._shipping')
+            <div class="mb-5"></div>
+
+            @include('checkout._choose_payment_method')
+
+            <div class="mb-5"></div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="header p-0 m-0" style="font-size: 22px;">
+                        Confirm Your Cart
+                    </h2>
+                </div>
+
+                <div class="card-body px-0">
+                    <div class="table-responsive">
+                        @include('checkout._confirm_cart_table')
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="mb-5"></div>
+            <div class="error"></div>
 
-        @include('checkout._choose_payment_method')
-
-        <div class="mb-5"></div>
-
-        <div class="card">
-            <div class="card-header">
-                <h2 class="header p-0 m-0" style="font-size: 22px;">
-                    Confirm Your Cart
-                </h2>
+            <div class="text-right mb-5">
+                <button type="submit" class="btn btn-success font-weight-bold submitButton">
+                    Proceed To Make Payment
+                </button>
             </div>
-
-            <div class="card-body px-0">
-                @include('checkout._confirm_cart_table')
-            </div>
-        </div>
+        </form>
     </div>
-
-    <div class="mb-5"></div>
 @endsection
 
 @section('pageScripts')
@@ -173,6 +185,8 @@
         @endif
     });
 
+    var linkRoute = '';
+
     $('input[type="radio"]').on('change', function () {
         var self = $(this);
 
@@ -182,8 +196,36 @@
             data: "_token={{ csrf_token() }}&payment_method=" + self.val(),
             success: function (res) {
                 $('.cartTable').html(res.htmlResult);
+
+                if (self.val() == 'offline') {
+                    linkRoute = "{{ route('checkout.proceedOffline') }}";
+                }
             }
         });
+    });
+
+    $('.submitButton').click(function (e) {
+        e.preventDefault();
+
+        var self = $(this);
+
+        self.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Submitting...');
+
+        $.ajax({
+            url: "{{ route('checkout.proceedOffline') }}",
+            type: 'POST',
+            data: $('#formCheckout').serialize(),
+            success: function (res) {
+                self.prop('disabled', false).html('Proceed To Make Payment');
+
+                window.location = res.location;
+            },
+            error: function (err) {
+                displayAlertNotification(err, 'error');
+            }
+        });
+
+        return false;
     });
 </script>
 @endsection
