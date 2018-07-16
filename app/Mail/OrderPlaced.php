@@ -46,7 +46,7 @@ class OrderPlaced extends Mailable
     {
         return $this->from('no-reply@indianira.com', config('app.name'))
                     ->view('emails.orders_placed')
-                    ->subject('Order Placed Offline: '. $this->orders->first()->order_code)
+                    ->subject('Order Placed: '. $this->orders->first()->order_code)
                     ->with(['user' => $this->user, 'orders' => $this->orders]);
     }
 }
