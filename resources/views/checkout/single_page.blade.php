@@ -200,6 +200,12 @@
                 if (self.val() == 'offline') {
                     linkRoute = "{{ route('checkout.proceedOffline') }}";
                 }
+
+                if (self.val() == 'cod') {
+                    $('.submitButton').html('Place COD Order');
+
+                    linkRoute = "{{ route('checkout.proceedCod') }}";
+                }
             }
         });
     });
@@ -212,7 +218,7 @@
         self.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Submitting...');
 
         $.ajax({
-            url: "{{ route('checkout.proceedOffline') }}",
+            url: linkRoute,
             type: 'POST',
             data: $('#formCheckout').serialize(),
             success: function (res) {
