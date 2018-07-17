@@ -15,8 +15,8 @@ use Faker\Generator as Faker;
 
 $factory->define(IndianIra\User::class, function (Faker $faker) {
     return [
-        'first_name'         => $faker->firstName,
-        'last_name'          => $faker->lastName,
+        'first_name'         => str_replace(['.', '\'', '-'], ['_', '_', '_'], $faker->firstName),
+        'last_name'          => str_replace(['.', '\'', '-'], ['_', '_', '_'], $faker->lastName),
         'username'           => substr(str_replace('.', '_', $faker->userName), 0, 50),
         'email'              => $faker->unique()->safeEmail,
         'password'           => bcrypt('Password'),
