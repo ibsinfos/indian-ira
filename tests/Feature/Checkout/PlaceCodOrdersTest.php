@@ -6,6 +6,7 @@ use Tests\TestCase;
 use IndianIra\Order;
 use IndianIra\Product;
 use IndianIra\OrderAddress;
+use IndianIra\OrderHistory;
 use IndianIra\Mail\OrderPlaced;
 use IndianIra\Mail\OrderReceived;
 use Illuminate\Support\Facades\Mail;
@@ -65,8 +66,10 @@ class PlaceCodOrdersTest extends TestCase
 
         $this->assertCount(1, Order::all());
         $this->assertCount(1, OrderAddress::all());
-        $this->assertNotNull(session('codOrders'));
+        $this->assertCount(1, OrderHistory::all());
         $this->assertEquals(9, $sessionCart['option']->stock);
+        $this->assertNotNull(session('codOrders'));
+        $this->assertNotNull(session('shippingCompany'));
 
         $this->assertEquals(60.00, Order::all()->first()->cart_total_cod_amount);
 
@@ -92,8 +95,10 @@ class PlaceCodOrdersTest extends TestCase
 
         $this->assertCount(1, Order::all());
         $this->assertCount(1, OrderAddress::all());
-        $this->assertNotNull(session('codOrders'));
+        $this->assertCount(1, OrderHistory::all());
         $this->assertEquals(9, $sessionCart['option']->stock);
+        $this->assertNotNull(session('codOrders'));
+        $this->assertNotNull(session('shippingCompany'));
 
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->location, route('orderPlacedCodSuccess'));
@@ -119,8 +124,10 @@ class PlaceCodOrdersTest extends TestCase
 
         $this->assertCount(1, Order::all());
         $this->assertCount(1, OrderAddress::all());
-        $this->assertNotNull(session('codOrders'));
+        $this->assertCount(1, OrderHistory::all());
         $this->assertEquals(9, $sessionCart['option']->stock);
+        $this->assertNotNull(session('codOrders'));
+        $this->assertNotNull(session('shippingCompany'));
 
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->location, route('orderPlacedCodSuccess'));
@@ -168,6 +175,7 @@ class PlaceCodOrdersTest extends TestCase
         $this->assertNull(session('appliedDiscount'));
         $this->assertNull(session('shippingRateRecord'));
         $this->assertNull(session('codCharges'));
+        $this->assertNull(session('shippingCompany'));
 
         $this->assertNotNull(session('codOrders'));
     }
@@ -215,6 +223,9 @@ class PlaceCodOrdersTest extends TestCase
      */
     protected function addProductsInSessionCart()
     {
+        $shippingRate = factory(\IndianIra\ShippingRate::class)->create();
+        session(['shippingCompany' => $shippingRate]);
+
         $product = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
         $option = factory(ProductPriceAndOption::class)->create([
             'product_id' => $product->id,

@@ -1306,3 +1306,32 @@ Following files were created / changed:
 
 14. **`tests/Feature/Admin/Orders/OrdersTest.php`**<br />
     Tests that conforms and validates that accessing the `Order` in admin is working as per expectations.
+
+----
+
+#### Order History
+
+The order history that will be updated by the super administrator. Default will be Processing.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Checkout/CodController.php`**<br />
+    Modified to add the `Order History` when the `Order` is made.
+
+2. **`app/Http/Controllers/Checkout/OfflineController.php`**<br />
+    Modified to add the `Order History` when the `Order` is made.
+
+3. **`app/OrderHistory.php`**<br />
+    Model that is required for accessing the `Order History` data.
+
+4. **`app/Utilities/Cart.php`**<br />
+    Modified to add chosen `Shipping Rate` in session.
+
+5. **`database/migrations/2018_07_17_054452_create_order_histories_table.php`**<br />
+    The table structure for storing the order's history.
+
+6. **`tests/Feature/Checkout/PlaceCodOrdersTest.php`**<br />
+    Modified to test that conforms and validates the `Order History` is working as per expectations.
+
+7. **`tests/Feature/Checkout/PlaceOfflineOrdersTest.php`**<br />
+    Modified to test that conforms and validates the `Order History` is working as per expectations.

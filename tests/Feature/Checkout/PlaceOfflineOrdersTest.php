@@ -6,6 +6,7 @@ use Tests\TestCase;
 use IndianIra\Order;
 use IndianIra\Product;
 use IndianIra\OrderAddress;
+use IndianIra\OrderHistory;
 use IndianIra\Mail\OrderPlaced;
 use IndianIra\Mail\OrderReceived;
 use Illuminate\Support\Facades\Mail;
@@ -61,8 +62,12 @@ class PlaceOfflineOrdersTest extends TestCase
 
         $this->assertCount(1, Order::all());
         $this->assertCount(1, OrderAddress::all());
-        $this->assertNotNull(session('offlineOrders'));
+        $this->assertCount(1, OrderHistory::all());
         $this->assertEquals(9, $sessionCart['option']->stock);
+        $this->assertNotNull(session('offlineOrders'));
+        $this->assertNotNull(session('shippingCompany'));
+
+        dd(OrderHistory::first());
 
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->location, route('orderPlacedOfflineSuccess'));
@@ -86,7 +91,10 @@ class PlaceOfflineOrdersTest extends TestCase
 
         $this->assertCount(1, Order::all());
         $this->assertCount(1, OrderAddress::all());
+        $this->assertCount(1, OrderHistory::all());
+        $this->assertEquals(9, $sessionCart['option']->stock);
         $this->assertNotNull(session('offlineOrders'));
+        $this->assertNotNull(session('shippingCompany'));
 
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->location, route('orderPlacedOfflineSuccess'));
@@ -112,7 +120,10 @@ class PlaceOfflineOrdersTest extends TestCase
 
         $this->assertCount(1, Order::all());
         $this->assertCount(1, OrderAddress::all());
+        $this->assertCount(1, OrderHistory::all());
+        $this->assertEquals(9, $sessionCart['option']->stock);
         $this->assertNotNull(session('offlineOrders'));
+        $this->assertNotNull(session('shippingCompany'));
 
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->location, route('orderPlacedOfflineSuccess'));
@@ -159,6 +170,7 @@ class PlaceOfflineOrdersTest extends TestCase
         $this->assertNull(session('cartTotalAmounts'));
         $this->assertNull(session('appliedDiscount'));
         $this->assertNull(session('shippingRateRecord'));
+        $this->assertNull(session('shippingCompany'));
         $this->assertNull(session('codCharges'));
 
         $this->assertNotNull(session('offlineOrders'));
@@ -202,6 +214,9 @@ class PlaceOfflineOrdersTest extends TestCase
 
     protected function addProductsInSessionCart()
     {
+        $shippingRate = factory(\IndianIra\ShippingRate::class)->create();
+        session(['shippingCompany' => $shippingRate]);
+
         $product = factory(Product::class)->create(['number_of_options' => 0, 'display' => 'Enabled']);
         $option = factory(ProductPriceAndOption::class)->create([
             'product_id' => $product->id,

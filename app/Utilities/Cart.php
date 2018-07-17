@@ -131,7 +131,7 @@ class Cart
     {
         session()->forget([
             'cart', 'cartTotalAmounts', 'appliedDiscount',
-            'shippingRateRecord', 'codCharges',
+            'shippingRateRecord', 'shippingCompany', 'codCharges',
         ]);
     }
 
@@ -288,6 +288,8 @@ class Cart
         }
 
         if ($shippingRate) {
+            session(['shippingCompany' => $shippingRate]);
+
             return $shippingRate->amount;
         }
 

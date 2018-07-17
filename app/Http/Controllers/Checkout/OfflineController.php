@@ -4,6 +4,7 @@ namespace IndianIra\Http\Controllers\Checkout;
 
 use IndianIra\Order;
 use IndianIra\OrderAddress;
+use IndianIra\OrderHistory;
 use Illuminate\Http\Request;
 use IndianIra\Utilities\Cart;
 use IndianIra\Mail\OrderPlaced;
@@ -106,6 +107,23 @@ class OfflineController extends Controller
 
             $data['options']->update([
                 'stock' => $data['options']->stock - $data['quantity']
+            ]);
+
+            OrderHistory::create([
+                'order_id'              => $order->id,
+                'order_code'            => $order->order_code,
+                'user_id'               => $order->user_id,
+                'user_full_name'        => $order->user_full_name,
+                'user_email'            => $order->user_email,
+                'product_id'            => $order->product_id,
+                'product_code'          => $order->product_code,
+                'product_name'          => $order->product_name,
+                'product_option_id'     => $order->product_option_id,
+                'product_option_code'   => $order->product_option_code,
+                'shipping_company'      => session('shippingCompany')->shipping_company_name,
+                'shipping_tracking_url' => session('shippingCompany')->shipping_company_tracking_url,
+                'status'                => 'Processing',
+                'notes'                 => 'Order placed successfully...',
             ]);
 
             $orders->push($order);
