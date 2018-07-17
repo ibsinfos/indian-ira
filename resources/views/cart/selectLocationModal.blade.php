@@ -25,6 +25,7 @@
                         <label class="normal" for="location">Select the shipping location:</label>
                         <select name="location" id="location" class="selectLocation">
                             <optgroup label="Indian Cities">
+                                <option value="">Select from below</option>
                                 @foreach ($shippingRatesCity as $shippingRate)
                                     <option value="{{ $shippingRate }}">
                                         {{ $shippingRate }}
