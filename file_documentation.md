@@ -1256,3 +1256,53 @@ Following files were created / changed:
 
 4. **`tests/Feature/PlaceCodOrdersTest.php`**<br />
     The tests that conforms and validates that the `Placement of COD Order` is working as per expectations.
+
+----
+
+#### Admin - Order Viewing
+
+The viewing of order by the super administrator.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/OrdersController.php`**<br />
+    The controller that handles the logic of viewing the order details for the given order code.
+
+2. **`app/Order.php`**<br />
+    Modified to add the relationship with `Order Address` and `User`.
+
+3. **`app/OrderAddress.php`**<br />
+    Modified to add the relationship with `Order`.
+
+4. **`app/User.php`**<br />
+    Modified to add the relationship with `Order`.
+
+5. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the dummy data for the `Order`.
+
+6. **`resources/views/admin/orders/_address_table.blade.php`**<br />
+    The view file that displays the address details of that particular order.
+
+7. **`resources/views/admin/orders/_products_table.blade.php`**<br />
+    The view file that displays the products details of that particular order.
+
+8. **`resources/views/admin/orders/index.blade.php`**<br />
+    The view file that displays all the orders grouped by order code.
+
+9. **`resources/views/admin/orders/_show_address.blade.php`**<br />
+    The view file that displays the address in tabular format.
+
+10. **`resources/views/admin/orders/_show_products.blade.php`**<br />
+    The view file that displays the products in tabular format.
+
+11. **`resources/views/admin/orders/table.blade.php`**<br />
+    The view file that displays the `order` details in tabular format.
+
+12. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for `Order`.
+
+13. **`routes/web.php`**<br />
+    Modified to add the access routes for `Order` section in admin.
+
+14. **`tests/Feature/Admin/Orders/OrdersTest.php`**<br />
+    Tests that conforms and validates that accessing the `Order` in admin is working as per expectations.

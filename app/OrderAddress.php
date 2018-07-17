@@ -23,4 +23,14 @@ class OrderAddress extends Model
         'shipping_address_line_1', 'shipping_address_line_2', 'shipping_area', 'shipping_landmark',
         'shipping_city', 'shipping_pin_code', 'shipping_state', 'shipping_country',
     ];
+
+    /**
+     * The billing and shipping address belongs to a single order.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_code', 'order_code');
+    }
 }

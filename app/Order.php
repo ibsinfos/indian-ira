@@ -51,4 +51,24 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    /**
+     * An order has only 1 billing and shipping address.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function address()
+    {
+        return $this->hasOne(OrderAddress::class, 'order_code', 'order_code');
+    }
+
+    /**
+     * An order belongs to a single User.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -168,3 +168,78 @@ $factory->define(IndianIra\Carousel::class, function (Faker $faker) {
         'short_description' => $faker->sentence,
     ];
 });
+
+$factory->define(IndianIra\Order::class, function (Faker $faker) {
+    $user = factory(\IndianIra\User::class)->create();
+    $product = factory(\IndianIra\Product::class)->create(['display' => 'Enabled']);
+    $option = factory(\IndianIra\ProductPriceAndOption::class)->create(['display' => 'Enabled', 'product_id' => $product->id]);
+    $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+    $category->products()->attach([$product->id]);
+
+    return [
+        'order_code'                 => 'ORD-'.mt_rand(1, 999999),
+        'user_id'                    => $user->id,
+        'user_full_name'             => $user->getFullName(),
+        'user_username'              => $user->username,
+        'user_email'                 => $user->email,
+        'user_contact_number'        => $user->contact_number,
+        'product_id'                 => $product->id,
+        'product_code'               => $product->code,
+        'product_name'               => $product->name,
+        'product_number_of_options'  => $product->number_of_options,
+        'product_option_id'          => $option->id,
+        'product_option_code'        => $option->option_code,
+        'product_option_1_heading'   => $option->option_1_heading,
+        'product_option_1_value'     => $option->option_1_value,
+        'product_option_2_heading'   => $option->option_2_heading,
+        'product_option_2_value'     => $option->option_2_value,
+        'product_stock'              => $option->stock,
+        'product_weight'             => $option->weight,
+        'product_quantity'           => 1,
+        'product_selling_price'      => $option->selling_price,
+        'product_discount_price'     => $option->discount_price,
+        'product_net_amount'         => (float) $faker->randomFloat(2, 1000, 9999),
+        'product_gst_amount'         => (float) $faker->randomFloat(2, 1000, 9999),
+        'product_gst_percent'        => (float) $product->get_percent,
+        'product_total_amount'       => (float) $faker->randomFloat(2, 1000, 9999),
+        'payment_method'             => array_random(['online', 'offline', 'cod']),
+        'coupon_code'                => null,
+        'coupon_discount_percent'    => 0.0,
+        'cart_total_net_amount'      => (float) $faker->randomFloat(2, 1000, 9999),
+        'cart_total_gst_amount'      => (float) $faker->randomFloat(2, 1000, 9999),
+        'cart_total_shipping_amount' => (float) $faker->randomFloat(2, 1000, 9999),
+        'cart_total_cod_amount'      => (float) $faker->randomFloat(2, 1000, 9999),
+        'cart_coupon_amount'         => 0.0,
+        'cart_total_payable_amount'  => (float) $faker->randomFloat(2, 1000, 9999),
+    ];
+});
+
+$factory->define(IndianIra\OrderAddress::class, function (Faker $faker) {
+    $order = factory(\IndianIra\Order::class)->create();
+
+    return [
+        'order_id'                 => $order->id,
+        'order_code'               => $order->order_code,
+        'full_name'                => str_replace(['.', '\'', '-'], ['_', '_', '_'], $faker->name),
+        'address_line_1'           => 'A 705, Golden Nest Building',
+        'address_line_2'           => 'Sector 9 Charkop',
+        'area'                     => 'Kandivali West',
+        'landmark'                 => 'Swami Samarth Temple',
+        'city'                     => 'Mumbai',
+        'pin_code'                 => '400067',
+        'state'                    => 'Maharashtra',
+        'country'                  => 'India',
+
+        'shipping_same_as_billing' => 'yes',
+
+        'shipping_full_name'       => str_replace(['.', '\'', '-'], ['_', '_', '_'], $faker->name),
+        'shipping_address_line_1'  => 'A 705, Golden Nest Building',
+        'shipping_address_line_2'  => 'Sector 9 Charkop',
+        'shipping_area'            => 'Kandivali West',
+        'shipping_landmark'        => 'Swami Samarth Temple',
+        'shipping_city'            => 'Mumbai',
+        'shipping_pin_code'        => '400067',
+        'shipping_state'           => 'Maharashtra',
+        'shipping_country'         => 'India',
+    ];
+});

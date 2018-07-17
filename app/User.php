@@ -54,6 +54,16 @@ class User extends Authenticatable
     }
 
     /**
+     * A User has only many orders.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
      * Check whether the user has billing address.
      *
      * @return  boolean

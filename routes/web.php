@@ -135,6 +135,15 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/destroy', 'CarouselsController@destroy')->name('admin.carousels.destroy');
             });
 
+            Route::group(['prefix' => 'orders'], function () {
+                Route::get('/', 'OrdersController@index')->name('admin.orders');
+                Route::get('/{code}/products', 'OrdersController@showProducts')->name('admin.orders.showProducts');
+                Route::get('/{code}/address', 'OrdersController@showAddress')->name('admin.orders.showAddress');
+                Route::get('/{id}/delete', 'OrdersController@delete')->name('admin.orders.delete');
+                Route::get('/{id}/restore', 'OrdersController@restore')->name('admin.orders.restore');
+                Route::get('/{id}/destroy', 'OrdersController@destroy')->name('admin.orders.destroy');
+            });
+
             Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
                 Route::get('/', 'UsersController@index')->name('admin.users');
 
