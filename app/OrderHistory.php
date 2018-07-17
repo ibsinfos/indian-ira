@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderHistory extends Model
 {
+    use FormatsDateAndTime;
+
     /**
      * The attributes that are mass assignable.
      *
