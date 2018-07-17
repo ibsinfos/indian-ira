@@ -23,6 +23,6 @@ class OrderHistory extends Model
 
         'shipping_company', 'shipping_tracking_url',
 
-        'notes',
+        'status', 'notes',
     ];
 }
