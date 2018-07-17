@@ -3,6 +3,7 @@
 namespace IndianIra;
 
 use Illuminate\Database\Eloquent\Model;
+use IndianIra\Utilities\FormatsDateAndTime;
 
 class OrderHistory extends Model
 {
@@ -25,4 +26,14 @@ class OrderHistory extends Model
 
         'status', 'notes',
     ];
+
+    /**
+     * An order history belongs to a single order.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_code', 'order_code');
+    }
 }

@@ -243,3 +243,25 @@ $factory->define(IndianIra\OrderAddress::class, function (Faker $faker) {
         'shipping_country'         => 'India',
     ];
 });
+
+$factory->define(IndianIra\OrderHistory::class, function (Faker $faker) {
+    $order = factory(\IndianIra\Order::class)->create();
+    $shippingCompany = factory(\IndianIra\ShippingRate::class)->create();
+
+    return [
+        'order_id'              => $order->id,
+        'order_code'            => $order->order_code,
+        'user_id'               => $order->user_id,
+        'user_full_name'        => $order->user_full_name,
+        'user_email'            => $order->user_email,
+        'product_id'            => $order->product_id,
+        'product_code'          => $order->product_code,
+        'product_name'          => $order->product_name,
+        'product_option_id'     => $order->product_option_id,
+        'product_option_code'   => $order->product_option_code,
+        'shipping_company'      => $shippingCompany->shipping_company_name,
+        'shipping_tracking_url' => $shippingCompany->shipping_company_tracking_url,
+        'status'                => 'Processing',
+        'notes'                 => 'Order placed successfully...',
+    ];
+});

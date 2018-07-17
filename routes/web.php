@@ -139,6 +139,8 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/', 'OrdersController@index')->name('admin.orders');
                 Route::get('/{code}/products', 'OrdersController@showProducts')->name('admin.orders.showProducts');
                 Route::get('/{code}/address', 'OrdersController@showAddress')->name('admin.orders.showAddress');
+                Route::get('/{code}/history', 'OrdersController@showHistory')->name('admin.orders.showHistory');
+                Route::post('/{code}/history', 'OrdersController@storeHistory')->name('admin.orders.storeHistory');
                 Route::get('/{id}/delete', 'OrdersController@delete')->name('admin.orders.delete');
                 Route::get('/{id}/restore', 'OrdersController@restore')->name('admin.orders.restore');
                 Route::get('/{id}/destroy', 'OrdersController@destroy')->name('admin.orders.destroy');

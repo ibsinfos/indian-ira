@@ -63,6 +63,16 @@ class Order extends Model
     }
 
     /**
+     * An order has only 1 billing and shipping address.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function history()
+    {
+        return $this->hasMany(OrderHistory::class, 'order_code', 'order_code');
+    }
+
+    /**
      * An order belongs to a single User.
      *
      * @return  \Illuminate\Database\Eloquent\Relations\BelongsTo

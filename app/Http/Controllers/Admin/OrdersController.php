@@ -3,6 +3,7 @@
 namespace IndianIra\Http\Controllers\Admin;
 
 use IndianIra\Order;
+use IndianIra\OrderHistory;
 use Illuminate\Http\Request;
 use IndianIra\Http\Controllers\Controller;
 
@@ -52,6 +53,100 @@ class OrdersController extends Controller
         $address = $orders->first()->address;
 
         return view('admin.orders.show_address', compact('orders', 'address'));
+    }
+
+    /**
+     * Display the address details of the given order code.
+     *
+     * @param   string $orderCode
+     * @return  \Illuminate\View\View
+     */
+    public function showHistory($orderCode)
+    {
+        $orders = $this->getAllOrders()->where('order_code', $orderCode);
+        if ($orders->isEmpty()) {
+            abort(404);
+        }
+
+        $history = $orders->first()->history()->orderBy('id', 'DESC')->get();
+
+        $historyProducts = collect();
+        foreach ($history as $data) {
+            $details = $data->product_code;
+            $details .= ' / '.$data->product_option_code;
+            $details .= ' - '. title_case($data->product_name);
+
+            if (! $historyProducts->contains($details)) {
+                $historyProducts->put($data->id, $details);
+            }
+        }
+
+        return view('admin.orders.show_history', compact(
+            'orders', 'history', 'historyProducts'
+        ));
+    }
+
+    /**
+     * Update the order history.
+     *
+     * @param   string  $orderCode
+     * @param   \Illuminate\Http\Request $request
+     * @return  \Symfony\Component\HttpFoundation\Response
+     */
+    public function storeHistory($orderCode, Request $request)
+    {
+        $orders = $this->getAllOrders()->where('order_code', $orderCode);
+        if ($orders->isEmpty()) {
+            return response([
+                'status'  => 'failed',
+                'title'   => 'Failed !',
+                'delay'   => 3000,
+                'message' => 'Order with that code cannot be found!'
+            ]);
+        }
+
+        $this->validate($request, [
+            'select_products' => 'required',
+            'notes'           => 'nullable|max:250',
+            'status'          => 'required|in:Processing,Shipped,Completed,Cancelled',
+        ]);
+
+        $rowData = $request->select_products;
+
+        if (! is_array($rowData)) {
+            $rowData = [$request->select_products];
+        }
+
+        foreach ($rowData as $historyId) {
+            $history = OrderHistory::find($historyId);
+
+            OrderHistory::create([
+                'order_id'              => $history->order_id,
+                'order_code'            => $history->order_code,
+                'user_id'               => $history->user_id,
+                'user_full_name'        => $history->user_full_name,
+                'user_email'            => $history->user_email,
+                'product_id'            => $history->product_id,
+                'product_code'          => $history->product_code,
+                'product_name'          => $history->product_name,
+                'product_option_id'     => $history->product_option_id,
+                'product_option_code'   => $history->product_option_code,
+                'shipping_company'      => $history->shipping_company_name,
+                'shipping_tracking_url' => $history->shipping_tracking_url,
+                'status'                => $request->status,
+                'notes'                 => $request->notes,
+            ]);
+        }
+
+        $history = $orders->first()->history()->orderBy('id', 'DESC')->get();
+
+        return response([
+            'status'     => 'success',
+            'title'      => 'Success !',
+            'delay'      => 3000,
+            'message'    => 'Order History added successfully...',
+            'htmlResult' => view('admin.orders._history_table', compact('history'))->render()
+        ]);
     }
 
     /**
@@ -143,6 +238,10 @@ class OrdersController extends Controller
                 'message' => 'Order with that code cannot be found!'
             ]);
         }
+
+        $orders->first()->history->each(function ($history) {
+            $history->delete();
+        });
 
         $orders->first()->address()->delete();
 

@@ -1335,3 +1335,44 @@ Following files were created / changed:
 
 7. **`tests/Feature/Checkout/PlaceOfflineOrdersTest.php`**<br />
     Modified to test that conforms and validates the `Order History` is working as per expectations.
+
+----
+
+#### Admin - Order History
+
+The order history that will be updated by the super administrator.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/OrdersController.php`**<br />
+    Modified to add the logic of updating the order history and displaying the same.
+
+2. **`app/Order.php`**<br />
+    Modified to add the relationship with `Order History`.
+
+3. **`app/OrderHistory.php`**<br />
+    Modified to add the relationship with `Order`.
+
+4. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the dummy data for `Order History`.
+
+5. **`resources/views/admin/orders/_history_table.blade.php`**<br />
+    The view file that displays the history in tabular format.
+
+6. **`resources/views/admin/orders/addOrderHistoryModal.blade.php`**<br />
+    The modal window that displays the form to add `Order History`.
+
+7. **`resources/views/admin/orders/show_address.blade.php`**<br />
+    Modified to add the link of `Order History`.
+
+8. **`resources/views/admin/orders/show_history.blade.php`**<br />
+    The view file for displaying the history for the given order.
+
+9. **`resources/views/admin/orders/show_products.blade.php`**<br />
+    Modified to add the link of `Order History`.
+
+10. **`routes/web.php`**<br />
+    Modified to add the link of `Order History`.
+
+11. **`tests/Feature/Admin/Orders/OrdersTest.php`**<br />
+    Modified to tests that conforms and validates the `Order History` in admin section is working as per expectations.

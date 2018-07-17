@@ -46,6 +46,12 @@
                             Products Details
                         </a>
                         <a
+                            href="{{ route('admin.orders.showHistory', $orders->first()->order_code) }}"
+                            class="btn btn-outline-dark btn-sm"
+                        >
+                            History Details
+                        </a>
+                        <a
                             href="{{ route('admin.dashboard') }}"
                             class="btn btn-outline-dark text-black btn-sm shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                         >
