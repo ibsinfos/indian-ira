@@ -127,21 +127,12 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <div class="float-none float-sm-right mt-0 mt-sm-4 mb-3 mb-sm-0 w-100">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <i class="fas fa-search"></i>
-                                    </span>
-                                </div>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Search Products"
-                                >
-                            </div>
-
-
+                            <select name="search" id="search" class="searchProducts"></select>
+                            {{-- <input
+                                type="text"
+                                class="singleSelectize w-50 float-none float-sm-right"
+                                placeholder="Search Products"
+                            > --}}
                         </div>
                     </div>
                 </div>
@@ -203,6 +194,52 @@
             placement: 'bottom',
             message: 'You have used %charsTyped% of %charsTotal% characters.',
             warningClass: "mxlSuccess"
+        });
+
+        $('.searchProducts').selectize({
+            valueField: 'url',
+            labelField: 'name',
+            searchField: ['name'],
+            closeAfterSelect: true,
+            placeholder: 'Search All Products',
+            load: function(query, callback) {
+                if (! query.length || query.length <= 2) {
+                    this.clearCache();
+                    this.clearOptions();
+                    this.close();
+
+                    return callback();
+                } else if (query.length < 2) {
+                    this.clearCache();
+                    this.clearOptions();
+                    this.close();
+
+                    return callback();
+                }
+
+                $.ajax({
+                    url: '{{ route('searchProducts') }}',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        q: query
+                    },
+                    success: function(res) {
+                        if (res.status == 'failed') {
+                            alert('Something went wrong. Please try again later');
+                        }
+
+                        callback(res.data);
+                    },
+                    error: function(err) {
+                        callback();
+                    },
+                });
+            },
+            //sortField: [{field: '$score'}],
+            onChange: function(query) {
+                window.location = this.items[0];
+            }
         });
 
         $('.singleSelectize').selectize({

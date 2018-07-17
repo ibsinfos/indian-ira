@@ -1376,3 +1376,18 @@ Following files were created / changed:
 
 11. **`tests/Feature/Admin/Orders/OrdersTest.php`**<br />
     Modified to tests that conforms and validates the `Order History` in admin section is working as per expectations.
+
+----
+
+#### Search Products.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/SearchProductsController.php`**<br />
+    The controller that handles the logic of searching the products.
+
+2. **`resources/views/partials/_layout.blade.php`**<br />
+    Modified to add the ajax functionality for searching of products.
+
+3. **`routes/web.php`**<br />
+    Modified to add the routes for searching of products.
