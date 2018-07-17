@@ -67,8 +67,6 @@ class PlaceOfflineOrdersTest extends TestCase
         $this->assertNotNull(session('offlineOrders'));
         $this->assertNotNull(session('shippingCompany'));
 
-        dd(OrderHistory::first());
-
         $this->assertEquals($result->status, 'success');
         $this->assertEquals($result->location, route('orderPlacedOfflineSuccess'));
     }
