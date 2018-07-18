@@ -216,6 +216,13 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/', 'BillingAddressController@index')->name('users.billingAddress');
                 Route::post('/', 'BillingAddressController@update')->name('users.billingAddress.update');
             });
+
+            Route::group(['prefix' => 'orders'], function () {
+                Route::get('/', 'OrdersController@index')->name('users.orders');
+                Route::get('/{code}/products', 'OrdersController@showProducts')->name('users.orders.products');
+                Route::get('/{code}/address', 'OrdersController@showAddress')->name('users.orders.address');
+                Route::get('/{code}/history', 'OrdersController@showHistory')->name('users.orders.history');
+            });
         });
     });
 

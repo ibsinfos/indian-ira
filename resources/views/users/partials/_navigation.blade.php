@@ -37,6 +37,11 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.orders') }}">
+                    <i class="fas fa-shopping-cart"></i> Orders
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.logout') }}">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>

@@ -1391,3 +1391,50 @@ Following files were created / changed:
 
 3. **`routes/web.php`**<br />
     Modified to add the routes for searching of products.
+
+----
+
+#### Users - Orders
+
+The orders that will be viewed by the user themselves.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Users/OrdersController.php`**<br />
+    Modified to add the logic of updating the order history and displaying the same.
+
+2. **`resources/views/users/orders/_history_table.blade.php`**<br />
+    The view file that displays the history in tabular format.
+
+3. **`resources/views/users/orders/_address_table.blade.php`**<br />
+    The view that will display the address in tabular format.
+
+4. **`resources/views/users/orders/_history_table.blade.php`**<br />
+    The view that will display the order history in tabular format.
+
+5. **`resources/views/users/orders/_products_table.blade.php`**<br />
+    The view that will display the products details in tabular format.
+
+6. **`resources/views/users/orders/index.blade.php`**<br />
+    The view that will display all orders placed by the user.
+
+7. **`resources/views/users/orders/show_address.blade.php`**<br />
+    The view file that will display the address.
+
+8. **`resources/views/users/orders/show_history.blade.php`**<br />
+    The view file that will display the order history.
+
+9. **`resources/views/users/orders/show_products.blade.php`**<br />
+    The view file that will display the products details.
+
+10. **`resources/views/users/orders/table.blade.php`**<br />
+    The view file that will display all the orders in tabular format.
+
+11. **`resources/views/users/partials/_navigation.blade.php`**<br />
+    Modified to add the link for `Order`.
+
+12. **`routes/web.php`**<br />
+    Modified to add the access routes for `Order` placed by the user.
+
+13. **`tests/Feature/Users/Orders/OrdersTest.php`**<br />
+    Tests that conforms and validates that the `Order` section for the user works as per expectations.
