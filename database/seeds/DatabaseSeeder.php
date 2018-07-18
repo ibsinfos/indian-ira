@@ -6,6 +6,7 @@ use IndianIra\Category;
 use IndianIra\ShippingRate;
 use Illuminate\Database\Seeder;
 use IndianIra\ProductPriceAndOption;
+use IndianIra\GlobalSettingCodCharge;
 
 class DatabaseSeeder extends Seeder
 {
@@ -65,5 +66,7 @@ class DatabaseSeeder extends Seeder
                 'amount' => $row['amount'],
             ]);
         });
+
+        GlobalSettingCodCharge::create(['amount' => 50.00]);
     }
 }
