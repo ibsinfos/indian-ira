@@ -10,6 +10,11 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav flex-column">
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('homePage') }}" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Go to Main Site
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.billingAddress') }}">
                     <i class="fas fa-address-card"></i> Billing Address
                 </a>
