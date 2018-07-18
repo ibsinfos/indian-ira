@@ -21,6 +21,12 @@
             margin-top: 20px;
         }
 
+        @media screen and (max-width: 767px) {
+            body {
+                margin-top: 80px;
+            }
+        }
+
         .navbar .navbar-nav .nav-link {
             padding-left: 0 !important;
             padding-right: 0 !important;
