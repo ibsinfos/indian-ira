@@ -92,6 +92,6 @@ class ProductPriceAndOption extends Model
      */
     public function hasUploadedImageFile()
     {
-        return ($this->images != null || $this->images != '');
+        return ($this->image != null || $this->image != '');
     }
 }
