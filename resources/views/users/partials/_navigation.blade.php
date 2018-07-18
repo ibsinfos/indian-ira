@@ -42,6 +42,14 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a href="{{ route('cart.show') }}" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    Cart <span class="badge badge-success cartBadge float-right">
+                        {{ \IndianIra\Utilities\Cart::totalProducts() }}
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.orders') }}">
                     <i class="fas fa-shopping-cart"></i> Orders
                 </a>
