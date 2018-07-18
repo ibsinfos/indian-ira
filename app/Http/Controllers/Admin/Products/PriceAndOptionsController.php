@@ -41,17 +41,20 @@ class PriceAndOptionsController extends Controller
     {
         $dimensions = 'min_width:500,max_width=1280,min_height:500,max_height=1280';
         $this->validate($request, [
-            'option_code'      => 'required|alpha_dash|max:100|unique:product_price_and_options,option_code',
-            'option_1_heading' => 'nullable|max:100',
-            'option_1_value'   => 'nullable|max:100',
-            'option_2_heading' => 'nullable|max:100',
-            'option_2_value'   => 'nullable|max:100',
-            'selling_price'    => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
-            'discount_price'   => 'regex:/^\d+(\.(\d{0,2}))?$/',
-            'stock'            => 'required|integer|min:0',
-            'weight'           => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
-            'display'          => 'required|in:Enabled,Disabled',
-            'image_file'       => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions
+            'option_code'          => 'required|alpha_dash|max:100|unique:product_price_and_options,option_code',
+            'option_1_heading'     => 'nullable|max:100',
+            'option_1_value'       => 'nullable|max:100',
+            'option_2_heading'     => 'nullable|max:100',
+            'option_2_value'       => 'nullable|max:100',
+            'selling_price'        => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
+            'discount_price'       => 'regex:/^\d+(\.(\d{0,2}))?$/',
+            'stock'                => 'required|integer|min:0',
+            'weight'               => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
+            'display'              => 'required|in:Enabled,Disabled',
+            'image_file'           => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_1' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_2' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_3' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
         ], [
             'selling_price.regex'   => 'The selling price should contain only numbers upto 2 precisions.',
             'discount_price.regex'  => 'The discount price should contain only numbers upto 2 precisions.',
@@ -61,6 +64,18 @@ class PriceAndOptionsController extends Controller
             'image_file.max'        => 'The uploaded image file may not be greater than 600 kilobytes.',
             'image_file.dimensions' => 'The uploaded image file should be between 500px and 1280px in width and height.',
             'image_file.mimes'      => 'The uploaded image file must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
+            'gallery_image_file_1.image'      => 'The uploaded gallery image file 1 should be an image.',
+            'gallery_image_file_1.max'        => 'The uploaded gallery image file 1 may not be greater than 600 kilobytes.',
+            'gallery_image_file_1.dimensions' => 'The uploaded gallery image file 1 should be between 500px and 1280px in width and height.',
+            'gallery_image_file_1.mimes'      => 'The uploaded gallery image file 1 must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
+            'gallery_image_file_2.image'      => 'The uploaded gallery image file 2 should be an image.',
+            'gallery_image_file_2.max'        => 'The uploaded gallery image file 2 may not be greater than 600 kilobytes.',
+            'gallery_image_file_2.dimensions' => 'The uploaded gallery image file 2 should be between 500px and 1280px in width and height.',
+            'gallery_image_file_2.mimes'      => 'The uploaded gallery image file 2 must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
+            'gallery_image_file_3.image'      => 'The uploaded gallery image file 3 should be an image.',
+            'gallery_image_file_3.max'        => 'The uploaded gallery image file 3 may not be greater than 600 kilobytes.',
+            'gallery_image_file_3.dimensions' => 'The uploaded gallery image file 3 should be between 500px and 1280px in width and height.',
+            'gallery_image_file_3.mimes'      => 'The uploaded gallery image file 3 must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
         ]);
 
         $product = $this->getAllProducts()->where('id', $productId)->first();
@@ -80,6 +95,27 @@ class PriceAndOptionsController extends Controller
             $request['image'] = implode('; ', $file);
         } else {
             $request['image'] = $product->images;
+        }
+
+        if ($request->gallery_image_file_1 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_1);
+            $request['gallery_image_1'] = implode('; ', $file);
+        } else {
+            $request['gallery_image_1'] = null;
+        }
+
+        if ($request->gallery_image_file_2 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_2);
+            $request['gallery_image_2'] = implode('; ', $file);
+        } else {
+            $request['gallery_image_2'] = null;
+        }
+
+        if ($request->gallery_image_file_3 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_3);
+            $request['gallery_image_3'] = implode('; ', $file);
+        } else {
+            $request['gallery_image_3'] = null;
         }
 
         ProductPriceAndOption::create($request->all());
@@ -127,17 +163,20 @@ class PriceAndOptionsController extends Controller
 
         $dimensions = 'min_width:500,max_width=1280,min_height:500,max_height=1280';
         $this->validate($request, [
-            'option_code'      => 'required|alpha_dash|max:100|unique:product_price_and_options,option_code,'.$option->id,
-            'option_1_heading' => 'nullable',
-            'option_1_value'   => 'nullable',
-            'option_2_heading' => 'nullable',
-            'option_2_value'   => 'nullable',
-            'selling_price'    => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
-            'discount_price'   => 'regex:/^\d+(\.(\d{0,2}))?$/',
-            'stock'            => 'required|integer|min:0',
-            'weight'           => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
-            'display'          => 'required|in:Enabled,Disabled',
-            'image_file'       => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'option_code'          => 'required|alpha_dash|max:100|unique:product_price_and_options,option_code,'.$option->id,
+            'option_1_heading'     => 'nullable',
+            'option_1_value'       => 'nullable',
+            'option_2_heading'     => 'nullable',
+            'option_2_value'       => 'nullable',
+            'selling_price'        => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
+            'discount_price'       => 'regex:/^\d+(\.(\d{0,2}))?$/',
+            'stock'                => 'required|integer|min:0',
+            'weight'               => 'required|regex:/^\d+(\.(\d{0,2}))?$/',
+            'display'              => 'required|in:Enabled,Disabled',
+            'image_file'           => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_1' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_2' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_3' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
         ], [
             'selling_price.regex'  => 'The selling price should contain only numbers upto 2 precisions.',
             'discount_price.regex'  => 'The discount price should contain only numbers upto 2 precisions.',
@@ -155,6 +194,22 @@ class PriceAndOptionsController extends Controller
             $file = $this->processUploadedFile($request->image_file);
             $request['image'] = implode('; ', $file);
         }
+
+        if ($request->gallery_image_file_1 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_1);
+            $request['gallery_image_1'] = implode('; ', $file);
+        }
+
+        if ($request->gallery_image_file_2 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_2);
+            $request['gallery_image_2'] = implode('; ', $file);
+        }
+
+        if ($request->gallery_image_file_3 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_3);
+            $request['gallery_image_3'] = implode('; ', $file);
+        }
+
         $option->update($request->all());
 
         $pricesAndOptions = $this->getAllPricesAndOptions($productId);
@@ -287,6 +342,70 @@ class PriceAndOptionsController extends Controller
         $uploadedFileNames[] = '/images-products/'.$fileName;
         $image->save($path . $fileName, 100);
         $image->destroy();
+
+        $zoomedImage = Image::make($file);
+        $img = $zoomedImage->resizeCanvas(1280, 1280);
+        $fileName = $this->getFileName($file, 'zoomed');
+        $uploadedFileNames[] = '/images-products/'.$fileName;
+        $zoomedImage->save($path . $fileName, 100);
+        $zoomedImage->destroy();
+
+        return $uploadedFileNames;
+    }
+
+    /**
+     * Store the uploaded file.
+     *
+     * @param   \Illuminate\Http\UploadedFile  $file
+     * @return  array
+     */
+    protected function processUploadedFileForGallery($file)
+    {
+        $imageRelativePath = 'images-products/';
+        $path = $this->createDirectoryIfNotExists($imageRelativePath);
+
+        $uploadedFileNames = [];
+
+        $cart    = $file;
+        $zoomed  = $file;
+
+        $image = Image::make($file);
+        $height = $width = 75;
+        if ($image->height() >= 1281) {
+            $width = null;
+        }
+
+        if ($image->width() >= 1281) {
+            $height = null;
+        }
+
+        $image = $image->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image->resizeCanvas(75, 75);
+        $fileName = $this->getFileName($file, 'cart');
+        $uploadedFileNames[] = '/images-products/'.$fileName;
+        $image->save($path . $fileName, 100);
+        $image->destroy();
+
+        // $image = Image::make($file);
+        // $height = $width = 300;
+        // if ($image->height() >= 1281) {
+        //     $width = null;
+        // }
+
+        // if ($image->width() >= 1281) {
+        //     $height = null;
+        // }
+
+        // $image = $image->resize($width, $height, function ($constraint) {
+        //     $constraint->aspectRatio();
+        // });
+        // $image->resizeCanvas(300, 300);
+        // $fileName = $this->getFileName($file, 'catalog');
+        // $uploadedFileNames[] = '/images-products/'.$fileName;
+        // $image->save($path . $fileName, 100);
+        // $image->destroy();
 
         $zoomedImage = Image::make($file);
         $img = $zoomedImage->resizeCanvas(1280, 1280);

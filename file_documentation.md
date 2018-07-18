@@ -1438,3 +1438,32 @@ Following files were created / changed:
 
 13. **`tests/Feature/Users/Orders/OrdersTest.php`**<br />
     Tests that conforms and validates that the `Order` section for the user works as per expectations.
+
+----
+
+#### Product multiple images - Backend
+
+The products' images that will be shown on the products page only which shall change on changing the options.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/PriceAndOptionsController.php`**<br />
+    Added the validation and logic for adding multiple product images.
+
+2. **`app/ProductPriceAndOption.php`**<br />
+    Modified to add the columns in for multiple product images.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to include the multiple product images default values.
+
+4. **`database/migrations/2018_06_25_065622_create_product_price_and_options_table.php`**<br />
+    Modified to add the columns of multiple product images.
+
+5. **`resources/views/admin/products-price-and-options/addPriceAndOption.blade.php`**<br />
+    Modified to upload the file via form while adding new price and option.
+
+6. **`resources/views/admin/products-price-and-options/editPriceAndOption.blade.php`**<br />
+    Modified to upload the file via form while editing new price and option.
+
+7. **`tests/Feature/Admin/Products/OptionGalleryImagesTest.php`**<br />
+    Tests that conforms and validates that the `Product multiple images` section works as per expectations.

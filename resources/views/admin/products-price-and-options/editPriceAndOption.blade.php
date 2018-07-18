@@ -16,12 +16,12 @@
             </div>
 
             <div class="modal-body">
-                <div class="help-block text-danger mb-5" style="font-size: 13px;">
+                {{-- <div class="help-block text-danger mb-5" style="font-size: 13px;">
                     The image should be in .jpg or .png file format only.<br />
                     The image should be between 500px to 1280px in width and 500px to 1280px in height.<br />
                     Ideal size: 1280px x 1280px.<br />
                     The image file size should be less than 600kB.<br /><br />
-                </div>
+                </div> --}}
 
                 <form
                     action=""
@@ -192,11 +192,46 @@
                             name="image_file"
                             id="image_file"
                             class="form-control"
-                            title="This image will replace the image that you added while editing the products."
+                            title="This image will replace the image that you added while editing the products.<br /><br />
+                                   It should be in .jpg or .png file format only.<br /><br />
+                                   It should be between 500px to 1280px in width and 500px to 1280px in height.<br /><br />
+                                   Ideal size: 1280px x 1280px.<br /><br />
+                                   It should be less than 600kB.<br />"
                             data-toggle="tooltip"
                             data-placement="right"
+                            data-html="true"
                         />
                         <span class="viewImageFile"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="normal" for="gallery_image_file_1">Gallery Image file 1 (Optional):</label>
+                        <input
+                            type="file"
+                            name="gallery_image_file_1"
+                            id="gallery_image_file_1"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="normal" for="gallery_image_file_2">Gallery Image file 2 (Optional):</label>
+                        <input
+                            type="file"
+                            name="gallery_image_file_2"
+                            id="gallery_image_file_2"
+                            class="form-control"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="normal" for="gallery_image_file_3">Gallery Image file 3 (Optional):</label>
+                        <input
+                            type="file"
+                            name="gallery_image_file_3"
+                            id="gallery_image_file_3"
+                            class="form-control"
+                        />
                     </div>
 
                     <div class="errorsInEditingPriceAndOption"></div>

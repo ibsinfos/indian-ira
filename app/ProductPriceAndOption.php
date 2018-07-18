@@ -22,6 +22,7 @@ class ProductPriceAndOption extends Model
         'selling_price', 'discount_price',
         'stock', 'weight', 'display',
         'image',
+        'gallery_image_1', 'gallery_image_2', 'gallery_image_3',
     ];
 
     /**

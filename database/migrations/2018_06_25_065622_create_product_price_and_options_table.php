@@ -27,6 +27,9 @@ class CreateProductPriceAndOptionsTable extends Migration
             $table->float('weight')->default(0.0);
             $table->string('display')->nullable();
             $table->string('image')->nullable();
+            $table->string('gallery_image_1')->nullable();
+            $table->string('gallery_image_2')->nullable();
+            $table->string('gallery_image_3')->nullable();
             $table->timestamps();
         });
     }

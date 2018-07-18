@@ -137,12 +137,15 @@ $factory->define(IndianIra\ProductPriceAndOption::class, function (Faker $faker)
         'option_1_value'   => 'Value 1',
         'option_2_heading' => 'Header 2',
         'option_2_value'   => 'Value 2',
-        'selling_price'    => round($faker->randomFloat(2, 100, 9999), 2),
-        'discount_price'   => round($faker->randomFloat(2, 100, 9999), 2),
+        'selling_price'    => (float) round($faker->randomFloat(2, 100, 9999), 2),
+        'discount_price'   => (float) round($faker->randomFloat(2, 100, 9999), 2),
         'stock'            => $faker->randomNumber(2, true),
-        'weight'           => round($faker->randomFloat(2, 1, 1000), 2),
+        'weight'           => (float) round($faker->randomFloat(2, 1, 1000), 2),
         'display'          => 'Enabled',
         'image'            => '/images-products/image-option-cart.jpg; /images-products/image-option-catalog.jpg; /images-products/image-option-zoomed.jpg',
+        'gallery_image_1' => null,
+        'gallery_image_2' => null,
+        'gallery_image_3' => null,
     ];
 });
 
