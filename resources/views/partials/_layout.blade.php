@@ -84,19 +84,28 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-4">
                         <ul class="list-inline p-0 my-1 float-md-right">
-                            <li class="list-inline-item">
-                                <a href="{{ route('users.login') }}" class="mainSiteLink">
-                                    <i class="fas fa-sign-in-alt align-middle"></i>
-                                    Login
-                                </a>
-                            </li>
+                            @if (auth()->guest())
+                                <li class="list-inline-item">
+                                    <a href="{{ route('users.login') }}" class="mainSiteLink">
+                                        <i class="fas fa-sign-in-alt align-middle"></i>
+                                        Login
+                                    </a>
+                                </li>
 
-                            <li class="list-inline-item d-none d-sm-inline">
-                                <a href="{{ route('users.register') }}" class="mainSiteLink">
-                                    <i class="fas fa-user-plus align-middle"></i>
-                                    Register
-                                </a>
-                            </li>
+                                <li class="list-inline-item d-none d-sm-inline">
+                                    <a href="{{ route('users.register') }}" class="mainSiteLink">
+                                        <i class="fas fa-user-plus align-middle"></i>
+                                        Register
+                                    </a>
+                                </li>
+                            @else
+                                <li class="list-inline-item">
+                                    <a href="{{ route('users.dashboard') }}" class="mainSiteLink">
+                                        <i class="fab fa-dashcube align-middle"></i>
+                                        My Account
+                                    </a>
+                                </li>
+                            @endif
 
                             <li class="list-inline-item">
                                 <a href="{{ route('cart.show') }}" class="mainSiteLink">
