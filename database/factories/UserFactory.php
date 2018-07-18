@@ -186,6 +186,8 @@ $factory->define(IndianIra\Order::class, function (Faker $faker) {
         'product_id'                 => $product->id,
         'product_code'               => $product->code,
         'product_name'               => $product->name,
+        'product_cart_image'         => '/images/default-product-image-cart.jpg',
+        'product_page_url'           => $product->canonicalPageUrl(),
         'product_number_of_options'  => $product->number_of_options,
         'product_option_id'          => $option->id,
         'product_option_code'        => $option->option_code,

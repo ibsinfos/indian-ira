@@ -70,6 +70,8 @@ class PlaceCodOrdersTest extends TestCase
         $this->assertEquals(9, $sessionCart['option']->stock);
         $this->assertNotNull(session('codOrders'));
         $this->assertNotNull(session('shippingCompany'));
+        $this->assertEquals(Order::first()->product_cart_image, '/images/default-product-image-cart.jpg');
+        $this->assertEquals(Order::first()->product_page_url, $sessionCart['product']->canonicalPageUrl());
 
         $this->assertEquals(60.00, Order::all()->first()->cart_total_cod_amount);
 
@@ -232,7 +234,8 @@ class PlaceCodOrdersTest extends TestCase
             'display' => 'Enabled',
             'selling_price' => 250.00,
             'discount_price' => 0.0,
-            'stock' => 10
+            'stock' => 10,
+            'image' => '/images/default-product-image-cart.jpg; /images/default-product-image-catalog.jpg; /images/default-product-image-zoomed.jpg',
         ]);
         $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
 

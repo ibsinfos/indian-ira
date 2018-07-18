@@ -108,14 +108,14 @@
                     <tr>
                         <td style="width: 20%; padding: 5px 5px; font-weight: bold;">
                             <img
-                                src="{{ url('/images/no-image.jpg') }}"
-                                alt="Image Not Found"
+                                src="{{ url($order->product_cart_image) }}"
+                                alt="{{ $order->product_name }}"
                                 class="img-fluid float-left mr-3"
                             />
 
                             <div class="mb-2">
                                 <a
-                                    href="javascript:void(0)"
+                                    href="{{ url($order->product_page_url) }}"
                                     class="mainSiteLink font-weight-bold"
                                     style="font-size: 15px;"
                                 >

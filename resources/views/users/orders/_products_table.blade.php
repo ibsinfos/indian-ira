@@ -13,14 +13,14 @@
             <tr>
                 <td>
                     <img
-                        src="{{ url('/images/no-image.jpg') }}"
+                        src="{{ url($row->product_cart_image) }}"
                         alt="{{ $row->product_name }}"
                         class="img-fluid float-left mr-3"
                     />
 
                     <div class="mb-2">
                         <a
-                            href="{{ $row->product->pageUrl() }}"
+                            href="{{ $row->product_page_url }}"
                             class="mainSiteLink font-weight-bold"
                             style="font-size: 15px;"
                         >

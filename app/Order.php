@@ -29,7 +29,8 @@ class Order extends Model
 
         'user_id', 'user_full_name', 'user_username', 'user_email', 'user_contact_number',
 
-        'product_id', 'product_code', 'product_name', 'product_number_of_options',
+        'product_id', 'product_code', 'product_name', 'product_cart_image', 'product_page_url',
+        'product_number_of_options',
 
         'product_option_id', 'product_option_code',
         'product_option_1_heading', 'product_option_1_value',

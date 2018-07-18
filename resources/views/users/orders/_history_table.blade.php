@@ -14,7 +14,7 @@
                 <td>{{ ++$key }}</td>
                 <td>
                     <img
-                        src="{{ url('/images/no-image.jpg') }}"
+                        src="{{ url($data->order->product_cart_image) }}"
                         alt="{{ $data->order->product_name }}"
                         class="img-fluid float-left mr-3"
                         style="width: 30%"
@@ -22,7 +22,7 @@
 
                     <div class="mb-2">
                         <a
-                            href="{{ $data->order->product->pageUrl() }}"
+                            href="{{ $data->order->product_page_url }}"
                             class="mainSiteLink font-weight-bold"
                             style="font-size: 15px;"
                         >

@@ -26,6 +26,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('product_id')->default(0);
             $table->string('product_code')->nullable();
             $table->string('product_name')->nullable();
+            $table->string('product_cart_image')->nullable();
+            $table->string('product_page_url')->nullable();
             $table->unsignedInteger('product_number_of_options')->default(0);
 
             $table->unsignedInteger('product_option_id')->default(0);

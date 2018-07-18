@@ -55,6 +55,15 @@ class OfflineController extends Controller
 
         $orders = collect();
         foreach ($cart as $productOptionCode => $data) {
+
+            if ($data['options']->hasUploadedImageFile()) {
+                $image = $data['options']->cartImage();
+            } elseif ($data['product']->hasUploadedImageFile()) {
+                $image = $data['product']->cartImage();
+            } else {
+                $image = '/images/no-image.jpg';
+            }
+
             $order = Order::create([
                 'order_code'                 => 'ORD-'. mt_rand(1, 99999999),
 
@@ -67,6 +76,8 @@ class OfflineController extends Controller
                 'product_id'                 => $data['product']->id,
                 'product_code'               => $data['product']->code,
                 'product_name'               => $data['product']->name,
+                'product_cart_image'         => $image,
+                'product_page_url'           => $data['product']->canonicalPageUrl(),
                 'product_number_of_options'  => $data['product']->number_of_options,
 
                 'product_option_id'          => $data['options']->id,
