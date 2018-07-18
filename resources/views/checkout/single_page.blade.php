@@ -198,6 +198,8 @@
                 $('.cartTable').html(res.htmlResult);
 
                 if (self.val() == 'offline') {
+                    $('.submitButton').html('Proceed To Make Payment');
+
                     linkRoute = "{{ route('checkout.proceedOffline') }}";
                 }
 
@@ -222,11 +224,21 @@
             type: 'POST',
             data: $('#formCheckout').serialize(),
             success: function (res) {
-                self.prop('disabled', false).html('Proceed To Make Payment');
+                if (linkRoute == "{{ route('checkout.proceedCod') }}") {
+                    self.prop('disabled', false).html('Place COD Order');
+                } else if (linkRoute == "{{ route('checkout.proceedOffline') }}") {
+                    self.prop('disabled', false).html('Proceed To Make Payment');
+                }
 
                 window.location = res.location;
             },
             error: function (err) {
+                if (linkRoute == "{{ route('checkout.proceedCod') }}") {
+                    self.prop('disabled', false).html('Place COD Order');
+                } else if (linkRoute == "{{ route('checkout.proceedOffline') }}") {
+                    self.prop('disabled', false).html('Proceed To Make Payment');
+                }
+
                 displayAlertNotification(err, 'error');
             }
         });
