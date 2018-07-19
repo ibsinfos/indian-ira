@@ -1501,7 +1501,7 @@ Following files were created / changed:
 
 #### Product Sorting - Price and Options - Backend
 
-The sorting of products based on the number provided.
+The sorting of products' price and options based on the number provided.
 
 Following files were created / changed:
 
