@@ -1467,3 +1467,32 @@ Following files were created / changed:
 
 7. **`tests/Feature/Admin/Products/OptionGalleryImagesTest.php`**<br />
     Tests that conforms and validates that the `Product multiple images` section works as per expectations.
+
+----
+
+#### Product Sorting - General - Backend
+
+The sorting of products based on the number provided.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/ProductsController.php`**<br />
+    Added the validation for `sort_number`.
+
+2. **`app/Product.php`**<br />
+    Modified to add the column `sort_number`.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to include the `sort_number`.
+
+4. **`database/migrations/2018_06_21_101435_create_products_table.php`**<br />
+    Modified to add the column `sort_number`.
+
+5. **`resources/views/admin/products-price-and-options/addPriceAndOption.blade.php`**<br />
+    Modified to upload the file via form while adding new price and option.
+
+6. **`resources/views/admin/products/_general.blade.php`**<br />
+    Modified to include the field `sort_number`.
+
+7. **`tests/Feature/Admin/Products/ProductUpdateGeneralDetailsTest.php`**<br />
+    Tests that conforms and validates that the `Product sort_number` works as per expectations.

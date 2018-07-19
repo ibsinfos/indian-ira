@@ -65,18 +65,30 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label class="normal" for="number_of_options">Number of Options:</label>
+                        <label
+                            class="normal"
+                            for="number_of_options"
+                        >
+                        Number of Options:
+                        <span
+                            data-html="true"
+                            data-toggle="tooltip"
+                            title="Option 0: No Options at all<br />
+                                   Option 1: Example: Food with option of weight<br />
+                                   Option 2: Example: Apparel with option of Color and Size<br />"
+                        ><i class="fas fa-question-circle"></i></span>
+                    </label>
                         <select name="number_of_options" id="number_of_options" class="singleSelectize">
                             <option value="0" @if ($product->number_of_options == 0) selected="selected" @endif>
                                 0 Options
                             </option>
                             <option value="1" @if ($product->number_of_options == 1) selected="selected" @endif>
-                                1 Option - (Eg: Food with option of weight)
+                                1 Option
                             </option>
                             <option value="2" @if ($product->number_of_options == 2) selected="selected" @endif>
-                                2 Options - (Eg: Apparel with option of Color and Size)
+                                2 Options
                             </option>
                         </select>
                     </div>
@@ -93,6 +105,20 @@
                                 Disabled
                             </option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="normal" for="sort_number">Sort Number:</label>
+                        <input
+                            type="text"
+                            name="sort_number"
+                            id="sort_number"
+                            value="{{ $product->sort_number != 0 ? $product->sort_number : 0 }}"
+                            class="form-control"
+                            placeholder="Eg. 10"
+                        />
                     </div>
                 </div>
 

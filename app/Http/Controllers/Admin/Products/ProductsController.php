@@ -94,7 +94,8 @@ class ProductsController extends Controller
             'name'              => 'required|max:100',
             'display'           => 'required|in:Enabled,Disabled',
             'gst_percent'       => 'nullable|regex:/^\d+(\.(\d{0,2}))?$/',
-            'number_of_options' => 'required|integer|between:0,2'
+            'number_of_options' => 'required|integer|between:0,2',
+            'sort_number'       => 'required|integer|min:0',
         ], [
             'code.required' => 'The product code field is required.',
             'code.unique' => 'The product code has already been taken.',

@@ -373,4 +373,64 @@ class ProductUpdateGeneralDetailsTest extends TestCase
             'The product number of options should be between 0 and 2.'
         );
     }
+
+    /** @test */
+    function product_sort_number_field_is_required()
+    {
+        $product = factory(Product::class)->create();
+
+        $formValues = array_merge($product->toArray(), [
+            'sort_number' => '',
+        ]);
+
+        $this->withExceptionHandling()
+             ->post(route('admin.products.updateGeneral', $product->id), $formValues)
+             ->assertSessionHasErrors('sort_number');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('sort_number'),
+            'The sort number field is required.'
+        );
+    }
+
+    /** @test */
+    function product_sort_number_should_be_an_integer_only()
+    {
+        $product = factory(Product::class)->create();
+
+        $formValues = array_merge($product->toArray(), [
+            'sort_number' => 'szdsgefth@#%^',
+        ]);
+
+        $this->withExceptionHandling()
+             ->post(route('admin.products.updateGeneral', $product->id), $formValues)
+             ->assertSessionHasErrors('sort_number');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('sort_number'),
+            'The sort number must be an integer.'
+        );
+    }
+
+    /** @test */
+    function product_sort_number_should_be_greater_than_zero()
+    {
+        $product = factory(Product::class)->create();
+
+        $formValues = array_merge($product->toArray(), [
+            'sort_number' => -5,
+        ]);
+
+        $this->withExceptionHandling()
+             ->post(route('admin.products.updateGeneral', $product->id), $formValues)
+             ->assertSessionHasErrors('sort_number');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('sort_number'),
+            'The sort number must be at least 0.'
+        );
+    }
 }

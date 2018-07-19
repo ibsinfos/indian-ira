@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->unsignedInteger('number_of_options')->default(0);
             $table->float('gst_percent')->default(0.0);
+            $table->unsignedInteger('sort_number')->default(0);
 
             $table->text('description')->nullable();
             $table->text('additional_notes')->nullable();
