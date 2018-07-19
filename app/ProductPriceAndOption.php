@@ -20,7 +20,7 @@ class ProductPriceAndOption extends Model
         'option_code',
         'option_1_heading', 'option_1_value', 'option_2_heading', 'option_2_value',
         'selling_price', 'discount_price',
-        'stock', 'weight', 'display',
+        'stock', 'sort_number', 'weight', 'display',
         'image',
         'gallery_image_1', 'gallery_image_2', 'gallery_image_3',
     ];

@@ -163,6 +163,22 @@
 
                         <div class="col-md-6 col-sm-6">
                             <div class="form-group">
+                                <label class="normal" for="sort_number">Sort Number:</label>
+                                <input
+                                    type="text"
+                                    name="sort_number"
+                                    id="sort_number"
+                                    class="form-control"
+                                    placeholder="10"
+                                    data-toggle="tooltip"
+                                    title="It should contain only numbers."
+                                    data-placement="right"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
                                 <label class="normal" for="weight">Weight (in grams):</label>
                                 <input
                                     type="text"
@@ -176,24 +192,26 @@
                                 />
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="normal" for="image_file">Image file (Optional):</label>
-                        <input
-                            type="file"
-                            name="image_file"
-                            id="image_file"
-                            class="form-control"
-                            title="This image will replace the image that you added while editing the products.<br /><br />
-                                   It should be in .jpg or .png file format only.<br /><br />
-                                   It should be between 500px to 1280px in width and 500px to 1280px in height.<br /><br />
-                                   Ideal size: 1280px x 1280px.<br /><br />
-                                   It should be less than 600kB.<br />"
-                            data-toggle="tooltip"
-                            data-placement="right"
-                            data-html="true"
-                        />
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label class="normal" for="image_file">Image file (Optional):</label>
+                                <input
+                                    type="file"
+                                    name="image_file"
+                                    id="image_file"
+                                    class="form-control"
+                                    title="This image will replace the image that you added while editing the products.<br /><br />
+                                           It should be in .jpg or .png file format only.<br /><br />
+                                           It should be between 500px to 1280px in width and 500px to 1280px in height.<br /><br />
+                                           Ideal size: 1280px x 1280px.<br /><br />
+                                           It should be less than 600kB.<br />"
+                                    data-toggle="tooltip"
+                                    data-placement="right"
+                                    data-html="true"
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">

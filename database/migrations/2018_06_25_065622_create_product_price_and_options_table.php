@@ -24,6 +24,7 @@ class CreateProductPriceAndOptionsTable extends Migration
             $table->float('selling_price')->default(0.0);
             $table->float('discount_price')->default(0.0);
             $table->unsignedInteger('stock')->default(0);
+            $table->unsignedInteger('sort_number')->default(0);
             $table->float('weight')->default(0.0);
             $table->string('display')->nullable();
             $table->string('image')->nullable();

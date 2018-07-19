@@ -112,6 +112,7 @@
             modal.find('.modal-body #selling_price').val(option.selling_price);
             modal.find('.modal-body #discount_price').val(option.discount_price);
             modal.find('.modal-body #stock').val(option.stock);
+            modal.find('.modal-body #sort_number').val(option.sort_number);
             modal.find('.modal-body #weight').val(option.weight);
             modal.find('.modal-body span.viewImageFile').html('<a href="'+cartimg+'" target="_blank" class="mainSiteLink">View Image</a>');
         });

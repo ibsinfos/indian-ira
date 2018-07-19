@@ -1496,3 +1496,35 @@ Following files were created / changed:
 
 7. **`tests/Feature/Admin/Products/ProductUpdateGeneralDetailsTest.php`**<br />
     Tests that conforms and validates that the `Product sort_number` works as per expectations.
+
+----
+
+#### Product Sorting - Price and Options - Backend
+
+The sorting of products based on the number provided.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/ProductPriceAndOptionsTest.php`**<br />
+    Modified to qdd the validation for `sort_number`.
+
+2. **`app/ProductPriceAndOption.php`**<br />
+    Modified to add the column `sort_number`.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to include the `sort_number`.
+
+4. **`database/migrations/2018_06_25_065622_create_product_price_and_options_table.php`**<br />
+    Modified to add the column `sort_number`.
+
+5. **`resources/views/admin/products-price-and-options/addPriceAndOption.blade.php`**<br />
+    Modified to add the form field `sort_number` while adding new price and option.
+
+6. **`resources/views/admin/products-price-and-options/editPriceAndOption.blade.php`**<br />
+    Modified to add the form field `sort_number` while editing existing price and option.
+
+7. **`resources/views/admin/products-price-and-options/index.blade.php`**<br />
+    Modified to include the field `sort_number` in the `editPriceAndOption` modal.
+
+8. **`tests/Feature/Admin/Products/ProductPriceAndOptionsTest.php`**<br />
+    Tests that conforms and validates that the `Product Price and Options sort_number` works as per expectations.

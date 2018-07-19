@@ -71,6 +71,7 @@ class ProductPriceAndOptionsTest extends TestCase
                             'discount_price'   => 0.0,
                             'selling_price'    => 0.0,
                             'stock'            => 0,
+                            'sort_number'      => 0,
                             'weight'           => 0.0,
                             'display'          => 'Enabled',
                             'image'            => null
@@ -448,6 +449,66 @@ class ProductPriceAndOptionsTest extends TestCase
         $this->assertEquals(
             $errors->first('display'),
             'The display should eiter be Enabled or Disabled.'
+        );
+    }
+
+    /** @test */
+    function option_sort_number_field_is_required()
+    {
+        $option = factory(ProductPriceAndOption::class)->make();
+
+        $formValues = array_merge($option->toArray(), [
+            'sort_number' => '',
+        ]);
+
+        $this->withExceptionHandling()
+             ->post(route('admin.products.priceAndOptions.store', [$option->product_id, $option->id]), $formValues)
+             ->assertSessionHasErrors('sort_number');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('sort_number'),
+            'The sort number field is required.'
+        );
+    }
+
+    /** @test */
+    function option_sort_number_should_be_an_integer_only()
+    {
+        $option = factory(ProductPriceAndOption::class)->make();
+
+        $formValues = array_merge($option->toArray(), [
+            'sort_number' => 'szdsgefth@#%^',
+        ]);
+
+        $this->withExceptionHandling()
+             ->post(route('admin.products.priceAndOptions.store', [$option->product_id, $option->id]), $formValues)
+             ->assertSessionHasErrors('sort_number');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('sort_number'),
+            'The sort number must be an integer.'
+        );
+    }
+
+    /** @test */
+    function option_sort_number_should_be_greater_than_zero()
+    {
+        $option = factory(ProductPriceAndOption::class)->make();
+
+        $formValues = array_merge($option->toArray(), [
+            'sort_number' => -5,
+        ]);
+
+        $this->withExceptionHandling()
+             ->post(route('admin.products.priceAndOptions.store', [$option->product_id, $option->id]), $formValues)
+             ->assertSessionHasErrors('sort_number');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('sort_number'),
+            'The sort number must be at least 0.'
         );
     }
 
