@@ -1545,3 +1545,32 @@ Following files were created / changed:
 
 3. **`resources/views/categories/show.blade.php`**<br />
     Modified to display the products and it's options based on the `sort_number` in ascending order.
+
+----
+
+#### Admin - Product price and stock
+
+The updating of product's prices and stock position.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/PriceAndStockController.php`**<br />
+    The controller that handles the logic of displaying and updating the products with price and stock position.
+
+2. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for Product's price and stock position.
+
+3. **`resources/views/admin/products-price-and-stock/editPriceAndStock.blade.php`**<br />
+    The view that displays the form to edit the product's price and stock position.
+
+4. **`resources/views/admin/products-price-and-stock/index.blade.php`**<br />
+    The view that displays all the product's price and stock position.
+
+5. **`resources/views/admin/products-price-and-stock/table.blade.php`**<br />
+    The table that displays all the product's price and stock position in tabular format.
+
+6. **`routes/web.php`**<br />
+    Modified to add the routes that accesses the Product's  price and stock position.
+
+7. **`tests/Feature/Admin/Products/PriceAndStockTest.php`**<br />
+    Tests that conforms and validates that the feature `Product's Price and Stock` works as per expectations.

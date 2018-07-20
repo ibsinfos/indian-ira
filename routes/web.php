@@ -126,6 +126,12 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/{id}/destroy', 'CouponsController@destroy')->name('admin.coupons.destroy');
             });
 
+            Route::group(['prefix' => 'products-price-and-stock', 'namespace' => 'Products'], function () {
+                Route::get('/', 'PriceAndStockController@index')->name('admin.products.priceAndStock');
+                Route::post('/{productCode}/{optionCode}', 'PriceAndStockController@update')
+                    ->name('admin.products.priceAndStock.update');
+            });
+
             Route::group(['prefix' => 'carousels'], function () {
                 Route::get('/', 'CarouselsController@index')->name('admin.carousels');
                 Route::post('/', 'CarouselsController@store')->name('admin.carousels.store');

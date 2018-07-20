@@ -49,10 +49,27 @@
                     <i class="fas fa-arrows-alt"></i> Categories
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.products') }}">
-                    <i class="fas fa-cube"></i> Products
+            <li class="nav-item dropdown">
+                <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                  <i class="fas fa-cube"></i> Products
                 </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('admin.products') }}">
+                        <i class="fas fa-cubes"></i> All Products
+                    </a>
+                    <a class="dropdown-item" href="{{ route('admin.products.priceAndStock') }}">
+                        <i class="fas fa-rupee-sign"></i> Prices And Stock
+                    </a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.carousels') }}">
