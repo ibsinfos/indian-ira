@@ -1528,3 +1528,20 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/Products/ProductPriceAndOptionsTest.php`**<br />
     Tests that conforms and validates that the `Product Price and Options sort_number` works as per expectations.
+
+----
+
+#### Product Sorting - Price and Options - Front End
+
+The sorting of products based on the sort number provided. Sorting is done in Ascending order.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/CategoriesController.php.php`**<br />
+    Modified to add the logic of displaying the products even when parent category is selected.
+
+2. **`resources/views/categories/_sub_categories_link.blade.php`**<br />
+    Added the nesting of sub categories.
+
+3. **`resources/views/categories/show.blade.php`**<br />
+    Modified to display the products and it's options based on the `sort_number` in ascending order.

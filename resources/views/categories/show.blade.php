@@ -29,64 +29,40 @@
                         Home
                     </a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Category: {{ title_case($category->name) }}</li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {!! $category->getBreadCrumb() !!}
+                </li>
             </ol>
         </nav>
 
         <div class="row">
             <div class="col-md-3">
-                <div id="accordion" class="accordion">
-                    {{-- $allCategoriesInMenu coming from \IndianIra\Providers\AppServiceProvider --}}
+                {{-- $allCategoriesInMenu coming from \IndianIra\Providers\AppServiceProvider --}}
+                @foreach ($allCategoriesInMenu as $parentCategory)
+                    <div class="card mb-0">
+                        <div
+                            class="card-header p-2"
+                            @if($parentCategory->id == $category->id || $category->getSuperParent()->id == $parentCategory->id)
+                                style="background: #fff !important; font-weight: bold; border-left: 3px solid #f5403a; border-bottom: 0"
+                            @else
+                                style="background: #f8f9fa !important;"
+                            @endif
+                        >
+                            <a
+                                class="mainSiteLink @if($parentCategory->id == $category->getSuperParent()->id) font-weight-bold @endif"
+                                href="{{ url($parentCategory->pageUrl()) }}"
+                            >
+                                {{ title_case($parentCategory->name) }}
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
 
-                    @foreach ($allCategoriesInMenu as $parentCategory)
-                        @if ($parentCategory->childs->isNotEmpty())
-                            <div class="card mb-0">
-                                <div
-                                    class="card-header collapsed p-2"
-                                    data-toggle="collapse"
-                                    href="#collapse-{{ $parentCategory->id }}"
-                                    style="background: #fff !important;"
-                                >
-                                    <a class="mainSiteLink">
-                                        {{ title_case($parentCategory->name) }}
-                                    </a>
-
-                                    <div class="plus float-right" style="font-size: .8rem;">
-                                        <i class="fas fa-plus"></i>
-                                    </div>
-                                </div>
-
-                                <div
-                                    id="collapse-{{ $parentCategory->id }}"
-                                    class="card-body collapse p-2"
-                                    data-parent="#accordion"
-                                >
-                                    <ul class="list-group-flush p-0 m-0">
-                                        @foreach ($parentCategory->childs as $child)
-                                            <li class="list-group-item p-2">
-                                                <a class="mainSiteLink" href="{{ url($child->pageUrl()) }}">
-                                                    {{ title_case($child->name) }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        @else
-                            <div class="card mb-0">
-                                <div
-                                    class="card-header p-2"
-                                    href="#collapse-{{ $parentCategory->id }}"
-                                    style="background: #fff !important;"
-                                >
-                                    <a class="mainSiteLink" href="{{ url($parentCategory->pageUrl()) }}">
-                                        {{ title_case($parentCategory->name) }}
-                                    </a>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
+                @include('categories._sub_categories_link', [
+                    'parentCategory' => $category->isSuperParent()
+                                            ? $category->childs
+                                            : $superParentCategory->childs
+                ])
             </div>
 
             <div class="col-md-9">
@@ -97,6 +73,15 @@
                 <div class="row">
                     @if ($products->isNotEmpty())
                         @foreach ($products as $product)
+                            @php
+                            $options = collect();
+                            $price = 0.0;
+
+                            if ($product->number_of_options >= 1) {
+                                $options = $product->options()->onlyEnabled()->get()->sortBy('sort_number');
+                            }
+                            @endphp
+
                             <div class="col-md-3">
                                 <div class="card mb-3" style="border: 1px solid #ddd;">
                                     <img
@@ -119,7 +104,7 @@
                                         <div class="productPrice mb-3">
                                             <i class="fas fa-rupee-sign"></i>
                                             @php
-                                            $option = $product->options->last();
+                                            $option = $options->last();
 
                                             if ($option && $option->discount_price > 0.0) {
                                                 $price = $option->discount_price;
@@ -133,8 +118,6 @@
                                         @php
                                         $link = route('cart.add', $product->code);
                                         if ($product->number_of_options >= 1) {
-                                            $options = $product->options->sortBy('selling_price');
-
                                             $link = route('cart.add', [
                                                 $product->code, $options->first()->option_code
                                             ]);
@@ -167,16 +150,6 @@
 
 @section('pageScripts')
     <script>
-        $('.accordion .card-header.collapsed').click(function (e) {
-            e.preventDefault();
-
-            if ($(this).find('.plus').length > 0) {
-                $(this).find('.plus').removeClass('plus').addClass('minus').html('<i class="fas fa-minus"></i>');
-            } else {
-                $(this).find('.minus').removeClass('minus').addClass('plus').html('<i class="fas fa-plus"></i>');
-            }
-        });
-
         $('body').on('click', '.btnAddToCart', function (e) {
             e.preventDefault();
 
