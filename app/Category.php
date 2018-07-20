@@ -172,4 +172,39 @@ class Category extends Model
     {
         return '/categories/'. $this->id .'/'. $this->slug;
     }
+
+    /**
+     * Get the breadcrumb of the category
+     *
+     * @return  string
+     */
+    public function getBreadCrumb()
+    {
+        $displayTextInArray = explode(' > ', $this->display_text);
+
+        if (count($displayTextInArray) == 1) {
+            return title_case($this->name);
+        }
+
+        if (count($displayTextInArray) == 2) {
+            $superParent = $this->getSuperParent();
+            $parent = $this->parent;
+
+            $breadcrumb = '<a class="mainSiteLink" href="'.$superParent->pageUrl().'">'.title_case($superParent->name).'</a> / ';
+            $breadcrumb .= $this->name;
+
+            return $breadcrumb;
+        }
+
+        if (count($displayTextInArray) == 3) {
+            $superParent = $this->getSuperParent();
+            $parent = $this->parent;
+
+            $breadcrumb = '<a class="mainSiteLink" href="'.$superParent->pageUrl().'">'.title_case($superParent->name).'</a> / ';
+            $breadcrumb .= '<a class="mainSiteLink" href="'.$parent->pageUrl().'">'.title_case($parent->name).'</a> / ';
+            $breadcrumb .= title_case($this->name);
+
+            return $breadcrumb;
+        }
+    }
 }
