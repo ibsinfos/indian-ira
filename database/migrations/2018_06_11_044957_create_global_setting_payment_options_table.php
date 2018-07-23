@@ -16,6 +16,7 @@ class CreateGlobalSettingPaymentOptionsTable extends Migration
         Schema::create('global_setting_payment_options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('chosen')->nullable();
+            $table->string('other_payment_options')->nullable();
             $table->timestamps();
         });
     }

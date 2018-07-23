@@ -18,11 +18,11 @@
 
         <p class="test-justify mt-4 mb-5" style="font-size: 15px;">
             Your Order Code:
-            <span class="font-weight-bold">{{ session('offlineOrders')->first()->order_code }}</span><br /><br />
+            {{-- <span class="font-weight-bold">{{ session('offlineOrders')->first()->order_code }}</span><br /><br /> --}}
             Order Payable Amount:
             <span class="font-weight-bold">
                 <i class="fas fa-rupee-sign"></i>
-                {{ number_format(session('offlineOrders')->first()->cart_total_payable_amount, 2) }}
+                {{-- {{ number_format(session('offlineOrders')->first()->cart_total_payable_amount, 2) }} --}}
             </span>
         </p>
 
@@ -68,10 +68,24 @@
         </p>
 
         <p>
-            {{ $companyAddress->getCompleteAddress() }}
+            <span class="font-weight-bold text-uppercase">{{ config('app.name') }}</span>
+            <br />
+            {!! $companyAddress->getCompleteAddress() !!}
         </p>
 
         <div class="mb-5"></div>
+
+        @if ($paymentOptions->other_payment_options != null)
+            <p class="text-danger">
+                We also have other payment options available only for you.
+            </p>
+
+            <p>
+                {{ $paymentOptions->other_payment_options }}
+            </p>
+
+            <div class="mb-5"></div>
+        @endif
 
         <p class="text-justify text-danger">
             Note: Your order won't get processed until you make the payment to the above mentioned bank details or you send your payment to the address given. Once you have made the payment, kindly inform us on
@@ -82,6 +96,6 @@
     </div>
 
     @php
-    \IndianIra\Utilities\Cart::empty();
+    // \IndianIra\Utilities\Cart::empty();
     @endphp
 @endsection

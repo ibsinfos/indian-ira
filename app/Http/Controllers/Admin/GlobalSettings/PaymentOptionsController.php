@@ -34,7 +34,8 @@ class PaymentOptionsController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'chosen' => 'required',
+            'chosen'                => 'required',
+            'other_payment_options' => 'nullable|max:200'
         ]);
 
         if (! is_array($request->chosen)) {

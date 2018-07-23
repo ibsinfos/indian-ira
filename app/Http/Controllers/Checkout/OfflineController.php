@@ -216,6 +216,14 @@ class OfflineController extends Controller
             $companyAddress = factory(\IndianIra\GlobalSettingCompanyAddress::class)->create();
         }
 
-        return view('orders.placed_offline_success', compact('bank', 'companyAddress'));
+        $paymentOptions = \IndianIra\GlobalSettingPaymentOption::first();
+
+        if (! \IndianIra\GlobalSettingPaymentOption::first()) {
+            $paymentOptions = factory(\IndianIra\GlobalSettingPaymentOption::class)->create();
+        }
+
+        return view('orders.placed_offline_success', compact(
+            'bank', 'companyAddress', 'paymentOptions'
+        ));
     }
 }

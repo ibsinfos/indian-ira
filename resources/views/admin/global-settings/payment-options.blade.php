@@ -4,6 +4,14 @@
     <title>Global Settings | Payment Options</title>
 @endsection
 
+@section('pageStyles')
+    <style>
+        textarea {
+            resize: none !important;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <nav class="mb-4" aria-label="breadcrumb">
@@ -107,6 +115,22 @@
                                         </small>
                                     </label>
                                 </div>
+                            </div>
+
+                            <div class="mb-4"></div>
+
+                            <div class="form-group">
+                                <label class="normal" for="other_payment_options">
+                                    Other Payment Options (Optional):
+                                </label>
+                                <textarea
+                                    name="other_payment_options"
+                                    id="other_payment_options"
+                                    class="form-control hasMaxlength"
+                                    maxlength="200"
+                                    rows="5"
+                                    cols="8"
+                                >{{ $paymentOptions != null ? $paymentOptions->other_payment_options : '' }}</textarea>
                             </div>
 
                             <div class="errorsInUpdatingPaymentOptions"></div>

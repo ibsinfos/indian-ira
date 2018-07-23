@@ -12,6 +12,6 @@ class GlobalSettingPaymentOption extends Model
      * @var  array
      */
     protected $fillable = [
-        'chosen',
+        'chosen', 'other_payment_options',
     ];
 }

@@ -99,4 +99,23 @@ class PaymentOptionsTest extends TestCase
             'The chosen field is required.'
         );
     }
+
+    /** @test */
+    function other_payment_options_should_not_be_more_than_200_characters()
+    {
+        $this->signInSuperAdministrator();
+
+        $bankDetails = factory(GlobalSettingPaymentOption::class)->make();
+        $formValues = array_merge($bankDetails->toArray(), ['other_payment_options' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo nulla, atque aliquid! Atque esse possimus, ad praesentium doloribus corporis ipsam laudantium minus adipisci dolorem optio alias vel! Corporis, quo, eaque!']);
+
+        $this->withExceptionHandling()
+             ->post(route('admin.globalSettings.paymentOptions.update'), $formValues)
+             ->assertSessionHasErrors('other_payment_options');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('other_payment_options'),
+            'The other payment options may not be greater than 200 characters.'
+        );
+    }
 }

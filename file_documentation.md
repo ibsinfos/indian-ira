@@ -1606,3 +1606,35 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/GlobalSettings/CompanyAddress.php`**<br />
     Tests that conforms and validates that the `Global Settings > Company Address` feature is working as per expectations.
+
+----
+
+#### Other Payment Options
+
+Displaying the other payment options to the buyer on offline payment successful page.
+
+Following files were created / changed:
+
+1. **`app/GlobalSettingPaymentOption.php`**<br />
+    Modified to add the data `other_payment_options`.
+
+2. **`app/Http/Controllers/Admin/GlobalSettings/PaymentOptionsController.php`**<br />
+    Modified to include the validation of `other_payment_options`.
+
+3. **`app/Http/Controllers/Checkout/OfflineController.php`**<br />
+    Modified to include the `other_payment_options`.
+
+4. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `other_payment_options` fake data.
+
+5. **`database/migrations/2018_06_11_044957_create_global_setting_payment_options_table.php`**<br />
+    Modified to include the `other_payment_options` column.
+
+6. **`resources/views/admin/global-settings/payment-options.blade.php`**<br />
+    Modified to include the payment options form field.
+
+7. **`resources/views/orders/placed_offline_success.blade.php`**<br />
+    Modified to include the `other payment options` on thank you page.
+
+8. **`tests/Feature/Admin/GlobalSettings/PaymentOptionsTest.php`**<br />
+    Tests that conforms and validates that the `other payment options - thank you page` feature is working as per expectations.

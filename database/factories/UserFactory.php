@@ -70,7 +70,8 @@ $factory->define(IndianIra\GlobalSettingCompanyAddress::class, function (Faker $
 
 $factory->define(IndianIra\GlobalSettingPaymentOption::class, function (Faker $faker) {
     return [
-        'chosen' => 'online; offline; cod',
+        'chosen'                => 'online; offline; cod',
+        'other_payment_options' => 'Pay using PayTm: +91 9876543210'
     ];
 });
 
