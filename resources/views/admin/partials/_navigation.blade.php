@@ -23,6 +23,9 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('admin.globalSettings.companyAddress') }}">
+                        <i class="fas fa-map-marker-alt"></i> Company Address
+                    </a>
                     <a class="dropdown-item" href="{{ route('admin.globalSettings.bank') }}">
                         <i class="fas fa-university"></i> Bank Details
                     </a>

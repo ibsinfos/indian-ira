@@ -53,6 +53,21 @@ $factory->define(IndianIra\GlobalSettingBankDetail::class, function (Faker $fake
     ];
 });
 
+$factory->define(IndianIra\GlobalSettingCompanyAddress::class, function (Faker $faker) {
+    $notAllowedCharacters = ['.', '-', '\'', ',', '/'];
+
+    return [
+        'address_line_1' => str_replace($notAllowedCharacters, '_', $faker->buildingNumber . ' ' . $faker->streetName),
+        'address_line_2' => str_replace($notAllowedCharacters, '_', $faker->citySuffix),
+        'area'           => str_replace($notAllowedCharacters, '_', $faker->secondaryAddress),
+        'landmark'       => str_replace($notAllowedCharacters, '_', $faker->streetSuffix),
+        'city'           => str_replace($notAllowedCharacters, '_', $faker->city),
+        'pin_code'       => array_random(range(100000, 999999)),
+        'state'          => str_replace($notAllowedCharacters, '_', $faker->state),
+        'country'        => str_replace($notAllowedCharacters, '_', $faker->country),
+    ];
+});
+
 $factory->define(IndianIra\GlobalSettingPaymentOption::class, function (Faker $faker) {
     return [
         'chosen' => 'online; offline; cod',

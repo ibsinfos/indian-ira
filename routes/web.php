@@ -49,6 +49,11 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::post('/payment-options', 'PaymentOptionsController@update')
                     ->name('admin.globalSettings.paymentOptions.update');
 
+                Route::get('/company-address', 'CompanyAddressController@index')
+                    ->name('admin.globalSettings.companyAddress');
+                Route::post('/company-address', 'CompanyAddressController@update')
+                    ->name('admin.globalSettings.companyAddress.update');
+
                 Route::get('/cod-charges', 'CodChargesController@index')->name('admin.globalSettings.codCharges');
                 Route::post('/cod-charges', 'CodChargesController@update')
                     ->name('admin.globalSettings.codCharges.update');

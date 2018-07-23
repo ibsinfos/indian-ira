@@ -1574,3 +1574,35 @@ Following files were created / changed:
 
 7. **`tests/Feature/Admin/Products/PriceAndStockTest.php`**<br />
     Tests that conforms and validates that the feature `Product's Price and Stock` works as per expectations.
+
+----
+
+#### Global Settings - Company Address
+
+The company address is the location where the buyers should send / deliver the Cheque / Demand Draft (D.D) if they chose 'Offline' Payment Option at the time of check out.
+
+Following files were created / changed:
+
+1. **`app/GlobalSettingCompanyAddress.php`**<br />
+    The model for accessing the company address data.
+
+2. **`app/Http/Controllers/Admin/GlobalSettings/CompanyAddressController.php`**<br />
+    Controller that handles the logic of provisioning the company address and displaying the same, if the Super Administrator wants to update it.
+
+3. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the `GlobalSettingCompanyAddress` fake data.
+
+4. **`database/migrations/2018_07_23_050516_create_global_setting_company_addresses_table.php`**<br />
+    The table structure where the company address data will be stored.
+
+5. **`resources/views/admin/global-settings/payment-options.blade.php`**<br />
+    The view file that displays the company address in the form, if the Super Administrator wants to update.
+
+6. **`resources/views/admin/partials/_navigation.blade.php`**<br />
+    Modified to add the link for the section `Global Settings > Company Address`.
+
+7. **`routes/web.php`**<br />
+    The routes that are defined to to access the `Global Settings > Company Address` section.
+
+8. **`tests/Feature/Admin/GlobalSettings/CompanyAddress.php`**<br />
+    Tests that conforms and validates that the `Global Settings > Company Address` feature is working as per expectations.
