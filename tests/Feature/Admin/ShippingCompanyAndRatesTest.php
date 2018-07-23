@@ -98,6 +98,37 @@ class ShippingCompanyAndRatesTest extends TestCase
     }
 
     /** @test */
+    function upload_file_field_is_required_when_uploading_the_shipping_rates()
+    {
+        $this->withExceptionHandling()
+             ->post(route('admin.shippingRates.upload'), ['excel_file' => ''])
+             ->assertSessionHasErrors('excel_file');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('excel_file'),
+            'The upload excel file field is required.'
+        );
+    }
+
+    /** @test */
+    function uploaded_file_extension_should_either_be_xlsx_or_xls_only()
+    {
+        $this->withExceptionHandling()
+             ->post(route('admin.shippingRates.upload'), [
+                    'excel_file' => \Illuminate\Http\UploadedFile::fake()->create('categories.txt', 1),
+                    'extension' => 'txt'
+                ])
+             ->assertSessionHasErrors('extension');
+
+        $errors = session('errors');
+        $this->assertEquals(
+            $errors->first('extension'),
+            'Invalid file uploaded. Only xlsx and xls file can be uploaded.'
+        );
+    }
+
+    /** @test */
     function super_administrator_cannot_update_a_shipping_rate_that_does_not_exist()
     {
         $shippingRates = factory(ShippingRate::class, 3)->create();

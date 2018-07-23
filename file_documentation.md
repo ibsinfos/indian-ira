@@ -1638,3 +1638,29 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/GlobalSettings/PaymentOptionsTest.php`**<br />
     Tests that conforms and validates that the `other payment options - thank you page` feature is working as per expectations.
+
+----
+
+#### Export Import for Shipping Rates
+
+Export and Import of Shipping Rates
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/ShippingRatesExportController.php`**<br />
+    Controller that handles the logic of exporting / downloading the shipping rates in excel format.
+
+2. **`app/Http/Controllers/Admin/ShippingRatesImportController.php`**<br />
+    Controller that handles the logic of importing / uploading the shipping rates in excel format.
+
+3. **`resources/views/admin/shipping-rates/importShippingRatesModal.blade.php`**<br />
+    Modal view file that displays the upload excel file field.
+
+4. **`resources/views/admin/shipping-rates/index.blade.php`**<br />
+    AJAX implementation of uploading the excel file.
+
+5. **`routes/web.php`**<br />
+    Modified to access the routes for download / exporting and upload / importing.
+
+6. **`tests/Feature/Admin/ShippingCompanyAndRatesTest.php`**<br />
+    Tests that conforms and validates that the `Shipping Rates: Export and Import` feature is working as per expectations.

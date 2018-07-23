@@ -32,6 +32,16 @@
                                 data-target="#addShippingRateModal"
                             >Add Shipping Rate</a>
                             <a
+                                href="#"
+                                class="btn btn-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                                data-toggle="modal"
+                                data-target="#importShippingRatesModal"
+                            >Upload</a>
+                            <a
+                                href="{{ route('admin.shippingRates.download') }}"
+                                class="btn btn-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                            >Download</a>
+                            <a
                                 href="{{ route('admin.dashboard') }}"
                                 class="btn btn-outline-light text-black btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                             >Go to Dashboard</a>
@@ -57,6 +67,7 @@
 
 @include('admin.shipping-rates.addShippingRate')
 @include('admin.shipping-rates.editShippingRate')
+@include('admin.shipping-rates.importShippingRatesModal')
 
 <div class="mb-5"></div>
 @endsection
@@ -166,12 +177,6 @@
                     });
 
                     $('#editShippingRateModal').modal('hide');
-
-                    // if (res.status == 'success' && (res.location != '' || res.location != null)) {
-                    //     setTimeout(function () {
-                    //         window.location = res.location;
-                    //     }, 4000);
-                    // }
                 },
                 error: function (err) {
                     self.prop('disabled', false);
@@ -223,6 +228,47 @@
                     },
                 });
             }
+
+            return false;
+        });
+
+        $("form[id='formImportShippingRates']").submit(function(e) {
+            e.preventDefault();
+
+            var inputData = new FormData($(this)[0]),
+                button    = $('.btnImportShippingRates');
+
+            button.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Submitting...');
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: inputData,
+                async: true,
+                success: function( res ) {
+                    button.prop('disabled', false).html('Submit');
+
+                    displayGrowlNotification(res.status, res.title, res.message, res.delay);
+
+                    $('#importShippingRatesModal').modal('hide');
+
+                    setTimeout(function () {
+                        window.location = res.location;
+                    }, res.delay + 1000);
+                },
+                error: function( data ) {
+                    button.prop('disabled', false).html('Submit');
+
+                    if ( data.status == 422) {
+                        displayAlertNotification(data, 'errorsInImportingShippingRates');
+                    } else {
+                        alert('Something went wrong. Please try again later.');
+                    }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
 
             return false;
         });

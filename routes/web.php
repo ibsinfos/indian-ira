@@ -61,6 +61,9 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
 
             Route::group(['prefix' => 'shipping-rates'], function () {
                 Route::get('/', 'ShippingRatesController@index')->name('admin.shippingRates');
+                Route::get('/download', 'ShippingRatesExportController@export')->name('admin.shippingRates.download');
+                Route::post('/upload', 'ShippingRatesImportController@update')->name('admin.shippingRates.upload');
+                Route::get('/', 'ShippingRatesController@index')->name('admin.shippingRates');
                 Route::post('/', 'ShippingRatesController@store')->name('admin.shippingRates.store');
                 Route::post('/{id}/update', 'ShippingRatesController@update')->name('admin.shippingRates.update');
                 Route::get('/{id}/delete', 'ShippingRatesController@delete')->name('admin.shippingRates.delete');
