@@ -61,8 +61,20 @@
             </div>
         </div>
 
+        <div class="mb-5"></div>
+
+        <p class="text-danger">
+            If you want to send your payment via cheque / Demand Draft (D.D), send it to the below mentioned address details.
+        </p>
+
+        <p>
+            {{ $companyAddress->getCompleteAddress() }}
+        </p>
+
+        <div class="mb-5"></div>
+
         <p class="text-justify text-danger">
-            Note: Your order won't get processed until you make the payment to the above mentioned bank details. Once you have made the payment, kindly inform us on
+            Note: Your order won't get processed until you make the payment to the above mentioned bank details or you send your payment to the address given. Once you have made the payment, kindly inform us on
             <a href="mailto:orders&#64;indianira.com" class="mainSiteLink-invert font-weight-bold">orders&#64;indianira.com</a>
         </p>
 
