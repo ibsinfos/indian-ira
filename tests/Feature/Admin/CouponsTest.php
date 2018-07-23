@@ -70,10 +70,7 @@ class CouponsTest extends TestCase
     function super_administrator_can_update_an_existing_coupon()
     {
         $coupon = factory(Coupon::class)->create();
-        $formValues = array_merge(
-                        $coupon->toArray(),
-                        ['code' => 'CP2018']
-                    );
+        $formValues = $this->mergeCoupons(['code' => 'CPJUl2018']);
 
         $response = $this->withoutExceptionHandling()
                          ->post(route('admin.coupons.update', $coupon->id), $formValues);
@@ -89,7 +86,7 @@ class CouponsTest extends TestCase
         $this->assertEquals($result->htmlResult, view('admin.coupons.table', compact('coupons'))->render());
 
         $this->assertNotEquals(Coupon::first()->code, $coupon->code);
-        $this->assertEquals($coupon->fresh()->code, 'CP2018');
+        $this->assertEquals($coupon->fresh()->code, 'CPJUl2018');
     }
 
     /** @test */
@@ -257,7 +254,8 @@ class CouponsTest extends TestCase
         $coupon = factory(Coupon::class)->make();
         $formValues = array_merge($coupon->toArray(), ['code' => '']);
 
-        $this->post(route('admin.coupons.store'), $formValues)
+        $this->withExceptionHandling()
+            ->post(route('admin.coupons.store'), $formValues)
             ->assertSessionHasErrors('code');
 
         $errors = session('errors');
@@ -273,7 +271,8 @@ class CouponsTest extends TestCase
         $coupon = factory(Coupon::class)->make();
         $formValues = array_merge($coupon->toArray(), ['code' => 'Lorem?|ipsum1243dolor$%']);
 
-        $this->post(route('admin.coupons.store'), $formValues)
+        $this->withExceptionHandling()
+            ->post(route('admin.coupons.store'), $formValues)
             ->assertSessionHasErrors('code');
 
         $errors = session('errors');
@@ -289,7 +288,8 @@ class CouponsTest extends TestCase
         $coupon = factory(Coupon::class)->make();
         $formValues = array_merge($coupon->toArray(), ['code' => 'Lorem_ipsum_dolor_sit_amet_consectetur']);
 
-        $this->post(route('admin.coupons.store'), $formValues)
+        $this->withExceptionHandling()
+            ->post(route('admin.coupons.store'), $formValues)
             ->assertSessionHasErrors('code');
 
         $errors = session('errors');
@@ -305,7 +305,8 @@ class CouponsTest extends TestCase
         $coupon = factory(Coupon::class)->make();
         $formValues = array_merge($coupon->toArray(), ['discount_percent' => '']);
 
-        $this->post(route('admin.coupons.store'), $formValues)
+        $this->withExceptionHandling()
+            ->post(route('admin.coupons.store'), $formValues)
             ->assertSessionHasErrors('discount_percent');
 
         $errors = session('errors');
@@ -321,7 +322,8 @@ class CouponsTest extends TestCase
         $coupon = factory(Coupon::class)->make();
         $formValues = array_merge($coupon->toArray(), ['discount_percent' => '1865287282.05']);
 
-        $this->post(route('admin.coupons.store'), $formValues)
+        $this->withExceptionHandling()
+            ->post(route('admin.coupons.store'), $formValues)
             ->assertSessionHasErrors('discount_percent');
 
         $errors = session('errors');
@@ -337,7 +339,8 @@ class CouponsTest extends TestCase
         $coupon = factory(Coupon::class)->make();
         $formValues = array_merge($coupon->toArray(), ['discount_percent' => 'Lorem? $%']);
 
-        $this->post(route('admin.coupons.store'), $formValues)
+        $this->withExceptionHandling()
+            ->post(route('admin.coupons.store'), $formValues)
             ->assertSessionHasErrors('discount_percent');
 
         $errors = session('errors');
@@ -357,7 +360,7 @@ class CouponsTest extends TestCase
     {
         return array_merge([
             'code'             => 'CP2018',
-            'discount_percent' => '18.00',
+            'discount_percent' => 18.0,
         ], $details);
     }
 }
