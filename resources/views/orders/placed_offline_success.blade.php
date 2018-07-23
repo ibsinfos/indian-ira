@@ -18,11 +18,11 @@
 
         <p class="test-justify mt-4 mb-5" style="font-size: 15px;">
             Your Order Code:
-            {{-- <span class="font-weight-bold">{{ session('offlineOrders')->first()->order_code }}</span><br /><br /> --}}
+            <span class="font-weight-bold">{{ session('offlineOrders')->first()->order_code }}</span><br /><br />
             Order Payable Amount:
             <span class="font-weight-bold">
                 <i class="fas fa-rupee-sign"></i>
-                {{-- {{ number_format(session('offlineOrders')->first()->cart_total_payable_amount, 2) }} --}}
+                {{ number_format(session('offlineOrders')->first()->cart_total_payable_amount, 2) }}
             </span>
         </p>
 
@@ -96,6 +96,6 @@
     </div>
 
     @php
-    // \IndianIra\Utilities\Cart::empty();
+    \IndianIra\Utilities\Cart::empty();
     @endphp
 @endsection
