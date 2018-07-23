@@ -160,8 +160,10 @@ $factory->define(IndianIra\ForgotPassword::class, function (Faker $faker) {
 });
 
 $factory->define(IndianIra\Coupon::class, function (Faker $faker) {
+    $specialCharacters = ['.', '-', '\'', ',', '/', '!', '@', '#', '$', '%'];
+
     return [
-        'code'             => strtoupper($faker->word) . mt_rand(1000, 9999),
+        'code'             => str_replace($specialCharacters, '_', strtoupper($faker->word)) . mt_rand(1000, 9999),
         'discount_percent' => (float) round($faker->randomFloat(2, 0, 100), 2),
     ];
 });
