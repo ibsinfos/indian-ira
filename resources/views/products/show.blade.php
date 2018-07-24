@@ -1,26 +1,18 @@
 @php
-$options = $product->options()->onlyEnabled()->get();
+$options = $product->options()->onlyEnabled()->get()->sortBy('sort_number');
 
 $option = $options->last();
 
 $price = $option != null ? $option->selling_price : 0.0;
-$pricingColumn = 'selling_price';
 if ($option && $option->discount_price > 0.0) {
     $price = $option->discount_price;
-    $pricingColumn = 'discount_price';
 }
 
 $link = route('cart.add', $product->code);
 if ($product->number_of_options >= 1) {
-    $options = $options->sortBy($pricingColumn);
-
     $link = route('cart.add', [
         $product->code, $options->last()->option_code
     ]);
-}
-
-if ($product->number_of_options == 2) {
-    // $options->where('option_1_value', )
 }
 @endphp
 
@@ -35,6 +27,9 @@ if ($product->number_of_options == 2) {
 @endsection
 
 @section('pageStyles')
+    <link rel="stylesheet" href="{{ url('/plugins/owl-carousel/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/plugins/owl-carousel/dist/assets/owl.theme.default.min.css') }}">
+
     <style>
         .productName {
             min-height: 100px;
@@ -122,7 +117,7 @@ if ($product->number_of_options == 2) {
                     @if ($product->number_of_options > 0)
                         <br /><br />
                         <span class="font-weight-bold">Option Code:</span>
-                        <span class="optionCode">{{ $product->options->last()->option_code }}</span>
+                        <span class="optionCode">{{ $option->option_code }}</span>
                     @endif
                 </h2>
 
@@ -162,11 +157,14 @@ if ($product->number_of_options == 2) {
         </div>
     </div>
 
-    <div class="mb-4"></div>
+    <div class="mb-5"></div>
+
+    @include('products._related_products')
 @endsection
 
 @section('pageScripts')
     <script src="{{ url('/plugins/elevatezoom/jquery.elevatezoom.min.js') }}"></script>
+    <script src="{{ url('/plugins/owl-carousel/dist/owl.carousel.min.js') }}"></script>
 
     <script>
         var imagez = $("#productImage");
@@ -174,6 +172,30 @@ if ($product->number_of_options == 2) {
             easing: true,
             zoomType: "inner",
             cursor: "crosshair",
+        });
+
+        $('.owl-carousel').owlCarousel({
+            loop: false,
+            nav: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true
+                },
+                400: {
+                    items: 2,
+                    nav: true
+                },
+                600: {
+                    items: 3,
+                    nav: true
+                },
+                1000: {
+                    items: 5,
+                    nav: true,
+                }
+            }
         });
 
         $('body').on('click', '.btnAddToCart', function (e) {

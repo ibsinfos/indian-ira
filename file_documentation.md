@@ -1702,3 +1702,19 @@ Following files were created / changed:
 
 10. **`tests/Unit/ProductTest.php`**<br />
     General unit testing of the Product.
+----
+
+#### Products Page - Related products
+
+Displaying related products on products page.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/ProductsController.php`**<br />
+    Modified to include the related products.
+
+2. **`resources/views/products/_related_products.blade.php`**<br />
+    The partial that displays the related products of the product.
+
+3. **`resources/views/products/show.blade.php`**<br />
+    Modified to include the `_related_products` partial and making it a carousel.

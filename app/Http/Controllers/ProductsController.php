@@ -26,12 +26,14 @@ class ProductsController extends Controller
             abort(404);
         }
 
+        $relatedProducts = $product->interRelated->shuffle();
+
         if (app()->environment() == 'testing') {
             $allCategoriesInMenu = Category::onlySuperParent()->onlyEnabled()->get();
         }
 
         return view('products.show', compact(
-            'category', 'product', 'allCategoriesInMenu'
+            'category', 'product', 'allCategoriesInMenu', 'relatedProducts'
         ));
     }
 }
