@@ -18,6 +18,10 @@
                     href="{{ route('admin.products.edit', $product->id) }}?image"
                     class="btn @if (request()->exists('image')) btn-dark @else btn-outline-dark @endif btn-sm shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                 >Image Details</a>
+                <a
+                    href="{{ route('admin.products.edit', $product->id) }}?inter-related"
+                    class="btn @if (request()->exists('inter-related')) btn-dark @else btn-outline-dark @endif btn-sm shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                >Inter Related Products</a>
             </div>
         </div>
     </div>

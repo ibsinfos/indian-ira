@@ -75,8 +75,15 @@ class ProductsController extends Controller
         $tags = \IndianIra\Tag::all();
         $selectedTags = $product->tags->pluck('id')->implode(',');
 
+        // pluck('id') <== id refers to the \IndianIra\Product id
+        // because product itself is related to another.
+        $interRelatedProducts = $product->interRelated->pluck('id')->implode(',');
+
+        $allProducts = $this->getAllProducts()->where('display', 'Enabled');
+
         return view('admin.products.edit', compact(
-            'product', 'categories', 'selectedCategories', 'tags', 'selectedTags'
+            'product', 'categories', 'selectedCategories', 'tags', 'selectedTags',
+            'allProducts', 'interRelatedProducts'
         ));
     }
 
@@ -254,7 +261,47 @@ class ProductsController extends Controller
             'status'  => 'success',
             'title'   => 'Success !',
             'delay'   => 3000,
-            'message' => 'Product image updated successfully!'
+            'message' => 'Product image updated successfully!',
+            'location' => $product->fresh()->interRelated->isEmpty()
+                            ? route('admin.products.edit', $product->id) . '?inter-related'
+                            : route('admin.products')
+        ]);
+    }
+
+    /**
+     * Update the inter-related products of the given product id.
+     *
+     * @param   integer  $id
+     * @param   \Illuminate\Http\Request  $request
+     * @return  \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateInterRelatedProducts($id, Request $request)
+    {
+        $this->validate($request, [
+            'product_id' => 'required|array',
+        ], [
+            'product_id.required' => 'Select the products that you wish to relate / associate to this product.',
+            'product_id.array' => 'The products selected should be an array of products.',
+        ]);
+
+        $product = $this->getAllProducts()->where('id', $id)->first();
+        if (! $product) {
+            return response([
+                'status'  => 'failed',
+                'title'   => 'Failed !',
+                'delay'   => 3000,
+                'message' => 'Product with that id could not be found!',
+            ]);
+        }
+
+        $product->interRelated()->sync($request->product_id);
+
+        return response([
+            'status'  => 'success',
+            'title'   => 'Success !',
+            'delay'   => 3000,
+            'message' => 'Inter related products updated successfully! Redirecting...',
+            'location' => route('admin.products')
         ]);
     }
 

@@ -19,6 +19,13 @@
                 </a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Edit {{ $product->name }}</li>
+            @if ($product->categories->isNotEmpty())
+                <li class="breadcrumb-item">
+                    <a href="{{ url($product->canonicalPageUrl()) }}" class="mainSiteLink" target="_blank">
+                        View this product
+                    </a>
+                </li>
+            @endif
         </ol>
     </nav>
 
@@ -40,6 +47,10 @@
 
             @if (request()->exists('image'))
                 @include('admin.products._image')
+            @endif
+
+            @if (request()->exists('inter-related'))
+                @include('admin.products._inter_related')
             @endif
         </div>
     </div>
@@ -240,5 +251,51 @@
 
             return false;
         });
+
+        @if (request()->exists('inter-related'))
+            var $selectize = $('#product_id').selectize();
+
+            $selectize[0].selectize.setValue([{{ $interRelatedProducts }}]);
+
+            $('.btnUpdateInterRelatedProducts').click(function (e) {
+                e.preventDefault();
+
+                var form = $("#formUpdateInterRelatedProducts"),
+                    self = $(this);
+
+                self.prop('disabled', true);
+                self.html('<i class="fas fa-spinner fa-spin"></i> Submitting...');
+
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function (res) {
+                        self.prop('disabled', false);
+                        self.html('Submit');
+
+                        displayGrowlNotification(res.status, res.title, res.message, res.delay);
+
+                        if (res.status == 'success') {
+                            setTimeout(function () {
+                                window.location = res.location;
+                            }, res.delay + 1000);
+                        }
+                    },
+                    error: function (err) {
+                        self.prop('disabled', false);
+                        self.html('Submit');
+
+                        if ( err.status == 422) {
+                            displayAlertNotification(err, 'errorsInUpdatingInterRelatedProducts');
+                        } else {
+                            alert('Something went wrong. Please try again later.');
+                        }
+                    },
+                });
+
+                return false;
+            });
+        @endif
     </script>
 @endsection

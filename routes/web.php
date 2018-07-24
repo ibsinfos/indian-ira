@@ -110,6 +110,8 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                     ->name('admin.products.updateMetaInformation');
                 Route::post('/{id}/updateImage', 'ProductsController@updateImage')
                     ->name('admin.products.updateImage');
+                Route::post('/{id}/updateInterRelatedProducts', 'ProductsController@updateInterRelatedProducts')
+                    ->name('admin.products.updateInterRelatedProducts');
 
                 Route::group(['prefix' => '{id}/price-and-options'], function () {
                     Route::get('/', 'PriceAndOptionsController@index')->name('admin.products.priceAndOptions');

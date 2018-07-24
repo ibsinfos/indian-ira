@@ -73,6 +73,17 @@ class Product extends Model
     }
 
     /**
+     * A product belongs to multiple products.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function interRelated()
+    {
+        return $this->belongsToMany(Product::class, 'interrelated_products', 'product_id', 'related_product_id')
+                    ->withTimestamps();
+    }
+
+    /**
      * Scope the query to fetch only the Enabled Products.
      *
      * @param   \Illuminate\Database\Eloquent\Builder  $query

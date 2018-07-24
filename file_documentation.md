@@ -1664,3 +1664,41 @@ Following files were created / changed:
 
 6. **`tests/Feature/Admin/ShippingCompanyAndRatesTest.php`**<br />
     Tests that conforms and validates that the `Shipping Rates: Export and Import` feature is working as per expectations.
+
+----
+
+#### Admin - Related Products
+
+Syncing the related products of the product.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/ProductsController.php`**<br />
+    Modified to include the logic of updating the related products.
+
+2. **`app/Product.php`**<br />
+    Modified to include the relationship with itself.
+
+3. **`database/migrations/2018_07_23_103635_create_interrelated_products_table.php`**<br />
+    The table structure of the related products.
+
+4. **`resources/views/admin/products/_editing_links.blade.php`**<br />
+    Modified to include the link for updating the related products.
+
+5. **`resources/views/admin/products/_inter_related.blade.php`**<br />
+    The view containing form to sync the related products.
+
+6. **`resources/views/admin/products/edit.blade.php`**<br />
+    Modified to include the AJAX implementation of the form that will be submitted.
+
+7. **`routes/web.php`**<br />
+    Modified to access the routes updating the related products.
+
+8. **`tests/Feature/Admin/Products/ProductUpdateImageTest.php`**<br />
+    Modified to test that it redirects to proper location on successfully submitting the images.
+
+9. **`tests/Feature/Admin/Products/UpdateInterRelatedProductsTest.php`**<br />
+    Tests that validates and conforms that syncing of related products works as per expectations.
+
+10. **`tests/Unit/ProductTest.php`**<br />
+    General unit testing of the Product.

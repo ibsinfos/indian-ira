@@ -64,6 +64,45 @@ class ProductUpdateImageTest extends TestCase
     }
 
     /** @test */
+    function redirect_to_inter_related_products_page_if_it_related_products_is_empty()
+    {
+        $product = factory(Product::class)->create();
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateImage', $product->id), [
+                            'image' => UploadedFile::fake()->image('image.jpg', 1000, 1000)
+                        ]);
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product image updated successfully!');
+        $this->assertEquals($result->location,  route('admin.products.edit', $product->id) . '?inter-related');
+    }
+
+    /** @test */
+    function redirect_to_inter_related_products_page_if_related_products_is_not_empty()
+    {
+        $product = factory(Product::class)->create();
+        $products = factory(Product::class, 5)->create(['display' => 'Enabled']);
+
+        $product->interRelated()->sync($products->pluck('id')->toArray());
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateImage', $product->id), [
+                            'image' => UploadedFile::fake()->image('image.jpg', 1000, 1000)
+                        ]);
+        $result = json_decode($response->getContent());
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product image updated successfully!');
+        $this->assertEquals($result->location,  route('admin.products'));
+    }
+
+    /** @test */
     function image_file_field_is_required()
     {
         $product = factory(Product::class)->create();
