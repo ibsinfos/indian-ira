@@ -1702,6 +1702,7 @@ Following files were created / changed:
 
 10. **`tests/Unit/ProductTest.php`**<br />
     General unit testing of the Product.
+
 ----
 
 #### Products Page - Related products
@@ -1718,3 +1719,38 @@ Following files were created / changed:
 
 3. **`resources/views/products/show.blade.php`**<br />
     Modified to include the `_related_products` partial and making it a carousel.
+
+----
+
+#### Tagged Products
+
+Displaying products based on tags.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/TagsController.php`**<br />
+    The controller that handles the logic of displaying the tagged products.
+
+2. **`app/Tag.php`**<br />
+    Modified to add methods for page URLs.
+
+3. **`database/factories/UserFactory.php`**
+    Modified to update the slug of the tags.
+
+4. **`resources/views/partials/_navigation.blade.php`**<br />
+    Modified to add the link for tags.
+
+5. **`resources/views/tags/index.blade.php`**<br />
+    The view file that displays all the tags with the product's count.
+
+6. **`resources/views/tags/product.blade.php`**<br />
+    The view file that displays the product of the given tag.
+
+7. **`resources/views/tags/show.blade.php`**<br />
+    The view file that displays all the products of the given tag.
+
+8. **`routes/web.php`**<br />
+    Modified to add the routes that access the tags.
+
+10. **`tests/Feature/TagsPageTest.php`**<br />
+    Tests that validates and conforms that the viewing of tagged products is working as per expectations.

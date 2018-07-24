@@ -15,6 +15,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">About</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('tags.index') }}">Tags</a>
+            </li>
 
             <li class="nav-item dropdown">
                 <a

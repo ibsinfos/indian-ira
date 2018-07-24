@@ -94,9 +94,11 @@ $factory->define(IndianIra\ShippingRate::class, function (Faker $faker) {
 });
 
 $factory->define(IndianIra\Tag::class, function (Faker $faker) {
+    $words = implode(' ', $faker->words(5));
+
     return [
-        'name'              => implode(' ', $faker->words(5)),
-        'slug'              => 'the-simple-tag',
+        'name'              => $words,
+        'slug'              => str_slug($words),
         'short_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates perferendis neque suscipit soluta quasi odio ratione voluptate, quo provident maiores sapiente laborum dolorem, cupiditate eos cumque illo sunt commodi temporibus.',
         'meta_title'        => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         'meta_description'  => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur corporis saepe accusantium sit. Dicta explicabo sapiente error neque iste nihil ipsa!',

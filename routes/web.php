@@ -189,6 +189,12 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         Route::get('/{slug}/products/{code}/{name}', 'ProductsController@show')->name('products.show');
     });
 
+    Route::group(['prefix' => 'products-tagged'], function () {
+        Route::get('/', 'TagsController@index')->name('tags.index');
+        Route::get('/{slug}', 'TagsController@show')->name('tags.show');
+        Route::get('/{slug}/{productCode}', 'TagsController@product')->name('tags.product');
+    });
+
     Route::group([
         'prefix' => 'users',
         'namespace' => 'Users'

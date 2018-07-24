@@ -38,4 +38,29 @@ class Tag extends Model
     {
         return $this->belongsToMany(Product::class)->withTimestamps();
     }
+
+    /**
+     * The page url of the tag.
+     *
+     * @return  string
+     */
+    public function pageUrl()
+    {
+        return '/products-tagged/'. $this->slug;
+    }
+
+    /**
+     * The product page url for the tag.
+     *
+     * @param   \IndianIra\Product  $product
+     * @return  string
+     */
+    public function productPageUrl($product)
+    {
+        if (! $product) {
+            return 'javascript:void(0)';
+        }
+
+        return '/products-tagged/'. $this->slug . '/'. $product->code;
+    }
 }
