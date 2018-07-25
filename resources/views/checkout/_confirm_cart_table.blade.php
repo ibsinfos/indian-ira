@@ -11,8 +11,15 @@
     <tbody>
         @forelse ($cart as $code => $row)
             @php
-            $gstAmount = ($row['options']->selling_price * ($row['product']->gst_percent / 100));
-            $netPrice = $row['options']->selling_price - $gstAmount;
+            $sellingPrice = $row['options']->selling_price;
+
+            if ($row['options']->discount_price > 0.0) {
+                $sellingPrice = $row['options']->discount_price;
+            }
+
+            $netPrice = ($sellingPrice / (1 + ($row['product']->gst_percent / 100)));
+
+            $gstAmount = $sellingPrice - $netPrice;
             @endphp
 
             <tr>
@@ -69,7 +76,7 @@
 
                 <td class="text-right">
                     <i class="fas fa-rupee-sign"></i>
-                    {{ number_format($row['options']->selling_price, 2) }}
+                    {{ number_format($sellingPrice, 2) }}
                 </td>
 
                 <td style="width: 10%">
@@ -78,7 +85,7 @@
 
                 <td class="text-right">
                     <i class="fas fa-rupee-sign"></i>
-                    {{ number_format($row['product_total'], 2) }}
+                    {{ number_format(\IndianIra\Utilities\Cart::netAmount($code) + \IndianIra\Utilities\Cart::gstAmount($code), 2) }}
                 </td>
             </tr>
         @empty
