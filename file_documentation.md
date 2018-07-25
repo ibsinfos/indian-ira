@@ -1810,3 +1810,35 @@ Following files were created / changed:
 
 16. **`tests/Feature/EnquireProductsTest.php`**<br />
     Tests that validates and conforms that the `Product Enquiry` is working as per expectations.
+
+----
+
+#### Product Enquiries - Admin
+
+Super administrator viewing the products' enquiries.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Admin/Products/ProductEnquiriesController.php`**<br />
+    Controller that handles the logic of displaying / deleting / destroying the enquiry details.
+
+2. **`database/factories/UserFactory.php`**<br />
+    Model factory for generating dummy data products' enquiries.
+
+3. **`resources/views/admin/partials/_navigation.blade.php`**
+    Modified to include the link for products' enquiries.
+
+4. **`resources/views/admin/products-enquiries/index.blade.php`**<br />
+    The view file that displays all the products' enquiries.
+
+5. **`resources/views/admin/products-enquiries/table.blade.php`**<br />
+    The view file that displays all the products' enquiries in tabular format.
+
+6. **`resources/views/admin/products-enquiries/viewEnquiryDetails.blade.php`**<br />
+    The modal view file that will be used for displaying the enquiry message.
+
+7. **`routes/web.php`**<br />
+    Modified to add the routes that will access the product enquiry in the admin panel.
+
+8. **`tests/Feature/EnquireProductsTest.php`**<br />
+    Tests that validates and conforms that the `Product Enquiry` in admin section is working as per expectations.

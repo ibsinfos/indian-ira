@@ -292,3 +292,27 @@ $factory->define(IndianIra\OrderHistory::class, function (Faker $faker) {
         'notes'                 => 'Order placed successfully...',
     ];
 });
+
+$factory->define(IndianIra\EnquireProduct::class, function (Faker $faker) {
+    $user = factory(\IndianIra\User::class)->create();
+    $product = factory(\IndianIra\Product::class)->create(['display' => 'Enabled']);
+    $option = factory(\IndianIra\ProductPriceAndOption::class)->create(['display' => 'Enabled', 'product_id' => $product->id]);
+    $category = factory(\IndianIra\Category::class)->create(['display' => 'Enabled']);
+    $category->products()->attach([$product->id]);
+
+    return [
+        'code'                => 'ENQ-' . uniqid(),
+        'product_id'          => $product->id,
+        'product_code'        => $product->code,
+        'product_name'        => $product->name,
+        'option_id'           => $option->id,
+        'option_code'         => $option->option_code,
+        'product_image'       => $product->cartImage(),
+        'product_page_url'    => $product->canonicalPageUrl(),
+        'user_full_name'      => $user->getFullName(),
+        'user_email'          => $user->email,
+        'user_contact_number' => $user->contact_number,
+        'message_body'        => $faker->paragraph,
+        'deleted_at'          => null,
+    ];
+});

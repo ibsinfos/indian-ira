@@ -72,6 +72,9 @@
                     <a class="dropdown-item" href="{{ route('admin.products.priceAndStock') }}">
                         <i class="fas fa-rupee-sign"></i> Prices And Stock
                     </a>
+                    <a class="dropdown-item" href="{{ route('admin.products.enquiries') }}">
+                        <i class="fas fa-question-circle"></i> Enquiries
+                    </a>
                 </div>
             </li>
             <li class="nav-item">

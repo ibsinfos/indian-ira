@@ -142,6 +142,16 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                     ->name('admin.products.priceAndStock.update');
             });
 
+            Route::group(['prefix' => 'product-enquiries', 'namespace' => 'Products'], function () {
+                Route::get('/', 'ProductEnquiriesController@index')->name('admin.products.enquiries');
+                Route::get('/{id}/delete', 'ProductEnquiriesController@delete')
+                    ->name('admin.products.enquiries.delete');
+                Route::get('/{id}/restore', 'ProductEnquiriesController@restore')
+                    ->name('admin.products.enquiries.restore');
+                Route::get('/{id}/destroy', 'ProductEnquiriesController@destroy')
+                    ->name('admin.products.enquiries.destroy');
+            });
+
             Route::group(['prefix' => 'carousels'], function () {
                 Route::get('/', 'CarouselsController@index')->name('admin.carousels');
                 Route::post('/', 'CarouselsController@store')->name('admin.carousels.store');
