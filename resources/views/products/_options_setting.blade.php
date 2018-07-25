@@ -1,8 +1,10 @@
 @if ($product->number_of_options == 1)
     <div class="form-group">
-        <label for="optionValue1" class="font-weight-bold">Select {{ $options->first()->option_1_heading }}</label>
+        <label for="optionValue1" class="font-weight-bold">
+            Select {{ $options->sortBy('sort_number')->first()->option_1_heading }}
+        </label>
         <select name="optionValue1" id="optionValue1" class="form-control optionValue1">
-            @foreach ($options as $opt)
+            @foreach ($options->sortBy('sort_number') as $opt)
                 <option
                     value="{{ $opt->code }}"
                     data-optid="{{ $opt }}"
@@ -17,13 +19,13 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="optionValue1" class="font-weight-bold">
-                    Select {{ $options->first()->option_1_heading }}
+                    Select {{ $options->sortBy('sort_number')->first()->option_1_heading }}
                 </label>
                 <select name="optionValue1" id="optionValue1" class="form-control optionValue1">
                     @php
                     $all1stOptions = collect();
                     $arr = [];
-                    foreach ($options as $opt) {
+                    foreach ($options->sortBy('sort_number') as $opt) {
                         if (! in_array($opt->option_1_value, $arr)) {
                             $all1stOptions->push($opt);
                         }
@@ -52,10 +54,10 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="optionValue2" class="font-weight-bold">
-                    Select {{ $options->first()->option_2_heading }}
+                    Select {{ $options->sortBy('sort_number')->first()->option_2_heading }}
                 </label>
                 <select name="optionValue2" id="optionValue2" class="form-control optionValue2">
-                    @foreach ($options as $opt)
+                    @foreach ($options->sortBy('sort_number') as $opt)
                         <option
                             value="{{ $opt->code }}"
                             data-optid="{{ $opt }}"
