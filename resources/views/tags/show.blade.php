@@ -6,6 +6,17 @@
     <meta name="keywords" content="{{ $tag->meta_keywords }}" />
 @endsection
 
+@section('pageStyles')
+    <style>
+        @media screen and (max-width: 380px) {
+            .col-6 {
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container mt-4">
         <nav class="mb-4" aria-label="breadcrumb">
@@ -26,69 +37,15 @@
             </ol>
         </nav>
 
-        <h1 class="display-6 mb-4" style="font-size: 1.25rem;">
+        <h1 class="display-6 mb-4 mt-md-0 mt-sm-4" style="font-size: 1.25rem;">
             Products tagged as: <span class="font-weight-bold">{{ title_case($tag->name) }}</span>
         </h1>
 
         <div class="row">
             @if ($products->isNotEmpty())
                 @foreach ($products as $product)
-                    @php
-                    $options = collect();
-                    $price = 0.0;
-
-                    if ($product->number_of_options >= 1) {
-                        $options = $product->options()->onlyEnabled()->get()->sortBy('sort_number');
-                    }
-                    @endphp
-
-                    <div class="col-md-3">
-                        <div class="card mb-3" style="border: 1px solid #ddd;">
-                            <img
-                                src="{{ url($product->catalogueImage()) }}"
-                                alt="{{ $product->name }}"
-                                class="mb-4 w-100"
-                            >
-
-                            <div class="p-2">
-                                <div class="productName mb-3">
-                                    <a href="{{ url($tag->productPageUrl($product)) }}" class="mainSiteLink">
-                                        @if(strlen($product->name) > 40)
-                                            {{ substr(title_case($product->name), 0, 40) . '...' }}
-                                        @else
-                                            {{ title_case($product->name) }}
-                                        @endif
-                                    </a>
-                                </div>
-
-                                <div class="productPrice mb-3">
-                                    <i class="fas fa-rupee-sign"></i>
-                                    @php
-                                    $option = $options->last();
-
-                                    if ($option && $option->discount_price > 0.0) {
-                                        $price = $option->discount_price;
-                                    } elseif ($option && $option->discount_price <= 0.0) {
-                                        $price = $option->selling_price;
-                                    }
-                                    @endphp
-                                    {{ number_format($price, 2) }}
-                                </div>
-
-                                @php
-                                $link = route('cart.add', $product->code);
-                                if ($product->number_of_options >= 1) {
-                                    $link = route('cart.add', [
-                                        $product->code, $options->first()->option_code
-                                    ]);
-                                }
-                                @endphp
-
-                                <a href="{{ $link }}" class="btn btn-dark btn-sm btnAddToCart">
-                                    Add To Cart
-                                </a>
-                            </div>
-                        </div>
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                        @include('partials._product_card')
                     </div>
                 @endforeach
             @else

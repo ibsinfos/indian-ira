@@ -12,11 +12,6 @@
     <link rel="stylesheet" href="{{ url('/plugins/owl-carousel/dist/assets/owl.theme.default.min.css') }}">
 
     <style>
-        .owl-carousel .item {
-            border: 1px solid #000;
-            border-radius: 3px;
-        }
-
         .productName {
             min-height: 100px;
         }

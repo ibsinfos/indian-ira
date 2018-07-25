@@ -10,6 +10,8 @@ if ($option && $option->discount_price > 0.0) {
 
 $link = route('cart.add', $product->code);
 if ($product->number_of_options >= 1) {
+    $option = $options->first();
+
     $link = route('cart.add', [
         $product->code, $options->last()->option_code
     ]);
@@ -142,8 +144,29 @@ if ($product->number_of_options >= 1) {
 
                     <div class="mb-3"></div>
 
-                    <a href="{{ $link }}" class="btn btn-dark btn-lg btnAddToCart text-uppercase">
-                        Add To Cart
+                    @if ($option->stock >= 1)
+                        <a href="{{ $link }}" class="btn btn-dark btn-lg btnAddToCart text-uppercase">
+                            Add To Cart
+                        </a>
+                    @else
+                        <a href="javascript:void(0)" class="btn btn-dark btn-lg btnAddToCart text-uppercase">
+                            Out of Stock
+                        </a>
+                    @endif
+
+                    <a
+                        href="#"
+                        class="btn btn-outline-dark btn-lg"
+                        data-toggle="modal"
+                        data-target="#enquireProductModal"
+                        data-product="{{ $product }}"
+                        @if ($product->number_of_options >= 1) {
+                            data-option="{{ $options->first() }}"
+                        @else
+                            data-option="{{ $options->last() }}"
+                        @endif
+                    >
+                        Enquire
                     </a>
 
                     <span class="ml-2 font-weight-bold text-uppercase" style="letter-spacing: 1px;">

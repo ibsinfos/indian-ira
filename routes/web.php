@@ -195,6 +195,9 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         Route::get('/{slug}/{productCode}', 'TagsController@product')->name('tags.product');
     });
 
+    Route::post('/products-enquiry/{productCode}/{optionCodes}', 'EnquireProductsController@store')
+        ->name('products.enquiry');
+
     Route::group([
         'prefix' => 'users',
         'namespace' => 'Users'

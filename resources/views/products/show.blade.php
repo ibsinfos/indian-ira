@@ -10,8 +10,10 @@ if ($option && $option->discount_price > 0.0) {
 
 $link = route('cart.add', $product->code);
 if ($product->number_of_options >= 1) {
+    $option = $options->first();
+
     $link = route('cart.add', [
-        $product->code, $options->last()->option_code
+        $product->code, $option->option_code
     ]);
 }
 @endphp
@@ -137,8 +139,29 @@ if ($product->number_of_options >= 1) {
 
                     <div class="mb-3"></div>
 
-                    <a href="{{ $link }}" class="btn btn-dark btn-lg btnAddToCart text-uppercase">
-                        Add To Cart
+                    @if ($option->stock >= 1)
+                        <a href="{{ $link }}" class="btn btn-dark btn-lg btnAddToCart text-uppercase">
+                            Add To Cart
+                        </a>
+                    @else
+                        <a href="javascript:void(0)" class="btn btn-dark btn-lg btnAddToCart text-uppercase">
+                            Out of Stock
+                        </a>
+                    @endif
+
+                    <a
+                        href="#"
+                        class="btn btn-outline-dark btn-lg"
+                        data-toggle="modal"
+                        data-target="#enquireProductModal"
+                        data-product="{{ $product }}"
+                        @if ($product->number_of_options >= 1) {
+                            data-option="{{ $options->sortBy('sort_number')->first() }}"
+                        @else
+                            data-option="{{ $options->sortBy('sort_number')->last() }}"
+                        @endif
+                    >
+                        Enquire
                     </a>
 
                     <span class="ml-2 font-weight-bold text-uppercase" style="letter-spacing: 1px;">
@@ -230,9 +253,12 @@ if ($product->number_of_options >= 1) {
                 $('.amount').html(parseFloat(sellingPrice).toFixed(2));
                 $('.inStock').html(option.stock);
 
-                var addToCartLink = '/cart/add/{{ $product->code }}/'+option.option_code;
-
-                $('.btnAddToCart').attr('href', addToCartLink);
+                if (option.stock >= 1) {
+                    $('.btnAddToCart').attr('href', '/cart/add/{{ $product->code }}/'+option.option_code)
+                        .html('Add To Cart');;
+                } else {
+                    $('.btnAddToCart').attr('href', 'javascript:void(0);').html('Out of Stock');
+                }
 
                 imagez.removeData('elevateZoom');
                 imagez.removeData('zoomImage');
@@ -285,9 +311,12 @@ if ($product->number_of_options >= 1) {
                 $('.amount').html(parseFloat(sellingPrice).toFixed(2));
                 $('.inStock').html(selected.data('stock'));
 
-                var addToCartLink = '/cart/add/{{ $product->code }}/'+selected.data('option-code');
-
-                $('.btnAddToCart').attr('href', addToCartLink);
+                if (selected.data('stock') >= 1) {
+                    $('.btnAddToCart').attr('href', '/cart/add/{{ $product->code }}/'+selected.data('option-code'))
+                        .html('Add To Cart');
+                } else {
+                    $('.btnAddToCart').attr('href', 'javascript:void(0);').html('Out of Stock');
+                }
 
                 imagez.removeData('elevateZoom');
                 imagez.removeData('zoomImage');

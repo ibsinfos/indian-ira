@@ -155,6 +155,8 @@
         @yield('content')
     </div>
 
+    @include('partials._product_enquiry_modal')
+
     @include('partials._footer')
 
     <script src="{{ url('/js/app.js') }}"></script>
@@ -292,6 +294,54 @@
 
             $('.' + errClass).html(errorsHtml);
         }
+
+        var prd = opt = null;
+
+        $('#enquireProductModal').on('show.bs.modal', function (e) {
+            var link          = $(e.relatedTarget),
+                product = prd = link.data('product'),
+                option  = opt = link.data('option'),
+                modal         = $(this);
+
+            modal.find('.modal-title').html('Product Enquiry for: ' + product.name);
+            modal.find('.modal-body form').attr('action', '/products-enquiry/' + product.code + '/' + option.option_code);
+        });
+
+        $('.btnEnquireProduct').on('click', function (e) {
+            e.preventDefault();
+
+            var form = $("#formEnquireProduct"),
+                self = $(this);
+
+            self.prop('disabled', true);
+            self.html('<i class="fas fa-spinner fa-spin"></i> Submitting...');
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                success: function (res) {
+                    self.prop('disabled', false);
+                    self.html('Submit');
+
+                    displayGrowlNotification(res.status, res.title, res.message, res.delay);
+
+                    $('#enquireProductModal').modal('hide');
+                },
+                error: function (err) {
+                    self.prop('disabled', false);
+                    self.html('Submit');
+
+                    if ( err.status == 422) {
+                        displayAlertNotification(err, 'errorsInEnquiringProduct');
+                    } else {
+                        alert('Something went wrong. Please try again later.');
+                    }
+                },
+            });
+
+            return false;
+        });
     </script>
 
     @yield('pageScripts')

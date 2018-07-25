@@ -1754,3 +1754,59 @@ Following files were created / changed:
 
 10. **`tests/Feature/TagsPageTest.php`**<br />
     Tests that validates and conforms that the viewing of tagged products is working as per expectations.
+
+----
+
+#### Product Enquiries
+
+Sending the product enquiries to the super administrator.
+
+Following files were created / changed:
+
+1. **`app/EnquireProduct.php`**<br />
+    The model to access the `Product Enquire` data.
+
+2. **`app/Http/Controllers/EnquireProductsController.php`**<br />
+    Controller that handles the logic of storing the product's enquiries.
+
+3. **`app/Mail/ProductEnquiryReceived.php`**
+    The logic of sending mail to the super administrator.
+
+4. **`database/migrations/2018_07_24_102627_create_enquire_products_table.php`**<br />
+    The table structure of storing the product's enquiry data.
+
+5. **`resources/views/categories/show.blade.php`**<br />
+    Modified to include the partial `_product_card` file.
+
+6. **`resources/views/emails/products_enquiry_received.blade.php`**<br />
+    The view file that will be rendered for sending the enquiry mail.
+
+7. **`resources/views/partials/_carousels.blade.php`**<br />
+    Modified to include the partial `_product_card` file.
+
+8. **`resources/views/partials/_layout.blade.php`**<br />
+    Modified for implementation of AJAX at the time of submitting the product enquiry.
+
+9. **`resources/views/partials/_product_card.blade.php`**<br />
+    The product card that displays the product details.
+
+10. **`resources/views/partials/_product_enquiry_modal.blade.php`**<br />
+    The modal view that contains the form to submit the product enquiry data.
+
+11. **`resources/views/products/show.blade.php`**<br />
+    Modified to add the enquiry link, and the add to cart link based on stock position.
+
+12. **`resources/views/tags/product.blade.php`**<br />
+    Modified to add the enquiry link, and the add to cart link based on stock position.
+
+13. **`resources/views/tags/show.blade.php`**<br />
+    Modified to include the partial `_product_card` file.
+
+14. **`resources/views/welcome.blade.php`**<br />
+    Removed the css styling.
+
+15. **`routes/web.php`**<br />
+    Modified to add the routes that will post the product enquiry form data.
+
+16. **`tests/Feature/EnquireProductsTest.php`**<br />
+    Tests that validates and conforms that the `Product Enquiry` is working as per expectations.
