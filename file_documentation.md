@@ -1901,3 +1901,35 @@ Following files were created / changed:
 
 17. **`tests/Unit/User.php`**<br />
     Modified to check the product can be added by the user in the wishlist.<br />
+
+----
+
+#### Category wise products sorting.
+
+Updating the sort number of the product via the category.
+
+Following files were created / changed:
+
+1. **`app/Category.php`**<br />
+    Modified to get all the products from the category, including the child categories' products well.
+
+2. **`app/Http/Controllers/Admin/Categories/ProductSortController.php`**<br />
+    Controller that handles the logic of displaying the products of the given category and also to update the sort number of the product.
+
+3. **`resources/views/admin/categories-products/editProductSortNumberModal.blade.php`**<br />
+    Modal view that displays the form to update the sort number of the product.
+
+4. **`resources/views/admin/categories-products/index.blade.php`**<br />
+    Displaying all the products that are listed in the category.
+
+5. **`resources/views/admin/categories-products/table.blade.php`**<br />
+    Displaying all the products that are listed in the category in tabular format.
+
+6. **`resources/views/admin/categories/table.blade.php`**<br />
+    Modified to include the link to see the products in the category.
+
+7. **`routes/web.php`**<br />
+    The routes that will be accessed for categories - products.
+
+8. **`tests/Feature/Admin/Products/ProductSortingTest.php`**<br />
+    Tests that conforms and validates that the updating of products' sort number via categories is working as per expectations.

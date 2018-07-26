@@ -19,6 +19,14 @@
                 <td>{{ $category->display_in_menu == true ? 'Yes' : 'No' }}</td>
                 <td>{{ $category->formatsCreatedAt() }}</td>
                 <td>
+                    <a
+                        href="{{ route('admin.categories.products', $category->id) }}"
+                        class="btn btn-sm btn-outline-dark mb-sm-2 mb-md-2 mb-lg-2"
+                        target="_blank"
+                        title="View the products that are listed in this category"
+                        data-toggle="tooltip"
+                    >View Products</a>
+
                     @if ($category->deleted_at != null)
                         <a
                             href="{{ route('admin.categories.restore', $category->id) }}"

@@ -87,6 +87,10 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::get('/export', 'ExportController@export')->name('admin.categories.export');
                 Route::post('/import', 'ImportController@import')->name('admin.categories.import');
 
+                Route::get('/{id}/products', 'ProductSortController@index')->name('admin.categories.products');
+                Route::post('/{id}/products/{prdId}/update-sort', 'ProductSortController@updateSort')
+                    ->name('admin.categories.products.updateSort');
+
                 Route::post('/{id}/update', 'CategoriesController@update')->name('admin.categories.update');
                 Route::get('/{id}/delete', 'CategoriesController@delete')->name('admin.categories.delete');
                 Route::get('/{id}/restore', 'CategoriesController@restore')->name('admin.categories.restore');

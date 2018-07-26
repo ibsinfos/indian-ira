@@ -31,6 +31,8 @@ class Category extends Model
         'meta_title', 'meta_description', 'meta_keywords',
     ];
 
+    protected $allProducts;
+
     /**
      * A category belongs to a parent category.
      *
@@ -90,6 +92,63 @@ class Category extends Model
     public function onlyEnabledProducts()
     {
         return $this->products->where('display', 'Enabled');
+    }
+
+    /**
+     * Get all the products from the category, including the child
+     * categories' products as well.
+     *
+     * @return  \Illuminate\Support\Collection
+     */
+    public function getAllProducts()
+    {
+        $this->allProducts = collect();
+
+        if ($this->isSuperParent()) {
+            foreach ($this->childs as $child) {
+                if ($child->display == 'Enabled' && $child->products()->onlyEnabled()->get()->isNotEmpty()) {
+                    foreach ($child->products as $product) {
+                        $this->addProducts($product);
+                    }
+                }
+            }
+        }
+
+        if (! $this->isSuperParent() && $this->isParent()) {
+            foreach ($this->childs as $child) {
+                if (
+                    $child->display == 'Enabled' &&
+                    $child->products()->onlyEnabled()->get()->isNotEmpty()
+                ) {
+                    foreach ($child->products as $product) {
+                        $this->addProducts($product);
+                    }
+                }
+            }
+        }
+
+        // The category is the last child
+        if ($this->childs->isEmpty()) {
+            foreach ($this->products as $product) {
+                $this->addProducts($product);
+            }
+        }
+
+        return $this->allProducts;
+    }
+
+    /**
+     * Add the products in the collection.
+     *
+     * @param  \IndianIra\Product  $product
+     */
+    protected function addProducts($product)
+    {
+        if (! $this->allProducts->contains($product->code)) {
+            $this->allProducts->push($product);
+        }
+
+        return $this->allProducts;
     }
 
     /**
