@@ -252,6 +252,12 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
                 Route::post('/', 'BillingAddressController@update')->name('users.billingAddress.update');
             });
 
+            Route::group(['prefix' => 'wishlist'], function () {
+                Route::get('/', 'WishListController@index')->name('users.wishlist');
+                Route::get('/add/{productCode}', 'WishListController@store')->name('users.wishlist.add');
+                Route::get('/remove/{productCode}', 'WishListController@delete')->name('users.wishlist.remove');
+            });
+
             Route::group(['prefix' => 'orders'], function () {
                 Route::get('/', 'OrdersController@index')->name('users.orders');
                 Route::get('/{code}/products', 'OrdersController@showProducts')->name('users.orders.products');

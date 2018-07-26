@@ -1842,3 +1842,62 @@ Following files were created / changed:
 
 8. **`tests/Feature/EnquireProductsTest.php`**<br />
     Tests that validates and conforms that the `Product Enquiry` in admin section is working as per expectations.
+
+----
+
+#### Wishlist
+
+Users adding products in their Wishlist.
+
+Following files were created / changed:
+
+1. **`app/Http/Controllers/Users/LoginController.php`**<br />
+    Modified to include the wishlist processing.
+
+2. **`app/Http/Controllers/Users/WishListController.php`**<br />
+    Controller that handles the logic of adding / removing / displaying the WishList to the user.
+
+3. **`app/Product.php`**<br />
+    Modified to check whether the product exists in the user's wishlist.
+
+4. **`app/User.php`**<br />
+    Modified to add the relationship with the Wishlist.
+
+5. **`app/Wishlist.php`**<br />
+    The model that will be used to access the WishList data.
+
+6. **`database/factories/UserFactory.php`**<br />
+    Modified to generate the dummy wishlist.
+
+7. **`database/migrations/2018_07_26_060712_create_user_wishlists_table.php`**<br />
+    The table structure of storing the wishlist data.
+
+8. **`resources/views/products/show.blade.php`**<br />
+    Modified to include the link of adding the product to wishlist.
+
+9. **`resources/views/tags/product.blade.php`**<br />
+    Modified to include the link of adding the product to wishlist.
+
+10. **`resources/views/users/partials/_navigation.blade.php`**<br />
+    Modified to include the link of wishlist.
+
+11. **`resources/views/users/wishlist/index.blade.php`**<br />
+    The view file that displays the wishlist to the user.
+
+12. **`resources/views/users/wishlist/table.blade.php`**<br />
+    The view file that displays the wishlist to the user in tabular format.
+
+13. **`routes/web.php`**<br />
+    The routes that will be accessed for wishlist.
+
+14. **`tests/Feature/Users/Authentication/LoginTest.php`**<br />
+    Modified to include the tests of adding product in wishlist if the user is a guest user.
+
+15. **`tests/Feature/Users/WishListTest.php`**<br />
+    Tests that validates and conforms that Wishlist section is working as per expectations.
+
+16. **`tests/Unit/ProductTest.php`**<br />
+    Modified to check the product exists in the wishlist.<br />
+
+17. **`tests/Unit/User.php`**<br />
+    Modified to check the product can be added by the user in the wishlist.<br />

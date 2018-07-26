@@ -30,6 +30,41 @@ class LoginTest extends TestCase
     }
 
     /** @test */
+    function visitor_sees_the_login_page_if_tries_to_add_product_in_their_wishlist()
+    {
+        $product = factory(\IndianIra\Product::class)->create(['display' => 'Enabled']);
+        // $product->categories()->sync(factory(\IndianIra\Category::class)->create(['display' => 'Enabled'])->id);
+        $this->withoutExceptionHandling()
+             ->get(route('users.login') . '?addToWishlist=' . $product->code)
+             ->assertViewIs('users.login');
+
+        $this->assertNotNull(session('addToWishlist'));
+    }
+
+    /** @test */
+    function redirect_user_to_wishlist_secion_if_product_is_added_in_wishlist_as_guest_user()
+    {
+        $user = factory(User::class)->create();
+        $product = factory(\IndianIra\Product::class)->create(['display' => 'Enabled']);
+        $product->categories()->sync(factory(\IndianIra\Category::class)->create(['display' => 'Enabled'])->id);
+
+        session(['addToWishlist' => $product->code]);
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('users.postLogin'), [
+                            'usernameOrEmail' => array_random([$user->username, $user->email]),
+                            'password'        => 'Password'
+                         ]);
+
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals('Logged in successfully. Redirecting...', $result->message);
+        $this->assertEquals(route('users.wishlist'), $result->location);
+
+        $this->assertNull(session('addToWishlist'));
+    }
+
+    /** @test */
     function user_can_login_to_the_application()
     {
         $user = factory(User::class)->create();

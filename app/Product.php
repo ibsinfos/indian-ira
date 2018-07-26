@@ -95,6 +95,21 @@ class Product extends Model
     }
 
     /**
+     * Check whether the product exists in the given user's wishlist.
+     *
+     * @param   \IndianIra\User  $user
+     * @return  boolean
+     */
+    public function existsInWishlist($user)
+    {
+        if ($user->wishlist->where('product_id', $this->id)->first() != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Get the cart image of the product.
      *
      * @return  string

@@ -50,6 +50,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.wishlist') }}">
+                    <i class="fas fa-heart"></i> Wishlist
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.orders') }}">
                     <i class="fas fa-shopping-cart"></i> Orders
                 </a>

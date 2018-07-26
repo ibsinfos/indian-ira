@@ -165,7 +165,32 @@ if ($product->number_of_options >= 1) {
                     </a>
 
                     <span class="ml-2 font-weight-bold text-uppercase" style="letter-spacing: 1px;">
-                        <a href="javascript:void(0)" class="mainSiteLink-invert">Add To Wishlist</a>
+                        @if (auth()->user() && $product->existsInWishlist(auth()->user()))
+                            <a
+                                href="{{ route('users.wishlist.remove', $product->id) }}"
+                                class="mainSiteLink-invert btnWishlist"
+                                data-verb="Remove"
+                            >
+                                Remove from Wishlist
+                            </a>
+                        @elseif (auth()->user() && ! $product->existsInWishlist(auth()->user()))
+                            <a
+                                href="{{ route('users.wishlist.add', $product->code) }}"
+                                class="mainSiteLink-invert btnWishlist"
+                                data-verb="Add"
+                            >
+                                Add To Wishlist
+                            </a>
+                        @elseif (auth()->guest())
+                            <a
+                                href="{{ route('users.login') }}?addToWishlist={{ $product->code }}"
+                                class="mainSiteLink-invert"
+                                title="Please login to add this product in your wishlist"
+                                data-toggle="tooltip"
+                            >
+                                Add To Wishlist
+                            </a>
+                        @endif
                     </span>
 
                     <div class="mb-5"></div>
@@ -220,6 +245,55 @@ if ($product->number_of_options >= 1) {
                 }
             }
         });
+
+        @if (auth()->check())
+            $('.btnWishlist').on('click', function (e) {
+                e.preventDefault();
+
+                var self = $(this)
+                    verb = self.data('verb');
+
+                if (verb == 'Add') {
+                    var action = 'Adding',
+                        text = 'Added',
+                        fail = 'Add To Wishlist';
+                } else if (verb == 'Remove') {
+                    var action = 'Removing'
+                        text = 'Removed',
+                        fail = 'Remove From Wishlist';
+                }
+
+                self.prop('disabled', true)
+                       .html('<i class="fas fa-spinner fa-spin"></i> '+ action +'...');
+
+                $.ajax({
+                    url: $(this).attr('href'),
+                    type: 'GET',
+                    success: function (res) {
+                        self.prop('disabled', false);
+
+                        displayGrowlNotification(res.status, res.title, res.message, res.delay);
+
+                        if (res.status == 'success') {
+                            self.html(text);
+
+                            setTimeout(function () {
+                                window.location = res.location;
+                            }, res.delay + 1000);
+                        } else {
+                            self.html(fail);
+                        }
+                    },
+                    error: function (err) {
+                        self.prop('disabled', false).html(fail);
+
+                        alert('Something went wrong. Please try again later.');
+                    },
+                });
+
+                return false;
+            });
+        @endif
 
         $('body').on('click', '.btnAddToCart', function (e) {
             e.preventDefault();

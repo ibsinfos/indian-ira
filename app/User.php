@@ -64,6 +64,31 @@ class User extends Authenticatable
     }
 
     /**
+     * A user has only one wishlist.
+     *
+     * @return  \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function wishlist()
+    {
+        return $this->hasMany(UserWishlist::class);
+    }
+
+    /**
+     * Check whether the user can add the product in their wishlist.
+     *
+     * @param   \IndianIra\Product  $product
+     * @return  boolean
+     */
+    public function canAddProductInWishlist($product)
+    {
+        if ($product->existsInWishlist($this)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Check whether the user has billing address.
      *
      * @return  boolean

@@ -316,3 +316,19 @@ $factory->define(IndianIra\EnquireProduct::class, function (Faker $faker) {
         'deleted_at'          => null,
     ];
 });
+
+$factory->define(IndianIra\UserWishlist::class, function (Faker $faker) {
+    $user = factory(\IndianIra\User::class)->create();
+    $product = factory(\IndianIra\Product::class)->create(['display' => 'Enabled']);
+    $product->categories()->attach([
+        factory(\IndianIra\Category::class)->create(['display' => 'Enabled'])->id
+    ]);
+
+    return [
+        'user_id'          => $user->id,
+        'product_id'       => $product->id,
+        'product_code'     => $product->code,
+        'product_image'    => $product->cartImage(),
+        'product_page_url' => $product->canonicalPageUrl(),
+    ];
+});

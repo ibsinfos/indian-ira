@@ -47,4 +47,34 @@ class ProductTest extends TestCase
         $this->assertCount(5, $product1->interRelated);
         $this->assertCount(3, $product2->interRelated);
     }
+
+    /** @test */
+    function product_does_not_exists_in_the_user_wishlist()
+    {
+        $user = $this->signInUser();
+        $product = factory(Product::class)->create(['display' => 'Enabled']);
+
+        $this->assertFalse($product->existsInWishlist($user));
+    }
+
+    /** @test */
+    function product_exists_in_the_wishlist_of_the_authenticated_user()
+    {
+        $user = $this->signInUser();
+        $product = factory(Product::class)->create(['display' => 'Enabled']);
+        $product->categories()->attach([
+            factory(\IndianIra\Category::class)->create(['display' => 'Enabled'])->id
+        ]);
+
+        factory(\IndianIra\UserWishlist::class)->create([
+            'user_id'          => $user->id,
+            'product_id'       => $product->id,
+            'product_code'     => $product->code,
+            'product_name'     => $product->name,
+            'product_image'    => $product->cartImage(),
+            'product_page_url' => $product->canonicalPageUrl(),
+        ]);
+
+        $this->assertTrue($product->existsInWishlist($user));
+    }
 }
