@@ -85,7 +85,7 @@
 
                 <td class="text-right">
                     <i class="fas fa-rupee-sign"></i>
-                    {{ number_format(\IndianIra\Utilities\Cart::netAmount($code) + \IndianIra\Utilities\Cart::gstAmount($code), 2) }}
+                    {{ number_format((\IndianIra\Utilities\Cart::netAmount($code) * $row['quantity']) + (\IndianIra\Utilities\Cart::gstAmount($code) * $row['quantity']), 2) }}
                 </td>
             </tr>
         @empty
