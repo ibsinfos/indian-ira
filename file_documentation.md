@@ -1933,3 +1933,23 @@ Following files were created / changed:
 
 8. **`tests/Feature/Admin/Products/ProductSortingTest.php`**<br />
     Tests that conforms and validates that the updating of products' sort number via categories is working as per expectations.
+
+----
+
+#### Multiple Images of Product
+
+Images should change based on the chosen option value of the product.
+
+Following files were created / changed:
+
+1. **`app/Product.php`**<br />
+    Modified to include the `gallery_image_*` field name to fetch the image.
+
+2. **`app/ProductPriceAndOption.php`**<br />
+    Modified to include the `gallery_image_*` field name to fetch the image.
+
+3. **`resources/views/products/show.blade.php`**<br />
+    Multiple images should change as per the chosen option value.
+
+4. **`resources/views/tags/product.blade.php`**<br />
+    Multiple images should change as per the chosen option value.

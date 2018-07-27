@@ -40,9 +40,12 @@ class ProductPriceAndOption extends Model
      *
      * @return  string
      */
-    public function cartImage()
+    public function cartImage($galleryField = null)
     {
         $images = explode('; ', $this->image);
+        if ($galleryField != null && $this->$galleryField != null) {
+            $images = explode('; ', $this->$galleryField);
+        }
         $images = collect($images)->filter();
 
         if (
@@ -71,16 +74,19 @@ class ProductPriceAndOption extends Model
      *
      * @return  string
      */
-    public function zoomedImage()
+    public function zoomedImage($galleryField = null)
     {
         $images = explode('; ', $this->image);
+        if ($galleryField != null && $this->$galleryField != null) {
+            $images = explode('; ', $this->$galleryField);
+        }
         $images = collect($images)->filter();
 
         if (
             $images->isNotEmpty() &&
-            \Illuminate\Support\Facades\File::exists($this->getPublicPath() . $images[2])
+            \Illuminate\Support\Facades\File::exists($this->getPublicPath() . $images->last())
         ) {
-            return $images[2];
+            return $images->last();
         }
 
         return 'images/no-image-zoomed.png';
