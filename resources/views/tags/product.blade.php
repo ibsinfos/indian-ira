@@ -1,7 +1,7 @@
 @php
 $options = $product->options()->onlyEnabled()->get()->sortBy('sort_number');
 
-$option = $options->last();
+$option = $options->first();
 
 $price = $option != null ? $option->selling_price : 0.0;
 if ($option && $option->discount_price > 0.0) {
@@ -10,8 +10,6 @@ if ($option && $option->discount_price > 0.0) {
 
 $link = route('cart.add', $product->code);
 if ($product->number_of_options >= 1) {
-    $option = $options->first();
-
     $link = route('cart.add', [
         $product->code, $options->last()->option_code
     ]);

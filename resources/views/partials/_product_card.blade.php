@@ -1,10 +1,6 @@
 @php
 $options = $product->options()->onlyEnabled()->get()->sortBy('sort_number');
-
-$option = $options->last();
-if ($product->number_of_options >= 1) {
-    $option = $options->first();
-}
+$option = $options->first();
 @endphp
 
 <div class="card" style="border: 1px solid #000;">
