@@ -85,7 +85,7 @@ class ProductUpdateMetaInformationTest extends TestCase
     /** @test */
     function super_administrator_is_redirected_to_product_index_if_product_image_already_uploaded()
     {
-        $product = factory(Product::class)->create();
+        $product = factory(Product::class)->create(['images' => '/images-products/image-cart.jpg; /images-products/image-catalog.jpg; /images-products/image-zoomed.jpg']);
 
         $formValues = $product->toArray();
 

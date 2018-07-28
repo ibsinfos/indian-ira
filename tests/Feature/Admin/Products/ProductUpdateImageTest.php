@@ -64,6 +64,46 @@ class ProductUpdateImageTest extends TestCase
     }
 
     /** @test */
+    function super_administrator_may_add_the_gallery_images_of_the_product()
+    {
+        $product = factory(Product::class)->create();
+
+        $response = $this->withoutExceptionHandling()
+                         ->post(route('admin.products.updateImage', $product->id), [
+                            'image' => UploadedFile::fake()->image('image.jpg', 1000, 1000),
+                            'gallery_image_file_1' => UploadedFile::fake()->image('image-galery.jpg', 1000, 1000),
+                        ]);
+        $result = json_decode($response->getContent());
+
+        $imageNames = explode('; ', Product::first()->images);
+        $galleryImage1 = explode('; ', Product::first()->gallery_image_1);
+
+        $this->assertNotNull(Product::first()->gallery_image_1);
+        $this->assertNull(Product::first()->gallery_image_2);
+
+        $this->assertEquals('/images-products/image-cart.jpg', $imageNames[0]);
+        $this->assertEquals('/images-products/image-catalog.jpg', $imageNames[1]);
+        $this->assertEquals('/images-products/image-zoomed.jpg', $imageNames[2]);
+
+        $this->assertFileExists(public_path().$imageNames[0]);
+        $this->assertFileExists(public_path().$imageNames[1]);
+        $this->assertFileExists(public_path().$imageNames[2]);
+
+        $this->assertEquals('/images-products/image-galery-cart.jpg', $galleryImage1[0]);
+        $this->assertEquals('/images-products/image-galery-zoomed.jpg', $galleryImage1[1]);
+
+        $this->assertFileExists(public_path().$galleryImage1[0]);
+        $this->assertFileExists(public_path().$galleryImage1[1]);
+
+        File::deleteDirectory(public_path('/images-products'));
+
+        $this->assertNotNull($result);
+        $this->assertEquals($result->status, 'success');
+        $this->assertEquals($result->title, 'Success !');
+        $this->assertEquals($result->message, 'Product image updated successfully!');
+    }
+
+    /** @test */
     function redirect_to_inter_related_products_page_if_it_related_products_is_empty()
     {
         $product = factory(Product::class)->create();

@@ -32,6 +32,9 @@ class CreateProductsTable extends Migration
             $table->string('display')->nullable();
 
             $table->string('images')->nullable();
+            $table->string('gallery_image_1')->nullable();
+            $table->string('gallery_image_2')->nullable();
+            $table->string('gallery_image_3')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

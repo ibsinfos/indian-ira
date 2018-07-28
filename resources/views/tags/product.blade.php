@@ -1,6 +1,6 @@
 @php
 $options = $product->options()->onlyEnabled()->get()->sortBy('sort_number');
-
+$galleryImg = $product;
 $option = $options->first();
 
 $price = $option != null ? $option->selling_price : 0.0;
@@ -10,6 +10,7 @@ if ($option && $option->discount_price > 0.0) {
 
 $link = route('cart.add', $product->code);
 if ($product->number_of_options >= 1) {
+    $galleryImg = $option;
     $link = route('cart.add', [
         $product->code, $options->last()->option_code
     ]);
@@ -126,44 +127,44 @@ if ($product->number_of_options >= 1) {
                         </a>
                     @endif
 
-                    @if ($option->gallery_image_1 != null)
+                    @if ($galleryImg->gallery_image_1 != null)
                         <a
                             href="#"
                             class="w-100 mainSiteLink"
-                            data-image="{{ url($option->zoomedImage('gallery_image_1')) }}"
-                            data-zoom-image="{{ url($option->zoomedImage('gallery_image_1')) }}"
+                            data-image="{{ url($galleryImg->zoomedImage('gallery_image_1')) }}"
+                            data-zoom-image="{{ url($galleryImg->zoomedImage('gallery_image_1')) }}"
                         >
                             <img
                                 id="productImage"
-                                src="{{ url($option->cartImage('gallery_image_1')) }}"
+                                src="{{ url($galleryImg->cartImage('gallery_image_1')) }}"
                             />
                         </a>
                     @endif
 
-                    @if ($option->gallery_image_2 != null)
+                    @if ($galleryImg->gallery_image_2 != null)
                         <a
                             href="#"
                             class="w-100 mainSiteLink"
-                            data-image="{{ url($option->zoomedImage('gallery_image_2')) }}"
-                            data-zoom-image="{{ url($option->zoomedImage('gallery_image_2')) }}"
+                            data-image="{{ url($galleryImg->zoomedImage('gallery_image_2')) }}"
+                            data-zoom-image="{{ url($galleryImg->zoomedImage('gallery_image_2')) }}"
                         >
                             <img
                                 id="productImage"
-                                src="{{ url($option->cartImage('gallery_image_2')) }}"
+                                src="{{ url($galleryImg->cartImage('gallery_image_2')) }}"
                             />
                         </a>
                     @endif
 
-                    @if ($option->gallery_image_3 != null)
+                    @if ($galleryImg->gallery_image_3 != null)
                         <a
                             href="#"
                             class="w-100 mainSiteLink"
-                            data-image="{{ url($option->zoomedImage('gallery_image_3')) }}"
-                            data-zoom-image="{{ url($option->zoomedImage('gallery_image_3')) }}"
+                            data-image="{{ url($galleryImg->zoomedImage('gallery_image_3')) }}"
+                            data-zoom-image="{{ url($galleryImg->zoomedImage('gallery_image_3')) }}"
                         >
                             <img
                                 id="productImage"
-                                src="{{ url($option->cartImage('gallery_image_3')) }}"
+                                src="{{ url($galleryImg->cartImage('gallery_image_3')) }}"
                             />
                         </a>
                     @endif

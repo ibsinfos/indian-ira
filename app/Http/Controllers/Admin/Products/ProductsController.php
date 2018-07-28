@@ -235,12 +235,30 @@ class ProductsController extends Controller
     {
         $dimensions = 'min_width:500,max_width=1280,min_height:500,max_height=1280';
         $this->validate($request, [
-            'image' => 'bail|required|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions
+            'image' => 'bail|required|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_1' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_2' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
+            'gallery_image_file_3' => 'bail|nullable|image|max:600|mimes:JPG,JPEG,PNG,jpg,jpeg,png|dimensions:'.$dimensions,
         ], [
             'image.image'      => 'The uploaded file should be an image.',
             'image.max'        => 'The uploaded image file may not be greater than 600 kilobytes.',
             'image.dimensions' => 'The uploaded image file should be between 500px and 1280px in width and height.',
             'image.mimes'      => 'The uploaded image file must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
+
+            'gallery_image_file_1.image'      => 'The gallery image 1 file should be an image.',
+            'gallery_image_file_1.max'        => 'The gallery image 1 file may not be greater than 600 kilobytes.',
+            'gallery_image_file_1.dimensions' => 'The gallery image 1 file should be between 500px and 1280px in width and height.',
+            'gallery_image_file_1.mimes'      => 'The gallery image 1 file must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
+
+            'gallery_image_file_2.image'      => 'The gallery image 2 file should be an image.',
+            'gallery_image_file_2.max'        => 'The gallery image 2 file may not be greater than 600 kilobytes.',
+            'gallery_image_file_2.dimensions' => 'The gallery image 2 file should be between 500px and 1280px in width and height.',
+            'gallery_image_file_2.mimes'      => 'The gallery image 2 file must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
+
+            'gallery_image_file_3.image'      => 'The gallery image 3 file should be an image.',
+            'gallery_image_file_3.max'        => 'The gallery image 3 file may not be greater than 600 kilobytes.',
+            'gallery_image_file_3.dimensions' => 'The gallery image 3 file should be between 500px and 1280px in width and height.',
+            'gallery_image_file_3.mimes'      => 'The gallery image 3 file must be a file of type: JPG, JPEG, PNG, jpg, jpeg, png.',
         ]);
 
         $product = $this->getAllProducts()->where('id', $id)->first();
@@ -253,9 +271,27 @@ class ProductsController extends Controller
             ]);
         }
 
-        $file = $this->processUploadedFile($request->image);
+        if ($request->image != null) {
+            $file = $this->processUploadedFile($request->image);
+            $request['images'] = implode('; ', $file);
+        }
 
-        $product->update(['images' => implode('; ', $file)]);
+        if ($request->gallery_image_file_1 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_1);
+            $request['gallery_image_1'] = implode('; ', $file);
+        }
+
+        if ($request->gallery_image_file_2 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_2);
+            $request['gallery_image_2'] = implode('; ', $file);
+        }
+
+        if ($request->gallery_image_file_3 != null) {
+            $file = $this->processUploadedFileForGallery($request->gallery_image_file_3);
+            $request['gallery_image_3'] = implode('; ', $file);
+        }
+
+        $product->update($request->all());
 
         return response([
             'status'  => 'success',
@@ -471,6 +507,51 @@ class ProductsController extends Controller
         });
         $image->resizeCanvas(300, 300);
         $fileName = $this->getFileName($file, 'catalog');
+        $uploadedFileNames[] = '/images-products/'.$fileName;
+        $image->save($path . $fileName, 100);
+        $image->destroy();
+
+        $zoomedImage = Image::make($file);
+        $img = $zoomedImage->resizeCanvas(1280, 1280);
+        $fileName = $this->getFileName($file, 'zoomed');
+        $uploadedFileNames[] = '/images-products/'.$fileName;
+        $zoomedImage->save($path . $fileName, 100);
+        $zoomedImage->destroy();
+
+        return $uploadedFileNames;
+    }
+
+    /**
+     * Store the uploaded file for the gallery.
+     *
+     * @param   \Illuminate\Http\UploadedFile  $file
+     * @return  array
+     */
+    protected function processUploadedFileForGallery($file)
+    {
+        $imageRelativePath = 'images-products/';
+        $path = $this->createDirectoryIfNotExists($imageRelativePath);
+
+        $uploadedFileNames = [];
+
+        $cart    = $file;
+        $zoomed  = $file;
+
+        $image = Image::make($file);
+        $height = $width = 75;
+        if ($image->height() >= 1281) {
+            $width = null;
+        }
+
+        if ($image->width() >= 1281) {
+            $height = null;
+        }
+
+        $image = $image->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image->resizeCanvas(75, 75);
+        $fileName = $this->getFileName($file, 'cart');
         $uploadedFileNames[] = '/images-products/'.$fileName;
         $image->save($path . $fileName, 100);
         $image->destroy();

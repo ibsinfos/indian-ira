@@ -29,18 +29,17 @@
             Ideal size: 1280px x 1280px.<br />
             The image file size should be less than 600kB.<br /><br />
 
-            This image will get replaced by the image that you may upload while adding / editing the <a href="{{ route('admin.products.priceAndOptions', $product->id) }}" class="mainSiteLink font-weight-bold">prices and options</a> related to this product.
+            This image will get replaced by the image that you may upload while adding / editing the <a href="{{ route('admin.products.priceAndOptions', $product->id) }}" class="mainSiteLink font-weight-bold">prices and options</a> related to this product.<br /><br />
+            The Gallery Images are optional.<br />
         </div>
 
-            <div class="mb-5 text-center">
-                <img
-                    src="{{ url($product->cartImage()) }}"
-                    alt="{{ $product->name }}"
-                    class="rounded-circle"
-                />
-            </div>
-        @if ($cartImage = $product->cartImage())
-        @endif
+        <div class="mb-5 text-center">
+            <img
+                src="{{ url($product->cartImage()) }}"
+                alt="{{ $product->name }}"
+                class="rounded-circle"
+            />
+        </div>
 
         <form
             action="{{ route('admin.products.updateImage', $product->id) }}"
@@ -54,7 +53,7 @@
             <div class="errorsInUpdatingImage"></div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="normal" for="image">Product Image File:</label>
                         <input
@@ -67,11 +66,44 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <label class="normal mb-5" for="image"></label>
-                    <button class="btn submitButton btnUpdateImage mt-3">Submit</button>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="normal" for="gallery_image_file_1" style="font-weight: 300 !important;">Gallery Image 1 (Optional):</label>
+                        <input
+                            type="file"
+                            name="gallery_image_file_1"
+                            id="gallery_image_file_1"
+                            class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="normal" for="gallery_image_file_2" style="font-weight: 300 !important;">Gallery Image 2 (Optional):</label>
+                        <input
+                            type="file"
+                            name="gallery_image_file_2"
+                            id="gallery_image_file_2"
+                            class="form-control"
+                        />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="normal" for="gallery_image_file_3" style="font-weight: 300 !important;">Gallery Image 3 (Optional):</label>
+                        <input
+                            type="file"
+                            name="gallery_image_file_3"
+                            id="gallery_image_file_3"
+                            class="form-control"
+                        />
+                    </div>
                 </div>
             </div>
+
+            <button class="btn submitButton btnUpdateImage mt-3">Submit</button>
         </form>
     </div>
 </div>

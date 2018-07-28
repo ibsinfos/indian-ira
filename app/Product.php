@@ -30,6 +30,7 @@ class Product extends Model
         'description', 'additional_notes', 'terms',
         'meta_title', 'meta_description', 'meta_keywords',
         'display', 'images',
+        'gallery_image_1', 'gallery_image_2', 'gallery_image_3',
     ];
 
     /**

@@ -140,7 +140,11 @@ $factory->define(IndianIra\Product::class, function (Faker $faker) {
         'meta_description'  => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur corporis saepe accusantium sit. Dicta explicabo sapiente error neque iste nihil ipsa!',
         'meta_keywords'     => implode(', ', $faker->words(5)),
 
-        'images'            => '/images-products/image-cart.jpg; /images-products/image-catalog.jpg; /images-products/image-zoomed.jpg',
+        'images'            => null,
+
+        'gallery_image_1'   => null,
+        'gallery_image_2'   => null,
+        'gallery_image_3'   => null,
 
         'deleted_at'        => null,
     ];
@@ -162,7 +166,7 @@ $factory->define(IndianIra\ProductPriceAndOption::class, function (Faker $faker)
         'sort_number'      => $faker->randomDigit(),
         'weight'           => (float) round($faker->randomFloat(2, 1, 1000), 2),
         'display'          => 'Enabled',
-        'image'            => '/images-products/image-option-cart.jpg; /images-products/image-option-catalog.jpg; /images-products/image-option-zoomed.jpg',
+        'image'            => null,
         'gallery_image_1' => null,
         'gallery_image_2' => null,
         'gallery_image_3' => null,
