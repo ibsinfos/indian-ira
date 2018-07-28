@@ -19,6 +19,11 @@
                 </a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">{{ $product->name }} - Prices and Options</li>
+            <li class="breadcrumb-item">
+                <a href="{{ url($product->canonicalPageUrl()) }}" class="mainSiteLink" target="_blank">
+                    View this product
+                </a>
+            </li>
         </ol>
     </nav>
 
