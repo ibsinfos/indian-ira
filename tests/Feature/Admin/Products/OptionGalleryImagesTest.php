@@ -26,10 +26,7 @@ class OptionGalleryImagesTest extends TestCase
         $option = factory(ProductPriceAndOption::class)->make();
 
         $formValues = array_merge($option->toArray(), [
-            'image'                => UploadedFile::fake()->image('image.jpg', 1000, 1000),
-            'gallery_image_file_1' => UploadedFile::fake()->image('gallery-image.jpg', 1000, 1000),
-            'gallery_image_file_2' => null,
-            'gallery_image_file_3' => null,
+            'gallery_image_file_1' => UploadedFile::fake()->image('gallery-image.jpg', 800, 800)
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -61,7 +58,7 @@ class OptionGalleryImagesTest extends TestCase
         $option = factory(ProductPriceAndOption::class)->make();
 
         $formValues = array_merge($option->toArray(), [
-            'gallery_image_file_2' => UploadedFile::fake()->image('gallery-image.jpg', 1000, 1000),
+            'gallery_image_file_2' => UploadedFile::fake()->image('gallery-image.jpg', 800, 800),
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -93,7 +90,7 @@ class OptionGalleryImagesTest extends TestCase
         $option = factory(ProductPriceAndOption::class)->make();
 
         $formValues = array_merge($option->toArray(), [
-            'gallery_image_file_3' => UploadedFile::fake()->image('gallery-image.jpg', 1000, 1000),
+            'gallery_image_file_3' => UploadedFile::fake()->image('gallery-image.jpg', 800, 800),
         ]);
 
         $response = $this->withoutExceptionHandling()
@@ -175,7 +172,7 @@ class OptionGalleryImagesTest extends TestCase
         $option = factory(ProductPriceAndOption::class)->make();
 
         $formValues = array_merge($option->toArray(), [
-            'gallery_image_file_1' => UploadedFile::fake()->create('image.jpg', 10000)
+            'gallery_image_file_1' => UploadedFile::fake()->create('image.jpg', 700)
         ]);
 
         $response = $this->withExceptionHandling()
