@@ -317,23 +317,6 @@ class CouponsTest extends TestCase
     }
 
     /** @test */
-    function coupon_discount_percent_may_not_be_greater_than_10_characters()
-    {
-        $coupon = factory(Coupon::class)->make();
-        $formValues = array_merge($coupon->toArray(), ['discount_percent' => '1865287282.05']);
-
-        $this->withExceptionHandling()
-            ->post(route('admin.coupons.store'), $formValues)
-            ->assertSessionHasErrors('discount_percent');
-
-        $errors = session('errors');
-        $this->assertEquals(
-            $errors->first('discount_percent'),
-            'The discount percent may not be greater than 10 characters.'
-        );
-    }
-
-    /** @test */
     function coupon_discount_percent_should_contain_only_numeric_characters()
     {
         $coupon = factory(Coupon::class)->make();

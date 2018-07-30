@@ -30,7 +30,7 @@ class CouponsController extends Controller
     {
         $this->validate($request, [
             'code'             => 'required|alpha_dash|max:30',
-            'discount_percent' => 'required|max:10|regex:/^\d+(\.(\d{0,2}))?$/'
+            'discount_percent' => 'required|regex:/^\d+(\.(\d{0,2}))?$/'
         ], [
             'code.required'          => 'The coupon code field is required.',
             'code.max'               => 'The coupon code may not be greater than 30 characters.',
@@ -61,7 +61,7 @@ class CouponsController extends Controller
     {
         $this->validate($request, [
             'code'             => 'required|alpha_dash|max:30',
-            'discount_percent' => 'required|max:10|regex:/^\d+(\.(\d{0,2}))?$/'
+            'discount_percent' => 'required|regex:/^\d+(\.(\d{0,2}))?$/'
         ], [
             'code.required'          => 'The coupon code field is required.',
             'code.max'               => 'The coupon code may not be greater than 30 characters.',
