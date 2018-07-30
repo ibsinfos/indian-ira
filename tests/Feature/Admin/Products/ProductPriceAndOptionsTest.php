@@ -39,7 +39,7 @@ class ProductPriceAndOptionsTest extends TestCase
     function super_administrator_can_view_the_products_price_and_options_section()
     {
         $product = factory(Product::class)->create();
-        $product->categories(factory(Category::class)->create(['display' => 'Enabled'])->id);
+        $product->categories()->sync(factory(\IndianIra\Category::class)->create(['display' => 'Enabled'])->id);
 
         $this->withoutExceptionHandling()
              ->get(route('admin.products.priceAndOptions', $product->id))
