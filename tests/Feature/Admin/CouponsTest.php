@@ -95,7 +95,7 @@ class CouponsTest extends TestCase
         $coupons = factory(Coupon::class, 3)->create();
 
         $response = $this->withoutExceptionHandling()
-                         ->post(route('admin.coupons.update', 50), $coupons->last()->toArray());
+                         ->post(route('admin.coupons.update', 50), ['code' => 'gbe', 'discount_percent' => 10]);
 
         $result = json_decode($response->getContent());
 
@@ -343,7 +343,7 @@ class CouponsTest extends TestCase
     {
         return array_merge([
             'code'             => 'CP2018',
-            'discount_percent' => 18.0,
+            'discount_percent' => 10,
         ], $details);
     }
 }
