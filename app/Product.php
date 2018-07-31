@@ -236,7 +236,13 @@ class Product extends Model
      */
     public function canonicalPageUrl()
     {
-        return $this->categories->first()->pageUrl()
+        $category = $this->categories->first();
+
+        if ($category->first() == null) {
+            return 'javascript:void(0)';
+        }
+
+        return $category->first()->pageUrl()
                 .'/products/'
                 .$this->code.'/'.str_slug($this->name);
     }
