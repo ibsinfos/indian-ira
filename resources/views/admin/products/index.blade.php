@@ -32,15 +32,15 @@
                                 data-target="#addProductModal"
                             >Add</a>
                             <a
-                                href="{{ route('admin.products.download') }}"
-                                class="btn btn-light text-black btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
-                            >Download / Export</a>
-                            <a
                                 href="#"
                                 class="btn btn-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                                 data-toggle="modal"
                                 data-target="#importProductsModal"
-                            >Upload / Import</a>
+                            >Upload</a>
+                            <a
+                                href="{{ route('admin.products.download') }}"
+                                class="btn btn-light text-black btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                            >Download</a>
                             <a
                                 href="{{ route('admin.dashboard') }}"
                                 class="btn btn-outline-light text-black btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
