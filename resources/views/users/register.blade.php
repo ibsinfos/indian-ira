@@ -185,6 +185,9 @@
                     <div class="card-footer">
                         <a href="{{ route('users.login') }}" class="mainSiteLink">
                             Click here to Login
+                        </a> OR
+                        <a href="{{ route('homePage') }}" class="mainSiteLink">
+                            Click here to Go to Home Page
                         </a>
                     </div>
                 </div>

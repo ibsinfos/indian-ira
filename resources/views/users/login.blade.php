@@ -88,6 +88,9 @@
                     <div class="card-footer">
                         <a href="{{ route('users.register') }}" class="mainSiteLink">
                             Click here to Register
+                        </a> OR
+                        <a href="{{ route('homePage') }}" class="mainSiteLink">
+                            Click here to Go to Home Page
                         </a>
                     </div>
                 </div>
