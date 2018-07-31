@@ -2,6 +2,7 @@
     <thead>
         <th>Sr. No</th>
         <th>Product Details</th>
+        <th>Categories</th>
         <th>Options Count</th>
         <th>Display</th>
         <th>Added On</th>
@@ -13,18 +14,19 @@
             <tr @if ($product->deleted_at != null) class="deletedRow" @endif>
                 <td>{{ ++$key }}</td>
                 <td>
-                    <a href="#" target="_blank">
-                        <img
-                            src="{{ url($product->cartImage()) }}"
-                            alt="{{ $product->name }}"
-                            class="float-left mr-3"
-                        />
-                    </a>
+                    <img
+                        src="{{ url($product->cartImage()) }}"
+                        alt="{{ $product->name }}"
+                        class="float-left mr-3 w-25"
+                    />
 
-                    <a href="#" target="_blank" class="mainSiteLink font-weight-bold">
-                        {{ $product->name }}
+                    <a href="{{ $product->canonicalPageUrl() }}" target="_blank" class="mainSiteLink">
+                        {{ title_case($product->name) }}
                     </a><br />
                     {{ $product->code }}
+                </td>
+                <td>
+                    {{ title_case($product->categories->implode('name', '; ')) }}
                 </td>
                 <td>{{ $product->number_of_options . ' ' . str_plural('Option', $product->number_of_options) }}</td>
                 <td>{{ $product->display }}</td>
