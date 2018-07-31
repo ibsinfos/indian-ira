@@ -55,8 +55,10 @@ class GenerateAdministratorTest extends TestCase
         $this->assertEquals('success', $result->status);
         $this->assertEquals('Success !', $result->title);
         $this->assertEquals('Super administrator generated successfully.. Redirecting...', $result->message);
-        $this->assertEquals(route('homePage'), $result->location);
+        $this->assertEquals(route('admin.dashboard'), $result->location);
         $this->assertTrue(cache('superAdminExists'));
+
+        $this->assertTrue(auth()->id() == 1);
     }
 
     /** @test */
@@ -83,7 +85,7 @@ class GenerateAdministratorTest extends TestCase
         $this->assertEquals('success', $result->status);
         $this->assertEquals('Success !', $result->title);
         $this->assertEquals('Super administrator generated successfully.. Redirecting...', $result->message);
-        $this->assertEquals(route('homePage'), $result->location);
+        $this->assertEquals(route('admin.dashboard'), $result->location);
         $this->assertTrue(cache('superAdminExists'));
 
         Mail::assertSent(AdminGenerated::class);

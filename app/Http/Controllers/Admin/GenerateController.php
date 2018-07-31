@@ -68,12 +68,14 @@ class GenerateController extends Controller
 
         session()->forget('password');
 
+        auth()->login($admin);
+
         return response([
             'status'   => 'success',
             'title'    => 'Success !',
             'delay'    => 3000,
             'message'  => 'Super administrator generated successfully.. Redirecting...',
-            'location' => route('homePage'),
+            'location' => route('admin.dashboard'),
         ]);
     }
 }
