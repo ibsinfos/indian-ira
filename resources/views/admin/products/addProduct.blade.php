@@ -34,6 +34,8 @@
                             placeholder="Eg. PRD-01"
                             required="required"
                             autocomplete="sc-notWanted"
+                            data-toggle="tooltip"
+                            title="It should contain only alphabets, numbers, dashes (-) and underscores ( _ ) without any space."
                             maxlength="100"
                         />
                     </div>
