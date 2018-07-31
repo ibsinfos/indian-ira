@@ -37,15 +37,15 @@
                             <div class="float-right">
                                 <a
                                     href="{{ route('admin.dashboard') }}"
-                                    class="btn btn-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                                    class="btn btn-outline-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                                 >Go to Dashboard</a>
                             </div>
                         </h3>
                     </div>
 
                     <div class="card-body">
-                        <p class="text-danger font-weight-bold text-justify mb-5">
-                            The below amount will be paid by the buyer to the courier delivery person as COD Charges. This amount will get added in the cart if the buyer chooses COD as their preferred payment option while checking out.
+                        <p class="text-danger text-justify mb-5">
+                            The below amount will be paid by the buyer to the courier delivery person as Cash On Delivery (COD) Charges. This amount will get added in the cart if the buyer chooses COD as their preferred payment option while checking out.
                         </p>
 
                         <form

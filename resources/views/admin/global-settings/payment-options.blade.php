@@ -35,14 +35,14 @@
                             <div class="float-right">
                                 <a
                                     href="{{ route('admin.dashboard') }}"
-                                    class="btn btn-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                                    class="btn btn-outline-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                                 >Go to Dashboard</a>
                             </div>
                         </h3>
                     </div>
 
                     <div class="card-body">
-                        <p class="text-danger font-weight-bold text-justify mb-5">
+                        <p class="text-danger text-justify mb-5">
                             Choose any or all of them. This will help the buyer to choose their preferred payment type while checking out.
                         </p>
 

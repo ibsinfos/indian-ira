@@ -27,14 +27,14 @@
                             <div class="float-right">
                                 <a
                                     href="{{ route('admin.dashboard') }}"
-                                    class="btn btn-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
+                                    class="btn btn-outline-light btn-sm font-weight-bold shadow-none mt-md-0 mt-lg-0 mt-xl-0 mt-sm-4"
                                 >Go to Dashboard</a>
                             </div>
                         </h3>
                     </div>
 
                     <div class="card-body">
-                        <p class="text-danger font-weight-bold text-justify mb-5">
+                        <p class="text-danger text-justify mb-5">
                             The bank details is required for the buyers to make payment while checking out if they choose the 'Offline' payment option as their preferred payment type. The buyer will make payment to the below mentioned bank details.
                         </p>
 
