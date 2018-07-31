@@ -9,23 +9,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Import Products</h4>
+                <h4 class="modal-title">Upload Products</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <p class="text-danger font-weight-bold" style="font-size: 14px">
+                <p class="text-danger" style="font-size: 14px">
                     If the data is found in the records, it will be updated.<br />
                     If the data is not found in the records, it will be created.
                 </p>
 
-                <p class="text-danger font-weight-bold" style="font-size: 14px">
+                <p class="text-danger" style="font-size: 14px">
                     The file should be in .xls or .xlsx format only.
                 </p>
 
-                <p class="text-danger font-weight-bold" style="font-size: 14px">
+                <p class="text-danger" style="font-size: 14px">
                     Only Three levels of categories can be added.
                 </p>
 
