@@ -16,9 +16,9 @@
     <div class="container">
         <figure class="text-center m-0">
             <img
-                src="{{ url('/images/Indian-Ira-Logo.png') }}"
+                src="{{ url('/images/Indian-Ira-Logo-1.png') }}"
                 alt="{{ config('app.name') }} - Logo"
-                class="img img-responsive logoImage"
+                class="img img-responsive logoImage my-4"
             />
         </figure>
 
