@@ -238,11 +238,11 @@ class Product extends Model
     {
         $category = $this->categories->first();
 
-        if ($category->first() == null) {
+        if ($category == null) {
             return 'javascript:void(0)';
         }
 
-        return $category->first()->pageUrl()
+        return $category->pageUrl()
                 .'/products/'
                 .$this->code.'/'.str_slug($this->name);
     }
