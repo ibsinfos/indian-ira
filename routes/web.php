@@ -310,3 +310,24 @@ Route::get('/flush-session', function () {
     return redirect(route('homePage'));
 });
 
+Route::get('/reboot', function () {
+    if (config('app.env') != 'production') {
+        $allTables = collect(\Illuminate\Support\Facades\DB::select('SHOW TABLES'));
+
+        $allTables->each(function($table, $key) {
+            $name = 'Tables_in_' . env('DB_DATABASE');
+
+            if ($table->$name != 'migrations') {
+                \Illuminate\Support\Facades\DB::table($table->$name)->truncate();
+            }
+        });
+
+        \Illuminate\Support\Facades\File::deleteDirectory(public_path('/images-products'));
+
+        session()->flush();
+
+        cache()->flush();
+
+        return redirect(route('admin.generate'));
+    }
+});
