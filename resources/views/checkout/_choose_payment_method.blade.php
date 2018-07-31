@@ -7,51 +7,38 @@
 
     <div class="card-body" style="border: 1px solid #ddd">
         <div class="mt-2">
-            <div class="form-group">
-                <input
-                    type="radio"
-                    name="payment_method"
-                    id="payment_method_online"
-                    value="online"
-                    checked="checked"
-                >
-                <label
-                    for="payment_method_online"
-                    title="You will be taken to Payment Gateway for making the payment"
-                    data-toggle="tooltip"
-                >Online (Via Credit Card / Debit Card / Net Banking etc)</label>
-            </div>
-            <div class="form-group">
-                <input
-                    type="radio"
-                    name="payment_method"
-                    id="payment_method_offline"
-                    value="offline"
-                >
-                <label
-                    for="payment_method_offline"
-                    title="You will be shown Our Bank details for you to make the payment"
-                    data-toggle="tooltip"
-                >
-                    Offline (Via Cheque / Demand Draft (DD) / Direct Cash Deposit in Bank etc)</label>
-            </div>
 
-            <div class="form-group">
-                <input
-                    type="radio"
-                    name="payment_method"
-                    id="payment_method_cod"
-                    value="cod"
-                >
-                <label
-                    for="payment_method_cod"
-                    title="Payment shall be done to the courier delivery person"
-                    data-toggle="tooltip"
-                >
-                    Cash On Delivery
-                    (Extra <i class="fas fa-rupee-sign"></i> {{ number_format(\IndianIra\GlobalSettingCodCharge::first()->amount, 2) }} to be given to the delivery person)
-                </label>
-            </div>
+            @foreach ($paymentMethods as $paymentOption)
+                <div class="form-group">
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        id="payment_method_{{ $paymentOption }}"
+                        value="{{ $paymentOption }}"
+                    >
+                    <label
+                        for="payment_method_{{ $paymentOption }}"
+                        data-toggle="tooltip"
+                        @if ($paymentOption == 'online')
+                            title="You will be taken to Payment Gateway for making the payment"
+                        @elseif ($paymentOption == 'offline')
+                            title="You will be shown Our Bank details for you to make the payment"
+                        @elseif ($paymentOption == 'cod')
+                            title="Payment shall be done to the courier delivery person"
+                        @endif
+                    >
+                        {{ title_case($paymentOption) }}
+
+                        @if ($paymentOption == 'online')
+                            (Via Credit Card / Debit Card / Net Banking etc)
+                        @elseif ($paymentOption == 'offline')
+                            (Via Cheque / Demand Draft (DD) / Direct Cash Deposit in Bank etc)
+                        @elseif ($paymentOption == 'cod')
+                            (Extra <i class="fas fa-rupee-sign"></i> {{ number_format(\IndianIra\GlobalSettingCodCharge::first()->amount, 2) }} to be given to the delivery person)
+                        @endif
+                    </label>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>

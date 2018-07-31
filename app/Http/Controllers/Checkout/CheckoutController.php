@@ -30,7 +30,9 @@ class CheckoutController extends Controller
 
         $cart = session('cart', collect());
 
-        return view('checkout.single_page', compact('user', 'billingAddress', 'cart'));
+        $paymentMethods = explode('; ', \IndianIra\GlobalSettingPaymentOption::first()->chosen);
+
+        return view('checkout.single_page', compact('user', 'billingAddress', 'cart', 'paymentMethods'));
     }
 
     /**
