@@ -303,3 +303,10 @@ Route::group(['middleware' => 'super_admin_exists'], function () {
         });
     });
 });
+
+Route::get('/flush-session', function () {
+    session()->flush();
+
+    return redirect(route('homePage'));
+});
+
