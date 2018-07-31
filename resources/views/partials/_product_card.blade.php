@@ -12,7 +12,11 @@ $option = $options->first();
 
     <div class="p-2">
         <div class="productName mb-3">
-            <a href="{{ $product->pageUrl() }}" class="mainSiteLink">
+            @if (isset($tag) && $tag != null)
+                <a href="{{ $tag->productPageUrl($product) }}" class="mainSiteLink">
+            @else
+                <a href="{{ $product->pageUrl() }}" class="mainSiteLink">
+            @endif
                 @if(strlen($product->name) > 40)
                     {{ substr(title_case($product->name), 0, 40) . '...' }}
                 @else

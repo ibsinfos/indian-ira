@@ -67,6 +67,12 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
+        $tags = factory(\IndianIra\Tag::class, 8)->create();
+        $prods = Product::all();
+        foreach ($tags as $tag) {
+            $tag->products()->sync($prods->shuffle()->take(3)->pluck('id')->toArray());
+        }
+
         GlobalSettingCodCharge::create(['amount' => 50.00]);
     }
 }

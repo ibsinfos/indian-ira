@@ -45,7 +45,7 @@
             @if ($products->isNotEmpty())
                 @foreach ($products as $product)
                     <div class="col-6 col-sm-6 col-md-4 col-lg-3">
-                        @include('partials._product_card')
+                        @include('partials._product_card', ['tag' => $tag])
                     </div>
                 @endforeach
             @else
