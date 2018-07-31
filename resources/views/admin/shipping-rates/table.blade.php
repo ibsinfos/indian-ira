@@ -3,6 +3,7 @@
         <th>Sr. No</th>
         <th>Company Details</th>
         <th>Weight Details</th>
+        <th>Location Details</th>
         <th>Amount</th>
         <th>Added On</th>
         <th>Action</th>
@@ -25,6 +26,13 @@
 
                     <span class="font-weight-bold">To:</span><br />
                     {{ $shippingRate->weight_to }} {{ str_plural('gram', $shippingRate->weight_to) }}<br />
+                </td>
+                <td>
+                    <span class="font-weight-bold">Type:</span><br />
+                    {{ title_case($shippingRate->location_type) }}<br /><br />
+
+                    <span class="font-weight-bold">Name:</span><br />
+                    {{ title_case($shippingRate->location_name) }}<br />
                 </td>
                 <td>
                     <i class="fas fa-rupee-sign"></i>
