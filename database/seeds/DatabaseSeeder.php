@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         factory(Carousel::class, 2)->create(['display' => 'Enabled']);
         factory(Category::class, 2)->create(['display' => 'Enabled']);
 
-        $allProducts = Product::whereDisplay('Enabled')->get();
+        $allProducts = Product::all();
 
         $allProducts->take(10)->shuffle()->each(function ($product) {
             $product->categories()->attach([Category::first()->id]);
