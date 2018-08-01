@@ -94,3 +94,5 @@
         </a>
     @endif
 </div>
+
+@include('products._tags')
