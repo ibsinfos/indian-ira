@@ -90,85 +90,7 @@ if ($product->number_of_options >= 1) {
 
         <div class="row">
             <div class="col-md-5">
-                <div class="bg-white imgZoomContainer">
-                    @if ($product->number_of_options >= 1)
-                        <img
-                            src="{{ url($option->zoomedImage()) }}"
-                            alt="{{ $product->name }}"
-                            id="productImage"
-                            class="img-fluid"
-                            style="margin-bottom: 20px;"
-                            data-image-zoom="/{{ $option->zoomedImage() }}"
-                        >
-                    @else
-                        <img
-                            src="{{ url($product->zoomedImage()) }}"
-                            alt="{{ $product->name }}"
-                            id="productImage"
-                            class="img-fluid"
-                            style="margin-bottom: 20px;"
-                            data-image-zoom="/{{ $product->zoomedImage() }}"
-                        >
-                    @endif
-                </div>
-
-                <div id="alternateSnaps" class="mt-3">
-                    @if ($option->image != null)
-                        <a
-                            href="#"
-                            class="w-100 mainSiteLink"
-                            data-image="{{ url($option->zoomedImage('image')) }}"
-                            data-zoom-image="{{ url($option->zoomedImage('image')) }}"
-                        >
-                            <img
-                                id="productImage"
-                                src="{{ url($option->cartImage('image')) }}"
-                            />
-                        </a>
-                    @endif
-
-                    @if ($galleryImg->gallery_image_1 != null)
-                        <a
-                            href="#"
-                            class="w-100 mainSiteLink"
-                            data-image="{{ url($galleryImg->zoomedImage('gallery_image_1')) }}"
-                            data-zoom-image="{{ url($galleryImg->zoomedImage('gallery_image_1')) }}"
-                        >
-                            <img
-                                id="productImage"
-                                src="{{ url($galleryImg->cartImage('gallery_image_1')) }}"
-                            />
-                        </a>
-                    @endif
-
-                    @if ($galleryImg->gallery_image_2 != null)
-                        <a
-                            href="#"
-                            class="w-100 mainSiteLink"
-                            data-image="{{ url($galleryImg->zoomedImage('gallery_image_2')) }}"
-                            data-zoom-image="{{ url($galleryImg->zoomedImage('gallery_image_2')) }}"
-                        >
-                            <img
-                                id="productImage"
-                                src="{{ url($galleryImg->cartImage('gallery_image_2')) }}"
-                            />
-                        </a>
-                    @endif
-
-                    @if ($galleryImg->gallery_image_3 != null)
-                        <a
-                            href="#"
-                            class="w-100 mainSiteLink"
-                            data-image="{{ url($galleryImg->zoomedImage('gallery_image_3')) }}"
-                            data-zoom-image="{{ url($galleryImg->zoomedImage('gallery_image_3')) }}"
-                        >
-                            <img
-                                id="productImage"
-                                src="{{ url($galleryImg->cartImage('gallery_image_3')) }}"
-                            />
-                        </a>
-                    @endif
-                </div>
+                @include('products._image')
             </div>
 
             <div class="col-md-7">
@@ -384,6 +306,102 @@ if ($product->number_of_options >= 1) {
         });
 
         @if ($product->number_of_options == 1)
+            var option = $('.optionValue1').find(':selected').data('optid');
+
+            imagez.removeData('elevateZoom');
+            imagez.removeData('zoomImage');
+
+            var productImages = @if ($product->images != null) "{{ $product->images }}" @else '' @endif;
+            var productGalleryImage1 = @if ($product->gallery_image_1 != null) "{{ $product->gallery_image_1 }}" @else '' @endif;
+            var productGalleryImage2 = @if ($product->gallery_image_2 != null) "{{ $product->gallery_image_2 }}" @else '' @endif;
+            var productGalleryImage3 = @if ($product->gallery_image_3 != null) "{{ $product->gallery_image_3 }}" @else '' @endif;
+
+            if (option.image == null && productImages != null) {
+                var image = productImages;
+            } else if (option.image == null && productImages == null) {
+                var image = '/images/no-image.png; /images/no-image-catalogue.png; /images/no-image-zoomed.png;';
+            } else {
+                var image = option.image;
+            }
+
+            var img = image.split('; ');
+            var galImg1 = galImg2 = galImg3 = null;
+            if (option.gallery_image_1 != null) {
+                galImg1 = option.gallery_image_1.split('; ');
+            } else if (option.gallery_image_1 == null && $.trim(productGalleryImage1) !== '') {
+                galImg1 = productGalleryImage1.split('; ');
+            }
+
+            if (option.gallery_image_2 != null) {
+                galImg2 = option.gallery_image_2.split('; ');
+            } else if (option.gallery_image_2 == null && $.trim(productGalleryImage2) !== '') {
+                galImg2 = productGalleryImage2.split('; ');
+            }
+
+            if (option.gallery_image_3 != null) {
+                galImg3 = option.gallery_image_3.split('; ');
+            } else if (option.gallery_image_3 == null && $.trim(productGalleryImage3) !== '') {
+                galImg3 = productGalleryImage3.split('; ');
+            }
+
+            $('#productImage').attr('src', img.slice(-1)[0]).attr('data-image-zoom', img.slice(-1)[0]);
+
+            var galleryImagesLink = $('#alternateSnaps').find('a');
+            $.each(galleryImagesLink, function (index, link) {
+                $(this).remove();
+            });
+
+            var appendHtml = '';
+
+            for (var i = 0; i <= 3; i++) {
+                if (i == 0 && img != null) {
+                    appendHtml += '<a href="#" class="mr-3 galImg'+i+'" data-image="'+img.slice(-1)[0]+'" data-zoom-image="'+img.slice(-1)[0]+'">';
+                    appendHtml += '<img src="'+img[0]+'" alt="{{ title_case($product->name) }}" />';
+                    appendHtml += '</a>';
+                } else if (i == 0 && img == null) {
+                    $('#alternateSnaps').find('a.galImg' + i).hide();
+                }
+
+                if (i == 1 && galImg1 != null) {
+                    appendHtml += '<a href="#" class="mr-3 galImg'+i+'" data-image="'+galImg1.slice(-1)[0]+'" data-zoom-image="'+galImg1.slice(-1)[0]+'">';
+                    appendHtml += '<img src="'+galImg1[0]+'" alt="{{ title_case($product->name) }}" />';
+                    appendHtml += '</a>';
+                } else if (i == 1 && galImg1 == null) {
+                    $('#alternateSnaps').find('a.galImg' + i).hide();
+                }
+
+                if (i == 2 && galImg2 != null) {
+                    appendHtml += '<a href="#" class="mr-3 galImg'+i+'" data-image="'+galImg2.slice(-1)[0]+'" data-zoom-image="'+galImg2.slice(-1)[0]+'">';
+                    appendHtml += '<img src="'+galImg2[0]+'" alt="{{ title_case($product->name) }}" />';
+                    appendHtml += '</a>';
+                } else if (i == 2 && galImg2 == null) {
+                    $('#alternateSnaps').find('a.galImg' + i).hide();
+                }
+
+                if (i == 3 && galImg3 != null) {
+                    appendHtml += '<a href="#" class="mr-3 galImg'+i+'" data-image="'+galImg3.slice(-1)[0]+'" data-zoom-image="'+galImg3.slice(-1)[0]+'">';
+                    appendHtml += '<img src="'+galImg3[0]+'" alt="{{ title_case($product->name) }}" />';
+                    appendHtml += '</a>';
+                } else if (i == 3 && galImg3 == null) {
+                    $('#alternateSnaps').find('a.galImg' + i).hide();
+                }
+            }
+
+            $('#alternateSnaps').append(appendHtml);
+
+            imagez.elevateZoom({
+                easing: true,
+                zoomType: "inner",
+                cursor: "crosshair",
+                gallery: 'alternateSnaps',
+            });
+            imagez.bind("click", function(e) {
+                var ez = $('#productImage').data('elevateZoom');
+                $.fancybox(ez.getGalleryList());
+                return false;
+            });
+
+
             $('.optionValue1').change(function (e) {
                 var option = $(this).find(':selected').data('optid');
 
@@ -406,16 +424,37 @@ if ($product->number_of_options >= 1) {
                 imagez.removeData('elevateZoom');
                 imagez.removeData('zoomImage');
 
-                var img = option.image.split('; ');
+                var productImages = "{{ $product->images }}";
+                var productGalleryImage1 = @if ($product->gallery_image_1 != null) "{{ $product->gallery_image_1 }}" @else '' @endif;
+                var productGalleryImage2 = @if ($product->gallery_image_2 != null) "{{ $product->gallery_image_2 }}" @else '' @endif;
+                var productGalleryImage3 = @if ($product->gallery_image_3 != null) "{{ $product->gallery_image_3 }}" @else '' @endif;
+
+                if (option.image == null && $.trim(productImages) !== '') {
+                    var image = productImages;
+                } else if (option.image == null && $.trim(productImages) === '') {
+                    var image = '/images/no-image.jpg; /images/no-image-catalogue.png; /images/no-image-zoomed.png';
+                } else {
+                    var image = option.image;
+                }
+
+                var img = image.split('; ');
                 var galImg1 = galImg2 = galImg3 = null;
                 if (option.gallery_image_1 != null) {
                     galImg1 = option.gallery_image_1.split('; ');
+                } else if (option.gallery_image_1 == null && $.trim(productGalleryImage1) !== '') {
+                    galImg1 = productGalleryImage1.split('; ');
                 }
+
                 if (option.gallery_image_2 != null) {
                     galImg2 = option.gallery_image_2.split('; ');
+                } else if (option.gallery_image_2 == null && $.trim(productGalleryImage2) !== '') {
+                    galImg2 = productGalleryImage2.split('; ');
                 }
+
                 if (option.gallery_image_3 != null) {
                     galImg3 = option.gallery_image_3.split('; ');
+                } else if (option.gallery_image_3 == null && $.trim(productGalleryImage3) !== '') {
+                    galImg3 = productGalleryImage3.split('; ');
                 }
 
                 $('#productImage').attr('src', img.slice(-1)[0]).attr('data-image-zoom', img.slice(-1)[0]);
@@ -548,17 +587,39 @@ if ($product->number_of_options >= 1) {
                 imagez.removeData('elevateZoom');
                 imagez.removeData('zoomImage');
 
-                var img = selected.data('image').split('; ');
+                var productImages = "{{ $product->images }}";
+                var productGalleryImage1 = @if ($product->gallery_image_1 != null) "{{ $product->gallery_image_1 }}" @else '' @endif;
+                var productGalleryImage2 = @if ($product->gallery_image_2 != null) "{{ $product->gallery_image_2 }}" @else '' @endif;
+                var productGalleryImage3 = @if ($product->gallery_image_3 != null) "{{ $product->gallery_image_3 }}" @else '' @endif;
+
+                if (selected.data('image') == null && $.trim(productImages) !== '') {
+                    var image = productImages;
+                } else if (selected.data('image') == null && $.trim(productImages) === '') {
+                    var image = '/images/no-image.jpg; /images/no-image-catalogue.png; /images/no-image-zoomed.png';
+                } else {
+                    var image = selected.data('image');
+                }
+
+                var img = image.split('; ');
                 var galImg1 = galImg2 = galImg3 = null;
                 if (selected.data('gal1img') != null) {
                     galImg1 = selected.data('gal1img').split('; ');
+                } else if (selected.data('gal1img') == null && $.trim(productGalleryImage1) !== '') {
+                    galImg1 = productGalleryImage1.split('; ');
                 }
+
                 if (selected.data('gal2img') != null) {
                     galImg2 = selected.data('gal2img').split('; ');
+                } else if (selected.data('gal2img') == null && $.trim(productGalleryImage2) !== '') {
+                    galImg2 = productGalleryImage2.split('; ');
                 }
+
                 if (selected.data('gal3img') != null) {
                     galImg3 = selected.data('gal3img').split('; ');
+                } else if (selected.data('gal3img') == null && $.trim(productGalleryImage3) !== '') {
+                    galImg3 = productGalleryImage3.split('; ');
                 }
+
 
                 $('#productImage').attr('src', img.slice(-1)[0]).attr('data-image-zoom', img.slice(-1)[0]);
 
