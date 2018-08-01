@@ -38,7 +38,7 @@
                         @php
                         $o = \IndianIra\ProductPriceAndOption::whereProductId($product->id)
                                 ->where('option_1_value', $opt->option_1_value)
-                                ->orderBy('option_2_value', 'ASC')
+                                ->orderBy('sort_number', 'ASC')
                                 ->get();
                         @endphp
                         <option
