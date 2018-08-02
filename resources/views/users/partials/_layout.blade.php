@@ -48,6 +48,12 @@
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
+        $('body').niceScroll({
+            autohidemode: false,
+            cursorwidth: "8px",
+            cursorcolor: '#4a4848'
+        });
+
         $('[data-toggle="tooltip"]').tooltip();
 
         $('.hasMaxLength').maxlength({

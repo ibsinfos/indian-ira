@@ -163,6 +163,13 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 
     <script>
+        $('body').niceScroll({
+            autohidemode: false,
+            cursorwidth: "8px",
+            cursorcolor: '#4a4848',
+            zindex: 5000
+        });
+
         $( '.dropdown-menu a.dropdown-toggle' ).on( 'click', function ( e ) {
                 var $el = $( this );
                 var $parent = $( this ).offsetParent( ".dropdown-menu" );
