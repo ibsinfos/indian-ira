@@ -98,20 +98,7 @@
 @endsection
 
 @section('pageScripts')
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-
     <script>
-        var $grid = $('.allProductsInCardFormat').masonry({
-            itemSelector: '.productBox',
-            columnWidth: 200
-        });
-
-        $grid.imagesLoaded().progress( function() {
-            $grid.masonry('layout');
-        });
-
-
         $('body').on('click', '.btnAddToCart', function (e) {
             e.preventDefault();
 
