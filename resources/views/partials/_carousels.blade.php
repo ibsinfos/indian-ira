@@ -1,7 +1,10 @@
 <section class="mt-5">
     <div class="container">
         @foreach ($carousels as $carousel)
-            <h3>{{ $carousel->name }}</h3>
+            <h1
+                class="mb-2 font-weight-bold text-uppercase"
+                style="font-family: 'Raleway', sans-serif; font-size: 1.8rem;"
+            >{{ $carousel->name }}</h1>
 
             <div class="row">
                 <div class="col-lg-12">
