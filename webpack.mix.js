@@ -19,6 +19,7 @@ mix.sass('resources/assets/sass/app.scss', 'public/css');
 mix.js([
     'resources/assets/js/app.js',
     'resources/assets/js/character-maxlength.js',
+    'resources/assets/js/nicescroll.min.js',
     'resources/assets/libs/iGrowl/javascripts/igrowl.js',
     'resources/assets/libs/selectizeJs/js/standalone/selectize.min.js'
 ], 'public/js/app.js');
