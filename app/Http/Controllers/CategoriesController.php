@@ -37,7 +37,10 @@ class CategoriesController extends Controller
         // The category is the first child - no parent
         if ($category->isSuperParent()) {
             foreach ($category->childs as $child) {
-                if ($child->display == 'Enabled' && $child->products()->onlyEnabled()->get()->isNotEmpty()) {
+                if (
+                    $child->display == 'Enabled' &&
+                    $child->products()->onlyEnabled()->get()->isNotEmpty()->sortBy('sort_number')
+                ) {
                     foreach ($child->products as $product) {
                         $this->addProducts($product);
                     }
@@ -50,7 +53,7 @@ class CategoriesController extends Controller
             foreach ($category->childs as $child) {
                 if (
                     $child->display == 'Enabled' &&
-                    $child->products()->onlyEnabled()->get()->isNotEmpty()
+                    $child->products()->onlyEnabled()->get()->isNotEmpty()->sortBy('sort_number')
                 ) {
                     foreach ($child->products as $product) {
                         $this->addProducts($product);
