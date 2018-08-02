@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6">
-                <h3 class="p-0 m-0 header">About Us</h3>
+                <h2 class="p-0 m-0 header">About Us</h2>
 
                 <div class="mb-md-2"></div>
 
@@ -14,7 +14,7 @@
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <h3 class="p-0 m-0 header">Important Links</h3>
+                <h2 class="p-0 m-0 header">Important Links</h2>
 
                 <div class="mb-md-2"></div>
 
@@ -42,7 +42,7 @@
             </div>
 
             <div class="col-lg-4 col-md-12 col-sm-12">
-                <h3 class="p-0 m-0 header">Follow Us</h3>
+                <h2 class="p-0 m-0 header">Follow Us</h2>
 
                 <div class="mb-md-2"></div>
 
