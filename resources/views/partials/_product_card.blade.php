@@ -5,7 +5,13 @@ $option = $options->first();
 
 <div class="card" style="border: 1px solid #000;">
     <img
-        src="{{ url($product->catalogueImage()) }}"
+        @if ($option->hasUploadedImageFile())
+            src="{{ url($option->catalogueImage()) }}"
+        @elseif ($product->hasUploadedImageFile())
+            src="{{ url($product->catalogueImage()) }}"
+        @else
+            src="{{ url('/images/no-image-catalogue.png') }}"
+        @endif
         alt="{{ $product->name }}"
         class="mb-4 w-100"
     >

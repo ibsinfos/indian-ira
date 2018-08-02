@@ -59,6 +59,26 @@ class ProductPriceAndOption extends Model
     }
 
     /**
+     * Get the catalogue image of the product's option.
+     *
+     * @return  string
+     */
+    public function catalogueImage()
+    {
+        $images = explode('; ', $this->image);
+        $images = collect($images)->filter();
+
+        if (
+            $images->isNotEmpty() &&
+            \Illuminate\Support\Facades\File::exists($this->getPublicPath() . $images[1])
+        ) {
+            return $images[1];
+        }
+
+        return 'images/no-image-catalogue.png';
+    }
+
+    /**
      * Scope the query to fetch only the Enabled Price and Option.
      *
      * @param   \Illuminate\Database\Eloquent\Builder  $query
